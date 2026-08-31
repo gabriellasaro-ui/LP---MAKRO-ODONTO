@@ -379,14 +379,14 @@
     .infoband__grid {
       display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
     }
-    /* as copias só existem para o carrossel do mobile */
-    .infoband__item--clone { display: none; }
     /* item empilhado: ícone, título, apoio — alinhados pelo topo */
     .infoband__item {
       display: block; padding: 2px 32px;
       border-left: 1px solid rgba(255, 255, 255, .12);
     }
     .infoband__item:first-child { padding-left: 0; border-left: 0; }
+    /* as cópias só existem para o carrossel do mobile */
+    .infoband__grid .infoband__item--clone { display: none; }
     .infoband__icon {
       display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 16px;
       background: rgba(255, 255, 255, .1);
@@ -947,7 +947,7 @@
         padding: 2px 22px; border-left: 1px solid rgba(255, 255, 255, .12);
       }
       .infoband__item:first-child { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .12); }
-      .infoband__item--clone { display: block; }
+      .infoband__grid .infoband__item--clone { display: block; }
       .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
       .hero {
         align-items: end;
