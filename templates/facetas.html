@@ -1,16 +1,3 @@
-{#
-  ============================================================================
-  MODO OPERACIONAL DA PÁGINA (briefing §4)
-
-  'prelaunch' -> copy "está chegando" + "lista de interesse"
-  'open'      -> copy "já está em Ceilândia" + "solicitar avaliação"
-
-  Troque APENAS a linha abaixo quando a operação confirmar que a unidade e a
-  agenda estão prontas. Nunca automatizar pelo relógio do navegador.
-  ============================================================================
-#}
-{% set PAGE_MODE = 'prelaunch' %}
-{% set OPEN = PAGE_MODE == 'open' %}
 <!doctype html>
 <html lang="pt-BR" class="no-js">
 <head>
@@ -27,54 +14,54 @@
   <meta name="theme-color" content="#01165a">
   <meta name="format-detection" content="telephone=no">
 
-  <title>{{ 'Makro Odontologia em Ceilândia | Solicite uma avaliação' if OPEN else 'Makro Odontologia em Ceilândia | Nova unidade' }}</title>
-  <meta name="description" content="{{ 'Conheça a unidade Makro Ceilândia e solicite contato para sua avaliação odontológica.' if OPEN else 'A Makro está chegando a Ceilândia. Cadastre-se para receber o contato da equipe e solicitar uma avaliação na nova unidade.' }}">
+  <title>Facetas e Lentes Dentais em Ceilândia | Makro Odontologia</title>
+  <meta name="description" content="Conheça as possibilidades de facetas e lentes dentais com planejamento individual na Makro Ceilândia. Solicite contato para sua avaliação.">
 
   <!-- REMOVER na publicação -->
   <meta name="robots" content="noindex, nofollow">
 
-  <link rel="canonical" href="https://[DOMINIO]/ceilandia/">
+  <link rel="canonical" href="https://[DOMINIO]/ceilandia/facetas/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Makro Odontologia Integrada">
-  <meta property="og:url" content="https://[DOMINIO]/ceilandia/">
-  <meta property="og:title" content="{{ 'A Makro agora está em Ceilândia' if OPEN else 'A Makro está chegando a Ceilândia' }}">
-  <meta property="og:description" content="{{ 'Conheça a nova unidade e solicite o contato da equipe.' if OPEN else 'Entre na lista de interesse e receba o contato da equipe da nova unidade.' }}">
-  <meta property="og:image" content="https://[DOMINIO]/static/og-ceilandia.jpg"><!-- [PENDENTE] arte 1200x630 da unidade -->
+  <meta property="og:url" content="https://[DOMINIO]/ceilandia/facetas/">
+  <meta property="og:title" content="Facetas e lentes dentais na Makro Ceilândia">
+  <meta property="og:description" content="Converse com a equipe, esclareça dúvidas e solicite sua avaliação estética e funcional.">
+  <meta property="og:image" content="https://[DOMINIO]/static/og-facetas.jpg"><!-- [PENDENTE] arte 1200x630 -->
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/static/logo-makro.png">
   <link rel="apple-touch-icon" href="/static/logo-makro.png">
 
-  <!-- Fontes hospedadas localmente (briefing §14).
-       Playfair Display acompanha a serifada de alto contraste da logo. -->
+  <!-- Fontes hospedadas localmente (briefing §14). -->
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/playfair-display-latin-48d1e9.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/inter-latin-567244.woff2" crossorigin>
   <link rel="stylesheet" href="/static/fonts/fonts.css">
   <link rel="preload" as="image" href="/static/logo-makro.png">
-  <link rel="preload" as="image" href="/static/banner-pc-ceilandia.webp" media="(min-width: 981px)" fetchpriority="high">
-  <link rel="preload" as="image" href="/static/banner-mobile-ceilandia.webp" media="(max-width: 980px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/static/banner-pc-facetas.webp" media="(min-width: 981px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/static/banner-mobile-facetas.webp" media="(max-width: 980px)" fetchpriority="high">
 
   <!--
-    LP INSTITUCIONAL DE LANÇAMENTO — REGRAS (briefing §15, §16, §17)
-    - dataLayer opera por ALLOWLIST: a escolha de tratamento NUNCA é enviada às plataformas.
-    - Se Meta for ativada após consentimento, usar só eventos genéricos aprovados,
-      sem parâmetros sensíveis e sem audiência derivada das respostas.
+    ROTA DE SAÚDE / ESTÉTICA ODONTOLÓGICA — REGRAS (briefing §15, §16, §17)
+    - dataLayer opera por ALLOWLIST: o objetivo estético NUNCA vai às plataformas.
+    - Meta Pixel/CAPI permanece DESATIVADO nesta rota até revisão documentada.
+    - Não criar remarketing, Customer Match, lookalike ou audiência derivada desta página.
+    - Proibido antes/depois, resultado clínico ou simulação apresentada como garantia.
     - Substituir submitLead() pelo endpoint first-party. Não expor webhook/credencial do CRM.
     - Remover noindex/nofollow somente na publicação.
-    - Trocar PAGE_MODE para 'open' só quando a agenda estiver aberta de fato.
-    - Endereço e telefone confirmados via Google Business Profile.
+    - [PENDENTE] banner próprio de facetas: hoje usa uma cópia da arte da LP de lançamento.
   -->
 
   <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
   <style>
+
     /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
        ============================================================ */
     :root {
       --navy-950: #010d33;
-      --navy-900: #01165a;
+      --navy-900: #01165a;   /* cor da logo */
       --navy-800: #042176;
       --navy-700: #0b3099;
       --navy-600: #1747c2;
@@ -124,11 +111,19 @@
        ============================================================ */
     *, *::before, *::after { box-sizing: border-box; }
 
-    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 100px; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
 
     body {
-      margin: 0; background: var(--surface); color: var(--text);
-      font-family: var(--sans); font-size: 16px; line-height: 1.65;
+      margin: 0;
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -139,9 +134,14 @@
 
     h1, h2, h3, h4, p, ul, ol { margin-top: 0; }
 
+    /* Títulos na serifada, ecoando o logotipo */
     h1, h2, h3 {
-      font-family: var(--serif); font-weight: 600; color: var(--navy-900);
-      line-height: 1.08; letter-spacing: -.015em; text-wrap: balance;
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--navy-900);
+      line-height: 1.08;
+      letter-spacing: -.015em;
+      text-wrap: balance;
     }
 
     h1 { margin-bottom: 22px; font-size: clamp(2.1rem, 1.15rem + 2.9vw, 3.25rem); }
@@ -183,25 +183,32 @@
     .head--center p { margin-inline: auto; }
     .head .lead { margin-bottom: 0; }
 
-    .lead { color: var(--text-muted); font-size: clamp(1.03rem, .97rem + .32vw, 1.2rem); line-height: 1.62; }
+    .lead {
+      color: var(--text-muted);
+      font-size: clamp(1.03rem, .97rem + .32vw, 1.2rem);
+      line-height: 1.62;
+    }
 
+    /* Eyebrow sem travessão, espacejado como o "ODONTOLOGIA INTEGRADA" da logo */
     .eyebrow {
       display: block; margin: 0 0 16px; max-width: none;
-      color: var(--navy-600); font-size: .74rem; font-weight: 600;
+      color: var(--navy-600);
+      font-size: .74rem; font-weight: 600;
       letter-spacing: .22em; text-transform: uppercase;
     }
 
     .microcopy { max-width: 60ch; color: var(--text-soft); font-size: .8rem; line-height: 1.55; }
 
     /* ============================================================
-       4. BOTÕES
+       4. BOTÕES — pílula, com brilho que percorre e seta que desliza
        ============================================================ */
     .btn {
       position: relative; overflow: hidden; isolation: isolate;
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       min-height: 54px; padding: 15px 30px;
       background: #fff; color: var(--navy-900);
-      border: 1px solid var(--border-strong); border-radius: var(--r-pill);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-pill);
       font-weight: 600; font-size: .97rem; line-height: 1.2;
       text-align: center; text-decoration: none; cursor: pointer;
       transition: transform .28s var(--ease-out), box-shadow .28s var(--ease-out),
@@ -209,6 +216,7 @@
     }
     .btn svg { width: 18px; height: 18px; }
 
+    /* brilho diagonal */
     .btn::before {
       content: ""; position: absolute; inset: 0; z-index: -1;
       background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, .32) 48%, transparent 72%);
@@ -221,7 +229,8 @@
 
     .btn--primary {
       background: linear-gradient(135deg, var(--navy-700), var(--navy-600));
-      color: #fff; border-color: transparent; box-shadow: var(--shadow-cta);
+      color: #fff; border-color: transparent;
+      box-shadow: var(--shadow-cta);
     }
     .btn--primary:hover {
       background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
@@ -232,6 +241,9 @@
     .btn--light { background: #fff; color: var(--navy-900); border-color: #fff; }
     .btn--light:hover { background: var(--navy-100); border-color: var(--navy-100); }
 
+    .btn--ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .35); }
+    .btn--ghost:hover { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .6); }
+
     .btn--block { width: 100%; }
     .btn--lg { min-height: 60px; padding: 18px 36px; font-size: 1.03rem; }
     .btn[disabled] { opacity: .6; cursor: progress; transform: none; }
@@ -239,8 +251,10 @@
     .btn__arrow { transition: transform .3s var(--ease-out); }
     .btn:hover .btn__arrow { transform: translateX(4px); }
 
+    /* halo pulsante no CTA principal */
     .btn--pulse::after {
-      content: ""; position: absolute; inset: -2px; z-index: -2; border-radius: inherit;
+      content: ""; position: absolute; inset: -2px; z-index: -2;
+      border-radius: inherit;
       box-shadow: 0 0 0 0 rgba(23, 71, 194, .55);
       animation: halo 2.8s var(--ease-out) infinite;
     }
@@ -268,10 +282,12 @@
       border-bottom-color: var(--border);
       box-shadow: 0 10px 30px -26px rgba(1, 22, 90, .8);
     }
+
     .header__inner { display: flex; align-items: center; gap: 24px; min-height: 82px; }
     .header__logo { display: block; width: 178px; flex: none; }
     .header__logo img { width: 100%; object-fit: contain; }
     .header__spacer { flex: 1; }
+
 
     /* ============================================================
        6. HERO — banner ocupando a primeira tela, copy à esquerda
@@ -288,7 +304,7 @@
     .hero__media { position: absolute; inset: 0; z-index: 0; display: block; }
     .hero__media img {
       width: 100%; height: 100%;
-      object-fit: cover; object-position: 78% center;
+      object-fit: cover; object-position: 75% center;
     }
 
     /* véu suave sobre a foto — leve, só para assentar o texto */
@@ -343,32 +359,9 @@
 
     .hero .microcopy { color: #222b3a; }
 
-    /* selo de inauguração */
-    .launchdate {
-      display: inline-flex; align-items: center; gap: 12px;
-      margin: 0 0 22px; padding: 10px 18px 10px 15px; max-width: none;
-      background: #fff; color: var(--navy-900);
-      border: 1px solid var(--border); border-radius: var(--r-pill);
-      box-shadow: var(--shadow-xs);
-      font-size: .86rem; font-weight: 600;
-    }
-    .launchdate__dot {
-      position: relative; flex: none; width: 9px; height: 9px;
-      background: var(--navy-600); border-radius: 50%;
-    }
-    .launchdate__dot::after {
-      content: ""; position: absolute; inset: -4px;
-      border-radius: 50%; background: rgba(23, 71, 194, .28);
-      animation: ping 2.4s var(--ease-out) infinite;
-    }
-    @keyframes ping {
-      0%   { transform: scale(.6); opacity: .9; }
-      75%  { transform: scale(2.1); opacity: 0; }
-      100% { opacity: 0; }
-    }
 
     /* ============================================================
-       7. FAIXA DE BENEFÍCIOS
+       7. FAIXA DE INFORMAÇÕES (reformulada)
        ============================================================ */
     .infoband {
       padding-block: clamp(38px, 4vw, 54px);
@@ -376,7 +369,7 @@
       color: #fff;
     }
     .infoband__grid {
-      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
     }
     /* item empilhado: ícone, título, apoio — alinhados pelo topo */
     .infoband__item {
@@ -402,7 +395,7 @@
     }
 
     /* ============================================================
-       8. SEÇÃO DO FORMULÁRIO
+       8. SEÇÃO DO FORMULÁRIO (separada do hero)
        ============================================================ */
     .formsection {
       position: relative; overflow: hidden;
@@ -410,7 +403,8 @@
       background:
         radial-gradient(70% 80% at 90% 10%, rgba(23, 71, 194, .14), transparent 60%),
         linear-gradient(160deg, var(--navy-950), var(--navy-900) 55%, #021a68);
-      color: #fff; scroll-margin-top: 90px;
+      color: #fff;
+      scroll-margin-top: 90px;
     }
     .formsection::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -426,7 +420,7 @@
       display: grid; grid-template-columns: minmax(0, .95fr) minmax(390px, 1fr);
       align-items: center; gap: clamp(40px, 5.5vw, 76px);
     }
-    .formsection h2 { color: #fff; }
+    .formsection h2, .formsection .eyebrow { color: #fff; }
     .formsection .eyebrow { color: #93aef5; }
     .formsection__lead { color: #c4d2f2; font-size: 1.08rem; line-height: 1.62; }
 
@@ -442,12 +436,18 @@
        9. CARTÃO DO FORMULÁRIO
        ============================================================ */
     .formcard {
-      position: relative; padding: clamp(26px, 2.6vw, 38px);
-      background: #fff; border-radius: var(--r-xl);
+      position: relative;
+      padding: clamp(26px, 2.6vw, 38px);
+      background: #fff;
+      border-radius: var(--r-xl);
       box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .6);
     }
-    .formcard h2 { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem); margin-bottom: 7px; color: var(--navy-900); }
+    .formcard h2 {
+      font-size: clamp(1.45rem, 1.15rem + .9vw, 1.85rem);
+      margin-bottom: 7px; color: var(--navy-900);
+    }
     .formcard__intro { margin-bottom: 24px; color: var(--text-muted); font-size: .94rem; }
+
 
     .progress {
       display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
@@ -471,7 +471,8 @@
 
     .field { margin-bottom: 18px; }
     .field > label, .field-group > legend {
-      display: block; margin-bottom: 8px; font-size: .87rem; font-weight: 600; color: var(--text);
+      display: block; margin-bottom: 8px;
+      font-size: .87rem; font-weight: 600; color: var(--text);
     }
     .field-group > legend small { font-weight: 400; color: var(--text-soft); }
 
@@ -488,7 +489,8 @@
     }
     .field input::placeholder { color: #a3accd; }
     .field input:focus, .field select:focus {
-      outline: none; background: #fff; border-color: var(--navy-600);
+      outline: none; background: #fff;
+      border-color: var(--navy-600);
       box-shadow: 0 0 0 4px rgba(23, 71, 194, .13);
     }
     .field [aria-invalid="true"] { border-color: var(--danger); background-color: var(--danger-bg); }
@@ -507,7 +509,8 @@
     .choice {
       position: relative; display: flex; align-items: center; gap: 12px;
       min-height: 52px; padding: 13px 16px;
-      background: var(--surface-alt); border: 1px solid var(--border-strong); border-radius: var(--r-md);
+      background: var(--surface-alt);
+      border: 1px solid var(--border-strong); border-radius: var(--r-md);
       cursor: pointer; font-size: .875rem; font-weight: 500; line-height: 1.35;
       transition: border-color .18s var(--ease), background .18s var(--ease), transform .18s var(--ease-out);
     }
@@ -578,10 +581,11 @@
     /* ============================================================
        10. CARDS
        ============================================================ */
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 
     .card {
-      position: relative; overflow: hidden; padding: 32px 28px;
+      position: relative; overflow: hidden;
+      padding: 32px 28px;
       background: #fff; border: 1px solid var(--border);
       border-radius: var(--r-lg); box-shadow: var(--shadow-xs);
       transition: border-color .3s var(--ease), box-shadow .3s var(--ease-out), transform .3s var(--ease-out);
@@ -589,7 +593,8 @@
     .card::after {
       content: ""; position: absolute; inset: auto 0 0 0; height: 3px;
       background: linear-gradient(90deg, var(--navy-700), var(--navy-500));
-      transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease-out);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease-out);
     }
     .card:hover { border-color: var(--navy-500); box-shadow: var(--shadow-sm); transform: translateY(-4px); }
     .card:hover::after { transform: scaleX(1); }
@@ -607,49 +612,86 @@
       transform: scale(1.06) rotate(-3deg);
     }
 
-    /* ============================================================
-       11. CARTÕES DE TRATAMENTO (escuros)
-       ============================================================ */
-    .treatments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-
-    .treatment {
-      position: relative; overflow: hidden; display: flex; flex-direction: column;
-      min-height: 280px; padding: 34px 30px;
-      color: #fff; border-radius: var(--r-lg);
-      background: linear-gradient(155deg, var(--navy-950), var(--navy-900));
-      transition: transform .32s var(--ease-out), box-shadow .32s var(--ease-out);
+    /* Comparativo */
+    .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+    .compare__panel {
+      position: relative; overflow: hidden;
+      padding: clamp(30px, 3.6vw, 46px);
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--r-xl); box-shadow: var(--shadow-xs);
     }
-    .treatment:nth-child(2) { background: linear-gradient(155deg, var(--navy-900), var(--navy-800)); }
-    .treatment:nth-child(3) { background: linear-gradient(155deg, var(--navy-800), var(--navy-700)); }
-    .treatment::after {
-      content: ""; position: absolute; right: -60px; bottom: -90px;
-      width: 200px; height: 200px;
-      border: 30px solid rgba(255, 255, 255, .06); border-radius: 50%;
-      transition: transform .5s var(--ease-out);
+    .compare__panel::after {
+      content: ""; position: absolute; right: -80px; bottom: -100px;
+      width: 220px; height: 220px;
+      border: 30px solid rgba(1, 22, 90, .04); border-radius: 50%;
     }
-    .treatment:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-    .treatment:hover::after { transform: scale(1.16); }
-
-    .treatment > * { position: relative; z-index: 1; }
-    .treatment__icon {
-      display: grid; place-items: center; width: 50px; height: 50px; margin-bottom: 24px;
-      background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .16);
-      border-radius: var(--r-md); color: #cfdcff;
+    .compare__tag {
+      display: inline-flex; align-items: center; gap: 9px;
+      margin-bottom: 22px; padding: 9px 16px;
+      background: var(--navy-100); color: var(--navy-900);
+      border-radius: var(--r-pill);
+      font-size: .73rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     }
-    .treatment__icon svg { width: 26px; height: 26px; }
-    .treatment h3 { color: #fff; font-size: 1.28rem; margin-bottom: 12px; }
-    .treatment p { color: #bccbee; font-size: .93rem; margin-bottom: 0; }
+    .compare__tag svg { width: 16px; height: 16px; color: var(--navy-700); }
+    .compare__panel h3 { font-size: 1.4rem; margin-bottom: 14px; }
+    .compare__panel p { position: relative; z-index: 1; color: var(--text-muted); margin-bottom: 0; }
 
-    .orientation {
+    .note {
       display: flex; align-items: center; justify-content: center; gap: 12px;
-      max-width: 720px; margin: 36px auto 0;
+      max-width: 720px; margin: 40px auto 0; padding: 0;
       color: var(--text-muted); font-size: .92rem; text-align: center;
     }
-    .orientation svg { width: 20px; height: 20px; flex: none; color: var(--navy-600); }
-    .orientation p { margin: 0; max-width: none; }
+    .note svg { width: 20px; height: 20px; flex: none; color: var(--navy-600); }
+    .note p { margin: 0; max-width: none; }
+
+    .center-cta { margin-top: 36px; text-align: center; }
 
     /* ============================================================
-       12. SPLIT (experiência Makro)
+       11. ETAPAS — cartões numerados com trilha
+       ============================================================ */
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+
+    .step-card {
+      position: relative; overflow: hidden;
+      padding: 34px 28px 30px;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      transition: border-color .3s var(--ease), transform .3s var(--ease-out), box-shadow .3s var(--ease-out);
+    }
+    .step-card:hover { border-color: var(--navy-500); transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+
+    /* número fantasma ao fundo */
+    .step-card__ghost {
+      position: absolute; top: -18px; right: 4px;
+      font-family: var(--serif); font-size: 6.5rem; font-weight: 700; line-height: 1;
+      color: var(--navy-50); user-select: none; pointer-events: none;
+      transition: color .3s var(--ease);
+    }
+    .step-card:hover .step-card__ghost { color: var(--navy-100); }
+
+    .step-card__num {
+      position: relative; z-index: 1;
+      display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+      color: #fff; border-radius: var(--r-pill);
+      font-size: .95rem; font-weight: 650;
+      box-shadow: 0 8px 18px -8px rgba(11, 48, 153, .9);
+    }
+    .step-card h3, .step-card p { position: relative; z-index: 1; }
+    .step-card h3 { font-size: 1.12rem; }
+    .step-card p { margin-bottom: 0; color: var(--text-muted); font-size: .91rem; }
+
+    /* trilha ligando os cartões */
+    .steps__track { position: relative; }
+    .steps__track::before {
+      content: ""; position: absolute; z-index: 0;
+      top: 55px; left: 5%; right: 5%; height: 1px;
+      background: repeating-linear-gradient(90deg, var(--border-strong) 0 6px, transparent 6px 12px);
+    }
+    .steps { position: relative; z-index: 1; }
+
+    /* ============================================================
+       12. SPLIT / PLANEJAMENTO DIGITAL
        ============================================================ */
     .split {
       display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -680,50 +722,60 @@
     .checks .tick svg { width: 13px; height: 13px; }
 
     /* ============================================================
-       13. ETAPAS
+       13. PAGAMENTO (reformulada)
        ============================================================ */
-    .steps { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-
-    .steps__track { position: relative; }
-    .steps__track::before {
-      content: ""; position: absolute; z-index: 0;
-      top: 55px; left: 8%; right: 8%; height: 1px;
-      background: repeating-linear-gradient(90deg, var(--border-strong) 0 6px, transparent 6px 12px);
+    .pay {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      align-items: center; gap: clamp(36px, 4.5vw, 68px);
+      padding: clamp(36px, 5vw, 66px);
+      background:
+        radial-gradient(70% 90% at 100% 0%, rgba(23, 71, 194, .3), transparent 62%),
+        linear-gradient(150deg, var(--navy-950), var(--navy-900) 60%, #021c6b);
+      color: #fff; border-radius: var(--r-xl);
+      box-shadow: var(--shadow-md);
     }
-
-    .step-card {
-      position: relative; overflow: hidden; padding: 34px 28px 30px;
-      background: #fff; border: 1px solid var(--border); border-radius: var(--r-lg);
-      transition: border-color .3s var(--ease), transform .3s var(--ease-out), box-shadow .3s var(--ease-out);
+    .pay::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, .05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      -webkit-mask-image: radial-gradient(85% 100% at 0% 0%, #000, transparent 70%);
+      mask-image: radial-gradient(85% 100% at 0% 0%, #000, transparent 70%);
     }
-    .step-card:hover { border-color: var(--navy-500); transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .pay > * { position: relative; z-index: 1; }
+    .pay h2 { color: #fff; }
+    .pay .eyebrow { color: #93aef5; }
+    .pay__text { color: #c4d2f2; }
+    .pay .microcopy { margin-top: 20px; color: #8fa1cd; }
 
-    .step-card__ghost {
-      position: absolute; top: -18px; right: 4px;
-      font-family: var(--serif); font-size: 6.5rem; font-weight: 700; line-height: 1;
-      color: var(--navy-50); user-select: none; pointer-events: none;
-      transition: color .3s var(--ease);
+    /* opções de pagamento em linhas */
+    .payopts {
+      display: grid; gap: 12px; margin: 0 0 26px; padding: 0; list-style: none;
     }
-    .step-card:hover .step-card__ghost { color: var(--navy-100); }
+    .payopts li {
+      display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 15px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: var(--r-md);
+      transition: background .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease-out);
+    }
+    .payopts li:hover {
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(255, 255, 255, .25);
+      transform: translateX(4px);
+    }
+    .payopts__icon {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      background: rgba(147, 174, 245, .16); color: #b9cbff; border-radius: var(--r-pill);
+    }
+    .payopts__icon svg { width: 20px; height: 20px; }
+    .payopts b { display: block; color: #fff; font-size: .94rem; font-weight: 600; }
+    .payopts small { color: #a5b8e8; font-size: .79rem; line-height: 1.4; }
 
-    .step-card__num {
-      position: relative; z-index: 1;
-      display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
-      color: #fff; border-radius: var(--r-pill); font-size: .95rem; font-weight: 650;
-      box-shadow: 0 8px 18px -8px rgba(11, 48, 153, .9);
-    }
-    .step-card h3, .step-card p { position: relative; z-index: 1; }
-    .step-card h3 { font-size: 1.12rem; }
-    .step-card p { margin-bottom: 0; color: var(--text-muted); font-size: .91rem; }
-
-    .note {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      max-width: 720px; margin: 40px auto 0; padding: 0;
-      color: var(--text-muted); font-size: .92rem; text-align: center;
-    }
-    .note svg { width: 20px; height: 20px; flex: none; color: var(--navy-600); }
-    .note p { margin: 0; max-width: none; }
+    .pay__cta { display: flex; flex-direction: column; gap: 14px; align-items: stretch; }
 
     /* ============================================================
        14. LOCALIZAÇÃO
@@ -798,7 +850,9 @@
     }
     .faq__icon::before { width: 11px; height: 1.8px; }
     .faq__icon::after { width: 1.8px; height: 11px; }
-    .faq__q[aria-expanded="true"] .faq__icon { background: var(--navy-700); border-color: var(--navy-700); transform: rotate(180deg); }
+    .faq__q[aria-expanded="true"] .faq__icon {
+      background: var(--navy-700); border-color: var(--navy-700); transform: rotate(180deg);
+    }
     .faq__q[aria-expanded="true"] .faq__icon::before { background: #fff; }
     .faq__q[aria-expanded="true"] .faq__icon::after { opacity: 0; }
 
@@ -855,7 +909,7 @@
     .stickycta { display: none; }
 
     /* ============================================================
-       17. REVEAL
+       17. REVEAL — melhoria progressiva, nunca esconde sem JS
        ============================================================ */
     .js .reveal { opacity: 0; transform: translateY(20px); }
     .js .reveal.is-in {
@@ -867,10 +921,7 @@
        18. RESPONSIVO
        ============================================================ */
     @media (max-width: 1080px) {
-      .grid-3, .treatments, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .grid-3 > :last-child:nth-child(odd),
-      .treatments > :last-child:nth-child(odd),
-      .steps > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+      .grid-4, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .infoband__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 0; }
       .infoband__item:nth-child(odd) { padding-left: 0; border-left: 0; }
       .steps__track::before { display: none; }
@@ -878,22 +929,25 @@
 
     @media (max-width: 980px) {
       .hero {
-        display: block; min-height: 0;
-        padding-block: 34px 0;
-        background: linear-gradient(180deg, #f7faff, #fff);
+        align-items: end;
+        min-height: calc(100vh - 82px);
+        min-height: calc(100svh - 82px);
+        padding-block: 24px 40px;
       }
       .hero::after { display: none; }
       .hero__inner { padding-inline: clamp(20px, 4vw, 44px) 20px; }
       .hero__copy { max-width: none; }
-      .hero__media { position: static; margin-top: 28px; }
-      .hero__media img { aspect-ratio: 16 / 10; height: auto; object-position: 76% center; }
-      .formsection__grid, .split, .loc { grid-template-columns: 1fr; }
+      .hero__media img { object-position: top center; }
+      .formsection__grid, .split, .loc, .pay { grid-template-columns: 1fr; }
+      .pay__cta .btn { width: 100%; }
     }
 
     @media (max-width: 720px) {
-      .hero { padding-block: 28px 0; }
-      .hero__media { margin-top: 24px; }
-      .hero__media img { aspect-ratio: 4 / 3; object-position: 74% center; }
+      .hero {
+        min-height: calc(100vh - 68px);
+        min-height: calc(100svh - 68px);
+        padding-block: 20px 32px;
+      }
       :root { --gutter: 20px; --section-y: 60px; }
       html { scroll-padding-top: 78px; }
 
@@ -901,19 +955,13 @@
       .header__logo { width: 146px; }
       .header__actions .btn { display: none; }
 
-      .launchdate { font-size: .84rem; }
 
       .btn { min-height: 56px; }
 
       .infoband__grid { grid-template-columns: 1fr; gap: 26px; }
       .infoband__item { padding: 0; border-left: 0; }
 
-      .grid-3, .treatments, .steps, .choices { grid-template-columns: 1fr; }
-      .grid-3 > :last-child:nth-child(odd),
-      .treatments > :last-child:nth-child(odd),
-      .steps > :last-child:nth-child(odd) { grid-column: auto; }
-
-      .treatment { min-height: 0; padding: 28px 24px; }
+      .grid-4, .compare, .choices, .steps { grid-template-columns: 1fr; }
 
       .formcard { padding: 24px 20px; }
 
@@ -959,17 +1007,17 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .js .reveal { opacity: 1; transform: none; }
-      .btn--pulse::after, .launchdate__dot::after { animation: none; }
+      .btn--pulse::after { animation: none; }
     }
 
     @media print {
       .header, .stickycta, .formsection, .finalcta { display: none !important; }
       body { font-size: 12pt; }
     }
-  </style>
+    </style>
 </head>
 
-<body data-page-type="launch" data-page-mode="{{ PAGE_MODE }}">
+<body data-page-type="facets">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK9CXHP2"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -987,17 +1035,21 @@
       <symbol viewBox="0 0 24 24" id="ic-pin" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.2-6.1 7.2-11.3a7.2 7.2 0 1 0-14.4 0C4.8 15.4 12 21.5 12 21.5Z"/><circle cx="12" cy="10" r="2.7"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-phone" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.4 3.8H5.6A2 2 0 0 0 3.6 6c.5 8 6.8 14.3 14.8 14.8a2 2 0 0 0 2-2v-2.8l-4.3-1.6-2 2.2a13.4 13.4 0 0 1-6.1-6.1l2.2-2L8.4 3.8Z"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-whats" fill="currentColor"><path d="M12.04 2.5c-5.23 0-9.48 4.24-9.48 9.47 0 1.67.44 3.3 1.27 4.74L2.5 21.5l4.92-1.29a9.45 9.45 0 0 0 4.62 1.18c5.23 0 9.48-4.24 9.48-9.47 0-2.53-.99-4.91-2.78-6.7a9.4 9.4 0 0 0-6.7-2.72Zm0 17.36a7.9 7.9 0 0 1-4.02-1.1l-.29-.17-2.92.77.78-2.85-.19-.29a7.85 7.85 0 0 1-1.2-4.2c0-4.34 3.54-7.87 7.89-7.87 2.1 0 4.08.82 5.57 2.31a7.82 7.82 0 0 1 2.31 5.57c0 4.34-3.54 7.83-7.93 7.83Zm4.33-5.87c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.53.12-.16.24-.61.77-.75.93-.14.16-.28.18-.51.06-.24-.12-1-.37-1.9-1.18-.7-.62-1.18-1.4-1.31-1.63-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.53-1.28-.73-1.75-.19-.46-.39-.4-.53-.4h-.46c-.16 0-.42.06-.63.3-.22.24-.83.81-.83 1.97s.85 2.29.97 2.45c.12.16 1.67 2.55 4.05 3.58.57.24 1.01.39 1.35.5.57.18 1.09.15 1.5.09.46-.07 1.4-.57 1.6-1.13.2-.55.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28Z"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-tooth" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.6 3.2c-1.1 0-1.9.35-2.6.7-.7.34-1.3.6-2 .6s-1.3-.26-2-.6c-.7-.35-1.5-.7-2.6-.7C5.6 3.2 4 5.3 4 8.3c0 1.9.5 3.4.9 4.9.3 1.1.5 2.1.7 3.4.2 1.5.4 2.8.9 3.7.3.6.9 1 1.6 1 1 0 1.6-.8 1.8-1.9.2-1 .3-2.2.5-3.3.2-1 .6-1.6 1.6-1.6s1.4.6 1.6 1.6c.2 1.1.3 2.3.5 3.3.2 1.1.8 1.9 1.8 1.9.7 0 1.3-.4 1.6-1 .5-.9.7-2.2.9-3.7.2-1.3.4-2.3.7-3.4.4-1.5.9-3 .9-4.9 0-3-1.6-5.1-3.4-5.1Z"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-arch" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 15.4C3.6 9.3 7.4 5 12 5s8.4 4.3 8.4 10.4"/><path d="M6.2 15.6v1.9a1.9 1.9 0 0 0 3.8 0v-1.9M10.1 15.2v1.5a1.9 1.9 0 0 0 3.8 0v-1.5M14 15.6v1.9a1.9 1.9 0 0 0 3.8 0v-1.9"/><path d="M3.6 12.6h16.8"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-veneer" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 4.6h7.6a2.4 2.4 0 0 1 2.4 2.6l-.7 8.4a3 3 0 0 1-3 2.8H9.5a3 3 0 0 1-3-2.8l-.7-8.4a2.4 2.4 0 0 1 2.4-2.6Z"/><path d="M9.4 8.1c1-.5 2.2-.6 3.2-.2"/><path d="m18.6 3.2.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7.7-1.7Z"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-guide" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 16.4H8.8L5 19.3V6.4a2 2 0 0 1 2-2h7.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/><path d="M19 8.6v6.9a2 2 0 0 1-2 2h-.3"/><path d="M9.6 8.9a2.2 2.2 0 0 1 4.2.7c0 1.5-2.1 1.9-2.1 1.9M11.7 13.6h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-scan" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 8.6V6.2a2.6 2.6 0 0 1 2.6-2.6h2.4M20.4 8.6V6.2a2.6 2.6 0 0 0-2.6-2.6h-2.4M3.6 15.4v2.4a2.6 2.6 0 0 0 2.6 2.6h2.4M20.4 15.4v2.4a2.6 2.6 0 0 1-2.6 2.6h-2.4"/><path d="M3.6 12h16.8"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-plan" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.4 3.6H8.6a2 2 0 0 0-2 2v12.8a2 2 0 0 0 2 2h6.8a2 2 0 0 0 2-2V5.6a2 2 0 0 0-2-2Z"/><path d="M9.8 8.4h4.4M9.8 12h4.4M9.8 15.6h2.6"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-wallet" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9.4V7.6a2 2 0 0 0-2-2H5.6a2 2 0 0 0-2 2v8.8a2 2 0 0 0 2 2H18a2 2 0 0 0 2-2v-1.8"/><path d="M20.8 9.4h-4.2a2.6 2.6 0 0 0 0 5.2h4.2V9.4Z"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-cash" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="6.4" width="17.2" height="11.2" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.6 9.6h.01M17.4 14.4h.01"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-installments" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.4" width="13.2" height="9.2" rx="2"/><path d="M7.4 18.6h11.2a2 2 0 0 0 2-2V9.4"/><path d="M3.4 9h13.2"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-shield" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 5.4 5.8v5.4c0 4.3 2.8 8.2 6.6 9.4 3.8-1.2 6.6-5.1 6.6-9.4V5.8L12 3.2Z"/><path d="m9.3 11.8 1.9 1.9 3.5-3.6"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-lock" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="10.4" width="14.8" height="9.6" rx="2.2"/><path d="M8.2 10.4V7.8a3.8 3.8 0 0 1 7.6 0v2.6"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-info" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.8"/><path d="M12 11.2v5.4M12 7.7h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-alert" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2 21 19.6H3L12 4.2Z"/><path d="M12 9.9v4.1M12 16.9h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-calendar" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.8" y="5.6" width="16.4" height="14.6" rx="2.2"/><path d="M3.8 10h16.4M8.4 3.8v3.4M15.6 3.8v3.4"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-veneer" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 4.6h7.6a2.4 2.4 0 0 1 2.4 2.6l-.7 8.4a3 3 0 0 1-3 2.8H9.5a3 3 0 0 1-3-2.8l-.7-8.4a2.4 2.4 0 0 1 2.4-2.6Z"/><path d="M9.4 8.1c1-.5 2.2-.6 3.2-.2"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-shade" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4c-4.7 0-8.5 3.6-8.5 8.1 0 4.5 3.8 8.1 8.5 8.1 1.4 0 2.3-.9 2.3-2 0-.6-.2-1-.6-1.4-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h1.4c2 0 3.4-1.4 3.4-3.4 0-3.4-3.6-6.1-8-6.1Z"/><path d="M7.4 12.4h.01M9.2 8.9h.01M12.8 7.6h.01M16.2 9.5h.01"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-shape" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 6.4h16.8v11.2H3.6z"/><path d="M7.4 6.4v2.6M11.2 6.4v4M15 6.4v2.6M18.8 6.4v4"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-chip" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 4.6h7.6a2.4 2.4 0 0 1 2.4 2.6l-.7 8.4a3 3 0 0 1-3 2.8H9.5a3 3 0 0 1-3-2.8l-.7-8.4a2.4 2.4 0 0 1 2.4-2.6Z"/><path d="m14.6 4.8-2.1 3.4 3 .5-2.6 3"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-refresh" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20.4 4.4v4.4H16"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-smile" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 11.4c0-1 .8-1.7 1.8-1.6 1.9.2 3.7.3 5.6.3s3.7-.1 5.6-.3c1-.1 1.8.6 1.8 1.6a7.4 7.4 0 0 1-14.8 0Z"/><path d="M8.6 10.1v3.1M12 10v3.6M15.4 10.1v3.1"/></symbol>
     </defs>
   </svg>
 
@@ -1008,7 +1060,7 @@
       </a>
       <span class="header__spacer"></span>
       <div class="header__actions">
-        <a class="btn btn--primary js-scroll-form" href="#cadastro" data-placement="header">{{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}</a>
+        <a class="btn btn--primary js-scroll-form" href="#cadastro" data-placement="header">Solicitar avaliação</a>
       </div>
     </div>
   </header>
@@ -1019,19 +1071,12 @@
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__copy">
-          {% if not OPEN %}
-          <p class="launchdate">
-            <span class="launchdate__dot" aria-hidden="true"></span>
-            Inauguração prevista para 20 de setembro de 2026
-          </p>
-          {% endif %}
-
-          <h1>{{ 'A Makro agora está em Ceilândia.' if OPEN else 'A Makro está chegando a Ceilândia.' }}</h1>
-          <p class="lead">{{ 'Conheça a nova unidade e solicite o contato da nossa equipe para agendar sua avaliação odontológica.' if OPEN else 'Cadastre-se para receber o contato da nossa equipe, conhecer a nova unidade e solicitar sua avaliação assim que a agenda for aberta.' }}</p>
+          <h1>Facetas e lentes dentais com planejamento voltado à naturalidade.</h1>
+          <p class="lead">Converse com a equipe da Makro para conhecer possibilidades, esclarecer dúvidas e solicitar uma avaliação estética e funcional individual.</p>
 
           <div class="hero__actions">
             <a class="btn btn--primary btn--pulse js-scroll-form" href="#cadastro" data-placement="hero">
-              {{ 'Quero solicitar uma avaliação' if OPEN else 'Quero entrar na lista de interesse' }}
+              Quero solicitar uma avaliação
               <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
             </a>
           </div>
@@ -1041,33 +1086,37 @@
             <span><svg aria-hidden="true"><use href="#ic-clock"/></svg>Atendimento de segunda a sábado</span>
           </p>
 
-          <p class="microcopy">{{ 'O plano de tratamento é definido individualmente após avaliação profissional.' if OPEN else 'Cadastro sem compromisso. O atendimento e qualquer tratamento dependem de avaliação profissional e da disponibilidade de agenda.' }}</p>
+          <p class="microcopy">A indicação, a necessidade de preparo, o número de dentes e o resultado variam conforme o caso. Simulações não constituem promessa de resultado.</p>
         </div>
       </div>
 
       <picture class="hero__media">
-        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-ceilandia.webp">
-        <source media="(max-width: 980px)" srcset="/static/banner-mobile-ceilandia.png">
-        <source type="image/webp" srcset="/static/banner-pc-ceilandia.webp">
-        <img src="/static/banner-pc-ceilandia.png" width="1916" height="821" fetchpriority="high" decoding="async"
-             alt="Profissional da Makro conversando com uma paciente sentada na cadeira odontológica durante a avaliação">
+        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-facetas.webp">
+        <source media="(max-width: 980px)" srcset="/static/banner-mobile-facetas.png">
+        <source type="image/webp" srcset="/static/banner-pc-facetas.webp">
+        <img src="/static/banner-pc-facetas.png" width="1672" height="941" fetchpriority="high" decoding="async"
+             alt="Paciente sorrindo na cadeira odontológica durante avaliação estética com a equipe da Makro">
       </picture>
     </section>
 
-    <!-- ===================== FAIXA DE BENEFÍCIOS ===================== -->
-    <section class="infoband" aria-label="Diferenciais da unidade">
+    <!-- ===================== FAIXA DE INFORMAÇÕES ===================== -->
+    <section class="infoband" aria-label="Diferenciais do atendimento">
       <div class="container infoband__grid">
         <div class="infoband__item">
-          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
-          <div><b>Planejamento individual</b><small>Cada caso avaliado separadamente</small></div>
+          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-smile"/></svg></span>
+          <div><b>Planejamento individual do sorriso</b><small>Cada caso avaliado separadamente</small></div>
         </div>
         <div class="infoband__item">
           <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
-          <div><b>Recursos digitais quando indicados</b><small>Apoio ao diagnóstico e ao planejamento</small></div>
+          <div><b>Simulação como apoio à conversa</b><small>Quando indicada para o caso</small></div>
+        </div>
+        <div class="infoband__item">
+          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-shield"/></svg></span>
+          <div><b>Saúde, harmonia e naturalidade</b><small>Consideradas em conjunto</small></div>
         </div>
         <div class="infoband__item">
           <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
-          <div><b>Condições de pagamento</b><small>Sujeitas a análise e regras vigentes</small></div>
+          <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
         </div>
       </div>
     </section>
@@ -1077,29 +1126,29 @@
       <div class="container formsection__grid">
         <div>
           <p class="eyebrow">Primeiro passo</p>
-          <h2>{{ 'Solicite o contato da Makro Ceilândia.' if OPEN else 'Entre na lista de interesse da Makro Ceilândia.' }}</h2>
-          <p class="formsection__lead">Preencha os dados abaixo. Leva cerca de um minuto e perguntamos apenas o necessário para direcionar o contato.</p>
+          <h2>Solicite contato para sua avaliação.</h2>
+          <p class="formsection__lead">Conte o necessário para direcionarmos o atendimento. Leva cerca de um minuto e não compromete você com nenhum tratamento.</p>
 
           <ul class="assurance">
             <li>
               <svg aria-hidden="true"><use href="#ic-lock"/></svg>
-              <span><b>Seus dados ficam com a Makro.</b> A escolha de tratamento nunca é enviada a plataformas de anúncio.</span>
+              <span><b>Seus dados ficam com a Makro.</b> Nenhuma resposta sobre o seu objetivo estético é enviada a plataformas de anúncio.</span>
             </li>
             <li>
               <svg aria-hidden="true"><use href="#ic-calendar"/></svg>
-              <span><b>O cadastro não reserva horário.</b> O agendamento é confirmado pela equipe conforme disponibilidade.</span>
+              <span><b>O envio não agenda automaticamente.</b> A equipe entra em contato para apresentar os horários disponíveis.</span>
             </li>
             <li>
-              <svg aria-hidden="true"><use href="#ic-guide"/></svg>
-              <span><b>Não sabe qual tratamento procurar?</b> Selecione “Preciso de orientação” e a equipe direciona o próximo passo.</span>
+              <svg aria-hidden="true"><use href="#ic-shield"/></svg>
+              <span><b>Sem compromisso.</b> A decisão de iniciar qualquer tratamento é sempre do paciente.</span>
             </li>
           </ul>
         </div>
 
         <div class="formcard">
           <div class="js-form-shell">
-            <h2>Quero receber o contato da Makro Ceilândia</h2>
-            <p class="formcard__intro">Preencha os dados abaixo. Leva cerca de um minuto.</p>
+            <h2>Solicite contato para sua avaliação</h2>
+            <p class="formcard__intro">Conte o necessário para direcionarmos o atendimento.</p>
 
             <div class="progress">
               <span class="js-progress-label" aria-live="polite">Etapa 1 de 2</span>
@@ -1150,15 +1199,17 @@
               <fieldset class="step js-step" data-step="2">
                 <legend class="sr-only">Etapa 2 de 2 — interesse e momento</legend>
 
-                <fieldset class="field-group" aria-describedby="e-interest">
-                  <legend>Principal interesse</legend>
-                  <div class="choices choices--single">
-                    <label class="choice"><input type="radio" name="interest" value="implant"><span class="choice__dot" aria-hidden="true"></span>Implantes ou protocolo</label>
-                    <label class="choice"><input type="radio" name="interest" value="prosthesis"><span class="choice__dot" aria-hidden="true"></span>Próteses</label>
-                    <label class="choice"><input type="radio" name="interest" value="facets"><span class="choice__dot" aria-hidden="true"></span>Facetas ou lentes</label>
-                    <label class="choice"><input type="radio" name="interest" value="guidance"><span class="choice__dot" aria-hidden="true"></span>Preciso de orientação</label>
+                <fieldset class="field-group" aria-describedby="e-goal">
+                  <legend>O que você gostaria de avaliar?</legend>
+                  <div class="choices">
+                    <label class="choice"><input type="radio" name="goal" value="color"><span class="choice__dot" aria-hidden="true"></span>Cor do sorriso</label>
+                    <label class="choice"><input type="radio" name="goal" value="shape-size"><span class="choice__dot" aria-hidden="true"></span>Formato ou tamanho</label>
+                    <label class="choice"><input type="radio" name="goal" value="spacing-harmony"><span class="choice__dot" aria-hidden="true"></span>Espaços ou harmonia</label>
+                    <label class="choice"><input type="radio" name="goal" value="wear-fracture"><span class="choice__dot" aria-hidden="true"></span>Desgaste ou fratura</label>
+                    <label class="choice"><input type="radio" name="goal" value="replace-old"><span class="choice__dot" aria-hidden="true"></span>Avaliar facetas antigas</label>
+                    <label class="choice"><input type="radio" name="goal" value="understand-options"><span class="choice__dot" aria-hidden="true"></span>Entender possibilidades</label>
                   </div>
-                  <span class="field-error" id="e-interest"></span>
+                  <span class="field-error" id="e-goal"></span>
                 </fieldset>
 
                 <fieldset class="field-group" aria-describedby="e-urgency">
@@ -1199,7 +1250,7 @@
                     <svg aria-hidden="true"><use href="#ic-back"/></svg>
                     Voltar
                   </button>
-                  <button class="btn btn--primary js-submit" type="submit">Enviar meu cadastro</button>
+                  <button class="btn btn--primary js-submit" type="submit">Solicitar contato</button>
                 </div>
               </fieldset>
 
@@ -1214,11 +1265,11 @@
 
           <div class="success js-success" role="status" tabindex="-1" hidden>
             <div class="success__icon" aria-hidden="true"><svg><use href="#ic-check"/></svg></div>
-            <h2>Cadastro recebido!</h2>
-            <p>Obrigado pelo interesse na Makro Ceilândia. Nossa equipe poderá entrar em contato pelo WhatsApp ou telefone informado.</p>
+            <h2>Solicitação recebida!</h2>
+            <p>Obrigado. A equipe da Makro Ceilândia poderá entrar em contato pelo WhatsApp ou telefone informado para orientar o próximo passo.</p>
             <!-- [PENDENTE] substituir 55[PENDENTE] pelo WhatsApp oficial da unidade -->
             <a class="btn btn--primary btn--block js-whatsapp" data-placement="success" target="_blank" rel="noopener noreferrer"
-               href="https://wa.me/55[PENDENTE]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20da%20Makro%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20meu%20cadastro.%20Gostaria%20de%20confirmar%20o%20recebimento.">
+               href="https://wa.me/55[PENDENTE]?text=Ol%C3%A1%2C%20encontrei%20a%20Makro%20pela%20p%C3%A1gina%20de%20facetas%20e%20lentes%20em%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o.">
               <svg aria-hidden="true"><use href="#ic-whats"/></svg>
               Falar com a equipe no WhatsApp
             </a>
@@ -1227,70 +1278,116 @@
       </div>
     </section>
 
-    <!-- ===================== MAIS PERTO DE VOCÊ ===================== -->
+    <!-- ===================== QUANDO CONVERSAR ===================== -->
     <section class="section">
       <div class="container">
         <div class="head reveal">
-          <p class="eyebrow">A nova unidade</p>
-          <h2>Cuidado completo, agora mais perto de você.</h2>
-          <p class="lead">A nova unidade foi preparada para receber pacientes de Ceilândia e região com atendimento acolhedor, avaliação individual e estrutura para diferentes necessidades odontológicas.</p>
+          <p class="eyebrow">Avaliação estética e funcional</p>
+          <h2>Quando vale conversar sobre facetas?</h2>
+          <p class="lead">A avaliação ajuda a entender se facetas fazem sentido e se outros cuidados precisam vir antes do planejamento estético.</p>
         </div>
 
-        <div class="grid-3">
+        <div class="grid-4">
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
-            <h3>Planejamento individual</h3>
-            <p>Cada caso começa com uma conversa e uma avaliação profissional para entender necessidades, possibilidades e próximos passos.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-shade"/></svg></span>
+            <h3>Cor e uniformidade</h3>
+            <p>Converse sobre expectativas de cor e descubra quais alternativas podem ser consideradas para o caso.</p>
           </article>
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
-            <h3>Recursos digitais</h3>
-            <p>Quando indicados, recursos digitais apoiam o diagnóstico e o planejamento do tratamento com mais informação para o profissional e para o paciente.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-shape"/></svg></span>
+            <h3>Formato e proporção</h3>
+            <p>Avalie tamanho, formato e relação entre os dentes respeitando características do sorriso e do rosto.</p>
           </article>
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
-            <h3>Condições para organizar o tratamento</h3>
-            <p>Conheça as possibilidades de pagamento e financiamento próprio. Aprovação e condições estão sujeitas à análise e às regras vigentes.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-chip"/></svg></span>
+            <h3>Desgastes ou pequenas fraturas</h3>
+            <p>O profissional avalia estrutura dental, função e alternativas restauradoras antes de indicar o tratamento.</p>
+          </article>
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-refresh"/></svg></span>
+            <h3>Facetas antigas</h3>
+            <p>Uma avaliação pode verificar conservação, adaptação, saúde bucal e possibilidades de manutenção ou substituição.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ===================== TRATAMENTOS ===================== -->
-    <section class="section section--alt" id="tratamentos">
+    <!-- ===================== FACETA X LENTE ===================== -->
+    <section class="section section--alt">
       <div class="container">
         <div class="head head--center reveal">
-          <p class="eyebrow">Tratamentos</p>
-          <h2>Qual tratamento você procura?</h2>
-          <p class="lead">Informe seu principal interesse no cadastro. Se ainda não souber qual opção faz sentido, a equipe poderá orientar o próximo passo.</p>
+          <p class="eyebrow">Informação para decidir</p>
+          <h2>Faceta e lente dental: qual é a diferença?</h2>
         </div>
 
-        <div class="treatments">
-          <article class="treatment reveal">
-            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-tooth"/></svg></span>
-            <h3>Implantes e protocolo</h3>
-            <p>Avaliação para reposição de um ou mais dentes e para soluções fixas de reabilitação, conforme a indicação de cada caso.</p>
+        <div class="compare">
+          <article class="compare__panel reveal">
+            <span class="compare__tag"><svg aria-hidden="true"><use href="#ic-veneer"/></svg>Faceta dental</span>
+            <h3>Uma lâmina restauradora aplicada à superfície do dente</h3>
+            <p>Pode ser considerada para alterações de forma, cor ou estrutura. Material, espessura e necessidade de preparo dependem da avaliação e do planejamento.</p>
           </article>
-          <article class="treatment reveal">
-            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-arch"/></svg></span>
-            <h3>Próteses e overdenture</h3>
-            <p>Alternativas para recuperar função e segurança ao mastigar, definidas após avaliação das condições bucais.</p>
-          </article>
-          <article class="treatment reveal">
-            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-veneer"/></svg></span>
-            <h3>Facetas e lentes</h3>
-            <p>Planejamento estético individual, considerando harmonia, naturalidade e saúde bucal.</p>
+          <article class="compare__panel reveal">
+            <span class="compare__tag"><svg aria-hidden="true"><use href="#ic-smile"/></svg>Lente dental</span>
+            <h3>Termo usado para facetas de menor espessura em casos selecionados</h3>
+            <p>Nem todo dente ou objetivo permite uma abordagem ultrafina. A indicação depende da posição, cor, estrutura dental, mordida e resultado planejado.</p>
           </article>
         </div>
 
-        <div class="orientation reveal">
-          <svg aria-hidden="true"><use href="#ic-guide"/></svg>
-          <p>Ainda não sabe qual tratamento procurar? Selecione “Preciso de orientação” no formulário.</p>
+        <div class="note reveal">
+          <svg aria-hidden="true"><use href="#ic-info"/></svg>
+          <p>O nome comercial não define sozinho o melhor tratamento. Preservação de estrutura dental, saúde bucal, função e expectativa precisam ser avaliadas em conjunto.</p>
+        </div>
+
+        <div class="center-cta reveal">
+          <a class="btn btn--primary btn--lg js-scroll-form" href="#cadastro" data-placement="comparison">
+            Quero entender o que pode ser avaliado
+            <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ===================== EXPERIÊNCIA MAKRO ===================== -->
+    <!-- ===================== ETAPAS ===================== -->
+    <section class="section">
+      <div class="container">
+        <div class="head head--center reveal">
+          <p class="eyebrow">Etapas claras</p>
+          <h2>Da primeira conversa ao plano estético.</h2>
+          <p class="lead">Quatro etapas objetivas, sem surpresa em nenhuma delas.</p>
+        </div>
+
+        <div class="steps__track">
+          <div class="steps">
+            <article class="step-card reveal">
+              <span class="step-card__ghost" aria-hidden="true">1</span>
+              <span class="step-card__num" aria-hidden="true">1</span>
+              <h3>Solicite o contato</h3>
+              <p>Informe sua região, seu objetivo principal e quando pretende começar.</p>
+            </article>
+            <article class="step-card reveal">
+              <span class="step-card__ghost" aria-hidden="true">2</span>
+              <span class="step-card__num" aria-hidden="true">2</span>
+              <h3>Confirme a avaliação</h3>
+              <p>A equipe esclarece informações iniciais e apresenta os horários disponíveis.</p>
+            </article>
+            <article class="step-card reveal">
+              <span class="step-card__ghost" aria-hidden="true">3</span>
+              <span class="step-card__num" aria-hidden="true">3</span>
+              <h3>Avaliação e planejamento</h3>
+              <p>O profissional avalia saúde bucal, função, estrutura dental e expectativas.</p>
+            </article>
+            <article class="step-card reveal">
+              <span class="step-card__ghost" aria-hidden="true">4</span>
+              <span class="step-card__num" aria-hidden="true">4</span>
+              <h3>Decisão com clareza</h3>
+              <p>Você conhece possibilidades, limites, etapas e condições antes de decidir.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== NATURALIDADE ===================== -->
     <section class="section section--blue">
       <div class="container split">
         <figure class="figure reveal">
@@ -1301,65 +1398,64 @@
           </picture>
         </figure>
         <div class="reveal">
-          <p class="eyebrow">Experiência Makro</p>
-          <h2>Uma clínica preparada para receber você.</h2>
-          <p class="lead">A experiência Makro combina acolhimento, equipe profissional e planejamento apoiado por recursos digitais. Na nova unidade, o cuidado começa desde o primeiro contato.</p>
+          <p class="eyebrow">Naturalidade como direção</p>
+          <h2>Planejar é alinhar expectativa, saúde e harmonia.</h2>
+          <p class="lead">Fotos e recursos digitais podem apoiar a conversa sobre proporções, formato e objetivos. Quando utilizada, a simulação é uma ferramenta de planejamento — não uma garantia do resultado final.</p>
           <ul class="checks">
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Atendimento de segunda a sábado;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Avaliação e planejamento individual;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Estrutura digital para apoiar diagnóstico e planejamento;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Possibilidades de pagamento apresentadas com clareza.</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Avaliação de dentes, gengiva e mordida;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Conversa sobre expectativas e limites do caso;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Planejamento de formato, proporção e cor;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Preservação de estrutura sempre considerada pelo profissional.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ===================== COMO FUNCIONA ===================== -->
-    <section class="section">
+    <!-- ===================== PAGAMENTO ===================== -->
+    <section class="section section--alt">
       <div class="container">
-        <div class="head head--center reveal">
-          <p class="eyebrow">Próximos passos</p>
-          <h2>{{ 'Como solicitar sua avaliação' if OPEN else 'Como entrar na lista de interesse' }}</h2>
-        </div>
-
-        <div class="steps__track">
-          <div class="steps">
-            <article class="step-card reveal">
-              <span class="step-card__ghost" aria-hidden="true">1</span>
-              <span class="step-card__num" aria-hidden="true">1</span>
-              <h3>Envie seus dados</h3>
-              <p>Leva cerca de um minuto. Perguntaremos apenas o necessário para direcionar o contato.</p>
-            </article>
-            <article class="step-card reveal">
-              <span class="step-card__ghost" aria-hidden="true">2</span>
-              <span class="step-card__num" aria-hidden="true">2</span>
-              <h3>Receba o contato da equipe</h3>
-              <p>A Makro poderá falar com você pelo WhatsApp ou telefone informado.</p>
-            </article>
-            <article class="step-card reveal">
-              <span class="step-card__ghost" aria-hidden="true">3</span>
-              <span class="step-card__num" aria-hidden="true">3</span>
-              <h3>{{ 'Confirme o melhor horário disponível' if OPEN else 'Solicite seu horário' }}</h3>
-              <p>{{ 'A equipe apresenta os horários disponíveis para a sua avaliação.' if OPEN else 'Com a agenda aberta, a equipe apresentará os horários disponíveis para avaliação.' }}</p>
-            </article>
+        <div class="pay reveal">
+          <div>
+            <p class="eyebrow">Condições de pagamento</p>
+            <h2>Condições para organizar o seu tratamento.</h2>
+            <p class="pay__text">A Makro oferece possibilidades de pagamento e financiamento próprio. Depois da avaliação e da definição do plano, a equipe apresenta as condições disponíveis.</p>
+            <p class="microcopy">Aprovação, entrada, limite, parcelas e demais condições estão sujeitos à análise e às regras vigentes. Nenhuma condição é garantida pelo formulário.</p>
           </div>
-        </div>
 
-        <div class="note reveal">
-          <svg aria-hidden="true"><use href="#ic-info"/></svg>
-          <p>O cadastro não reserva automaticamente um horário. O agendamento é confirmado pela equipe conforme disponibilidade.</p>
+          <div>
+            <ul class="payopts">
+              <li>
+                <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-cash"/></svg></span>
+                <div><b>À vista</b><small>Condições apresentadas após o plano</small></div>
+              </li>
+              <li>
+                <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-installments"/></svg></span>
+                <div><b>Parcelado</b><small>Número de parcelas conforme análise</small></div>
+              </li>
+              <li>
+                <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+                <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+              </li>
+            </ul>
+            <div class="pay__cta">
+              <a class="btn btn--light btn--lg js-scroll-form" href="#cadastro" data-placement="payment">
+                Quero conhecer as possibilidades
+                <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== LOCALIZAÇÃO ===================== -->
-    <section class="section section--alt" id="localizacao">
+    <section class="section" id="localizacao">
       <div class="container">
         <div class="loc reveal">
           <div class="loc__copy">
             <p class="eyebrow">Localização</p>
-            <h2>Nova unidade Makro Ceilândia</h2>
-            <p class="lead">A unidade atende Ceilândia, Sol Nascente e região de segunda a sábado.</p>
+            <h2>Facetas e lentes na Makro Ceilândia.</h2>
+            <p class="lead">A nova unidade atende Ceilândia e região de segunda a sábado.</p>
 
             <ul class="loc__list">
               <li>
@@ -1411,7 +1507,7 @@
     </section>
 
     <!-- ===================== FAQ ===================== -->
-    <section class="section" id="faq">
+    <section class="section section--alt" id="faq">
       <div class="container">
         <div class="head head--center reveal">
           <p class="eyebrow">Informação clara</p>
@@ -1420,28 +1516,32 @@
 
         <div class="faq reveal">
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1"><span>Quando a unidade será inaugurada?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-1" hidden><p>A inauguração está prevista para 20 de setembro de 2026. A data e a abertura da agenda serão confirmadas pela equipe da Makro.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1"><span>Qual é a diferença entre faceta e lente dental?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-1" hidden><p>“Lente” costuma ser usado para facetas de menor espessura em casos selecionados. A espessura, o material e a necessidade de preparo dependem da estrutura, posição e cor dos dentes, além da mordida e do objetivo.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2"><span>O cadastro já deixa minha avaliação agendada?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-2" hidden><p>Não. O cadastro registra seu interesse. A equipe entrará em contato para apresentar a disponibilidade e concluir o agendamento.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2"><span>Todo caso pode ser feito sem desgaste?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-2" hidden><p>Não é possível afirmar isso antes da avaliação. Alguns casos podem exigir preparo; em outros, uma abordagem mais conservadora pode ser considerada. O profissional deve explicar a indicação e os limites.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3"><span>Quais tratamentos estarão disponíveis?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-3" hidden><p>O foco inicial inclui implantes, protocolo, próteses, overdenture, facetas e lentes. A indicação depende de avaliação profissional.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3"><span>Quantos dentes precisam receber facetas?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-3" hidden><p>A quantidade varia conforme o sorriso, os dentes visíveis, a necessidade clínica e o objetivo. O planejamento individual define o que pode ser considerado.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4"><span>Posso entrar na lista mesmo sem saber qual tratamento preciso?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-4" hidden><p>Sim. Selecione “Preciso de orientação” no formulário para que a equipe direcione o atendimento.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4"><span>Posso ver uma simulação antes de decidir?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-4" hidden><p>Quando indicada, uma simulação pode apoiar a conversa sobre forma e proporção. Ela é uma ferramenta de planejamento e não constitui promessa ou reprodução exata do resultado final.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5"><span>A Makro oferece financiamento?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-5" hidden><p>Há possibilidades de pagamento e financiamento próprio. Aprovação, limites, prazos e demais condições estão sujeitos à análise e às regras vigentes.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5"><span>Quanto custam facetas ou lentes dentais?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-5" hidden><p>O valor varia conforme material, quantidade de dentes, condição bucal e etapas necessárias. O orçamento é apresentado após avaliação e definição do plano.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-6"><span>A clínica atende aos sábados?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-6" hidden><p>Sim. O atendimento aos sábados foi previsto até 12h. Confirme os horários disponíveis com a equipe.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-6"><span>Facetas precisam de manutenção?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-6" hidden><p>Sim. Higienização, cuidados orientados e acompanhamento profissional são importantes. A durabilidade varia com material, hábitos, mordida, manutenção e condições individuais.</p></div>
+          </div>
+          <div class="faq__item">
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-7"><span>A Makro oferece parcelamento ou financiamento?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-7" hidden><p>Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano e estão sujeitas à análise e às regras vigentes.</p></div>
           </div>
         </div>
       </div>
@@ -1451,11 +1551,11 @@
     <section class="finalcta">
       <div class="container finalcta__inner">
         <div>
-          <h2>{{ 'Quer solicitar sua avaliação na Makro Ceilândia?' if OPEN else 'Quer receber o contato da nova Makro Ceilândia?' }}</h2>
-          <p>Preencha o cadastro e informe como a equipe pode ajudar.</p>
+          <h2>Dê o primeiro passo para planejar com clareza.</h2>
+          <p>Envie seus dados. A equipe entrará em contato para orientar o próximo passo e apresentar os horários disponíveis.</p>
         </div>
         <a class="btn btn--light btn--lg js-scroll-form" href="#cadastro" data-placement="final">
-          {{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}
+          Solicitar contato para avaliação
           <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
         </a>
       </div>
@@ -1489,7 +1589,7 @@
       </div>
 
       <div class="footer__bottom">
-        <p class="footer__disclaimer">Conteúdo informativo. A indicação de tratamento, os exames necessários e o prazo dependem de avaliação profissional individual. As condições de pagamento e o financiamento próprio estão sujeitos à análise e às regras vigentes.</p>
+        <p class="footer__disclaimer">Conteúdo informativo. A indicação de tratamento, os exames necessários e o prazo dependem de avaliação profissional individual. Simulações são ferramentas de planejamento e não constituem promessa de resultado. As condições de pagamento e o financiamento próprio estão sujeitos à análise e às regras vigentes.</p>
         <nav class="footer__links" aria-label="Links legais">
           <a href="#privacidade">Política de Privacidade</a>
           <a href="#privacidade">Termos de Uso</a>
@@ -1499,21 +1599,14 @@
   </footer>
 
   <div class="stickycta js-sticky">
-    <a class="btn btn--primary btn--block js-scroll-form" href="#cadastro" data-placement="mobile_sticky">{{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}</a>
+    <a class="btn btn--primary btn--block js-scroll-form" href="#cadastro" data-placement="mobile_sticky">Solicitar avaliação</a>
   </div>
 
   <!-- FAQPage: conteúdo factual, sem preço, promessa ou avaliação.
        Dentist/LocalBusiness só entra depois de validar razão social, CRO-PJ,
        responsável técnico e horários. Nunca inserir aggregateRating. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Quando a unidade será inaugurada?","acceptedAnswer":{"@type":"Answer","text":"A inauguração está prevista para 20 de setembro de 2026. A data e a abertura da agenda serão confirmadas pela equipe da Makro."}},
-    {"@type":"Question","name":"O cadastro já deixa minha avaliação agendada?","acceptedAnswer":{"@type":"Answer","text":"Não. O cadastro registra seu interesse. A equipe entrará em contato para apresentar a disponibilidade e concluir o agendamento."}},
-    {"@type":"Question","name":"Quais tratamentos estarão disponíveis?","acceptedAnswer":{"@type":"Answer","text":"O foco inicial inclui implantes, protocolo, próteses, overdenture, facetas e lentes. A indicação depende de avaliação profissional."}},
-    {"@type":"Question","name":"Posso entrar na lista mesmo sem saber qual tratamento preciso?","acceptedAnswer":{"@type":"Answer","text":"Sim. Selecione Preciso de orientação no formulário para que a equipe direcione o atendimento."}},
-    {"@type":"Question","name":"A Makro oferece financiamento?","acceptedAnswer":{"@type":"Answer","text":"Há possibilidades de pagamento e financiamento próprio. Aprovação, limites, prazos e demais condições estão sujeitos à análise e às regras vigentes."}},
-    {"@type":"Question","name":"A clínica atende aos sábados?","acceptedAnswer":{"@type":"Answer","text":"Sim. O atendimento aos sábados foi previsto até 12h. Confirme os horários disponíveis com a equipe."}}
-  ]}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qual é a diferença entre faceta e lente dental?","acceptedAnswer":{"@type":"Answer","text":"Lente costuma ser usado para facetas de menor espessura em casos selecionados. A espessura, o material e a necessidade de preparo dependem da estrutura, posição e cor dos dentes, além da mordida e do objetivo."}},{"@type":"Question","name":"Todo caso pode ser feito sem desgaste?","acceptedAnswer":{"@type":"Answer","text":"Não é possível afirmar isso antes da avaliação. Alguns casos podem exigir preparo; em outros, uma abordagem mais conservadora pode ser considerada. O profissional deve explicar a indicação e os limites."}},{"@type":"Question","name":"Quantos dentes precisam receber facetas?","acceptedAnswer":{"@type":"Answer","text":"A quantidade varia conforme o sorriso, os dentes visíveis, a necessidade clínica e o objetivo. O planejamento individual define o que pode ser considerado."}},{"@type":"Question","name":"Posso ver uma simulação antes de decidir?","acceptedAnswer":{"@type":"Answer","text":"Quando indicada, uma simulação pode apoiar a conversa sobre forma e proporção. Ela é uma ferramenta de planejamento e não constitui promessa ou reprodução exata do resultado final."}},{"@type":"Question","name":"Quanto custam facetas ou lentes dentais?","acceptedAnswer":{"@type":"Answer","text":"O valor varia conforme material, quantidade de dentes, condição bucal e etapas necessárias. O orçamento é apresentado após avaliação e definição do plano."}},{"@type":"Question","name":"Facetas precisam de manutenção?","acceptedAnswer":{"@type":"Answer","text":"Sim. Higienização, cuidados orientados e acompanhamento profissional são importantes. A durabilidade varia com material, hábitos, mordida, manutenção e condições individuais."}},{"@type":"Question","name":"A Makro oferece parcelamento ou financiamento?","acceptedAnswer":{"@type":"Answer","text":"Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano e estão sujeitas à análise e às regras vigentes."}}]}
   </script>
 
   <script>
@@ -1523,30 +1616,30 @@
     /* ==========================================================
        CONFIGURAÇÃO
        ========================================================== */
-    const PAGE_TYPE = 'launch';
-    const PAGE_MODE = document.body.dataset.pageMode || 'prelaunch';
-    const FORM_ID   = 'launch-lead-v1';
+    const PAGE_TYPE = 'facets';
+    const FORM_ID   = 'facets-lead-v1';
     const CONSENT_VERSION = 'v1-2026-08';
     const LEAD_ENDPOINT = '[PENDENTE]'; // endpoint first-party do backend
 
+    // Embed do Google Maps montado a partir do endereço confirmado no Google Business Profile.
     const MAP_EMBED_URL = 'https://www.google.com/maps?q=' +
       encodeURIComponent('Makro Odontologia Ceilândia, QNO 18 Quadra 18 Conjunto 4 Lote 13, Ceilândia, Brasília - DF, 72260-804') +
       '&output=embed';
 
     /* ==========================================================
        DATALAYER — ALLOWLIST ESTRITA
-       A escolha de tratamento NUNCA é enviada às plataformas,
-       nem nesta LP institucional. (briefing §15)
+       Nunca enviar nome, telefone, interesse clínico ou preferência
+       de pagamento. Só os parâmetros abaixo atravessam. (briefing §15)
        ========================================================== */
     const ALLOWED_PARAMS = new Set([
-      'page_type', 'page_mode', 'placement', 'cta_text', 'form_id',
+      'page_type', 'placement', 'cta_text', 'form_id',
       'step', 'lead_id', 'error_type', 'question_id'
     ]);
 
     window.dataLayer = window.dataLayer || [];
 
     function track(event, params = {}) {
-      const payload = { event, page_type: PAGE_TYPE, page_mode: PAGE_MODE };
+      const payload = { event, page_type: PAGE_TYPE };
       for (const [key, value] of Object.entries(params)) {
         if (ALLOWED_PARAMS.has(key) && value != null && value !== '') payload[key] = value;
       }
@@ -1669,15 +1762,15 @@
     }
 
     function validateStepTwo() {
-      const interest = form.querySelector('input[name="interest"]:checked');
+      const goal = form.querySelector('input[name="goal"]:checked');
       const urgency  = form.querySelector('input[name="urgency"]:checked');
       const consent  = form.elements.service_consent;
       let ok = true;
 
-      setGroupError('e-interest', ''); setGroupError('e-urgency', ''); setGroupError('e-consent', '');
+      setGroupError('e-goal', ''); setGroupError('e-urgency', ''); setGroupError('e-consent', '');
       consent.setAttribute('aria-invalid', 'false');
 
-      if (!interest) { setGroupError('e-interest', 'Selecione seu principal interesse.'); ok = false; }
+      if (!goal) { setGroupError('e-goal', 'Selecione a opção mais próxima do que gostaria de avaliar.'); ok = false; }
       if (!urgency)  { setGroupError('e-urgency', 'Selecione quando pretende começar.'); ok = false; }
       if (!consent.checked) {
         setGroupError('e-consent', 'Precisamos desta autorização para entrar em contato.');
@@ -1713,13 +1806,12 @@
     function buildPayload() {
       const now = new Date().toISOString();
       return {
-        source_page: 'launch',
-        page_mode: PAGE_MODE,
+        source_page: 'facets',
         pipeline: 'Ceilândia',
         name: form.elements.name.value.trim(),
         whatsapp: toE164(form.elements.phone.value),
         region: form.elements.region.value,
-        procedure_interest: form.querySelector('input[name="interest"]:checked')?.value || '',
+        procedure_interest: form.querySelector('input[name="goal"]:checked')?.value || '',
         urgency: form.querySelector('input[name="urgency"]:checked')?.value || '',
         payment_preference: form.querySelector('input[name="payment"]:checked')?.value || '',
         service_consent: { granted: true, timestamp: now, version: CONSENT_VERSION },
@@ -1760,7 +1852,7 @@
     form.addEventListener('change', (event) => {
       markStarted();
       const name = event.target.name;
-      if (name === 'interest') setGroupError('e-interest', '');
+      if (name === 'goal') setGroupError('e-goal', '');
       if (name === 'urgency')  setGroupError('e-urgency', '');
       if (name === 'service_consent' && event.target.checked) {
         setGroupError('e-consent', '');
@@ -1803,11 +1895,11 @@
       } catch (_) {
         // Campos preservados propositalmente (briefing §14).
         track('form_submit_error', { form_id: FORM_ID, error_type: 'network_or_api' });
-        statusText.textContent = 'Não conseguimos enviar seu cadastro agora. Revise os campos e tente novamente. Se preferir, fale diretamente com a equipe pelo telefone (61) 3686-2724.';
+        statusText.textContent = 'Não conseguimos enviar sua solicitação agora. Revise os campos e tente novamente. Se preferir, fale diretamente com a equipe pelo telefone (61) 3686-2724.';
         statusBox.hidden = false;
         submitting = false;
         button.disabled = false;
-        button.textContent = 'Enviar meu cadastro';
+        button.textContent = 'Solicitar contato';
       }
     });
 
@@ -1837,7 +1929,7 @@
         const panel = document.getElementById(button.getAttribute('aria-controls'));
         button.setAttribute('aria-expanded', String(!open));
         panel.hidden = open;
-        if (!open) track('faq_open', { question_id: `launch-faq-${index + 1}` });
+        if (!open) track('faq_open', { question_id: `facets-faq-${index + 1}` });
       });
     });
 
@@ -1856,12 +1948,13 @@
       link.addEventListener('click', () => track('route_click', { placement: link.dataset.placement || 'unknown' }));
     });
 
+    const mapBox = $('.js-map');
+
     // O iframe do Google Maps é de terceiro: fica fora do carregamento inicial e
     // só entra quando a seção de localização se aproxima da viewport.
     // Ao publicar o banner de consentimento, ligue MAP_REQUIRES_CONSENT e chame
     // window.makroLoadMap() no callback de aceite das tags não essenciais.
     const MAP_REQUIRES_CONSENT = false;
-    const mapBox = $('.js-map');
 
     function loadMap() {
       if (!mapBox || mapBox.querySelector('iframe')) return;
