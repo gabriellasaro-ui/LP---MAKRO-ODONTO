@@ -244,6 +244,11 @@
       box-shadow: 0 0 0 0 rgba(23, 71, 194, .55);
       animation: halo 2.8s var(--ease-out) infinite;
     }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
     @keyframes halo {
       0%   { box-shadow: 0 0 0 0 rgba(23, 71, 194, .5); }
       70%  { box-shadow: 0 0 0 16px rgba(23, 71, 194, 0); }
@@ -371,13 +376,17 @@
        7. FAIXA DE BENEFÍCIOS
        ============================================================ */
     .infoband {
+      overflow: hidden;
       padding-block: clamp(38px, 4vw, 54px);
       background: var(--navy-900);
       color: #fff;
     }
+    .infoband__viewport { width: min(var(--container), 100% - (var(--gutter) * 2)); margin-inline: auto; }
     .infoband__grid {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0;
     }
+    /* as copias só existem para o carrossel do mobile */
+    .infoband__item--clone { display: none; }
     /* item empilhado: ícone, título, apoio — alinhados pelo topo */
     .infoband__item {
       display: block; padding: 2px 32px;
@@ -852,7 +861,6 @@
     .footer__disclaimer { margin: 0; max-width: 78ch; color: #6f7ea6; font-size: .73rem; line-height: 1.55; }
     .footer__links { display: flex; flex-wrap: wrap; gap: 20px; flex: none; }
 
-    .stickycta { display: none; }
 
     /* ============================================================
        17. REVEAL
@@ -871,42 +879,79 @@
       .grid-3 > :last-child:nth-child(odd),
       .treatments > :last-child:nth-child(odd),
       .steps > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-      .infoband__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 0; }
-      .infoband__item:nth-child(odd) { padding-left: 0; border-left: 0; }
       .steps__track::before { display: none; }
     }
 
     @media (max-width: 980px) {
-      .hero {
-        display: block; min-height: 0;
-        padding-block: 34px 0;
-        background: linear-gradient(180deg, #f7faff, #fff);
+      /* carrossel contínuo: a faixa empilhada ocupava a tela inteira */
+      .infoband { padding-block: 30px; }
+      .infoband__viewport { width: 100%; overflow: hidden; }
+      .infoband__grid {
+        display: flex; width: max-content; gap: 0;
+        animation: marquee 26s linear infinite;
       }
-      .hero::after { display: none; }
-      .hero__inner { padding-inline: clamp(20px, 4vw, 44px) 20px; }
+      .infoband__item {
+        flex: 0 0 auto; width: 232px;
+        padding: 2px 22px; border-left: 1px solid rgba(255, 255, 255, .12);
+      }
+      .infoband__item:first-child { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .12); }
+      .infoband__item--clone { display: block; }
+      .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
+      .hero {
+        align-items: end;
+        min-height: calc(100vh - 82px);
+        min-height: calc(100svh - 82px);
+        padding-block: 14px 24px;
+      }
+      /* véu na base: garante a leitura da headline e do texto sobre a foto */
+      .hero::after {
+        display: block;
+        background: linear-gradient(to top,
+          #ffffff 0%,
+          rgba(255, 255, 255, .96) 34%,
+          rgba(255, 255, 255, .72) 52%,
+          rgba(255, 255, 255, .22) 68%,
+          rgba(255, 255, 255, 0) 82%);
+      }
+      .hero__inner { padding-inline: clamp(18px, 4vw, 40px) 18px; }
       .hero__copy { max-width: none; }
-      .hero__media { position: static; margin-top: 28px; }
-      .hero__media img { aspect-ratio: 16 / 10; height: auto; object-position: 76% center; }
+      .hero__media { position: absolute; inset: 0; margin-top: 0; }
+      .hero__media img { aspect-ratio: auto; height: 100%; object-position: 76% center; }
+      .hero h1 {
+        margin-bottom: 10px;
+        font-size: clamp(1.34rem, 5.2vw, 1.8rem);
+        line-height: 1.14;
+      }
+      .hero .lead {
+        margin-bottom: 12px; max-width: 46ch;
+        font-size: .89rem; line-height: 1.5;
+      }
+      .hero__actions { margin-bottom: 10px; }
+      .hero__actions .btn {
+        width: 100%; min-height: 46px; padding: 11px 18px; font-size: .87rem;
+      }
+      .hero__meta { display: none; }
+      .hero .microcopy { font-size: .71rem; line-height: 1.45; }
+      .launchdate { margin-bottom: 14px; padding: 8px 14px 8px 12px; font-size: .78rem; }
       .formsection__grid, .split, .loc { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 720px) {
-      .hero { padding-block: 28px 0; }
-      .hero__media { margin-top: 24px; }
-      .hero__media img { aspect-ratio: 4 / 3; object-position: 74% center; }
+      .hero {
+        min-height: calc(100vh - 68px);
+        min-height: calc(100svh - 68px);
+        padding-block: 16px 26px;
+      }
       :root { --gutter: 20px; --section-y: 60px; }
       html { scroll-padding-top: 78px; }
 
       .header__inner { min-height: 68px; }
       .header__logo { width: 146px; }
-      .header__actions .btn { display: none; }
+      .header__actions .btn { min-height: 42px; padding: 10px 16px; font-size: .85rem; }
 
-      .launchdate { font-size: .84rem; }
 
       .btn { min-height: 56px; }
 
-      .infoband__grid { grid-template-columns: 1fr; gap: 26px; }
-      .infoband__item { padding: 0; border-left: 0; }
 
       .grid-3, .treatments, .steps, .choices { grid-template-columns: 1fr; }
       .grid-3 > :last-child:nth-child(odd),
@@ -922,27 +967,17 @@
 
       .footer__top { grid-template-columns: 1fr; gap: 26px; }
       .footer__bottom { flex-direction: column; align-items: flex-start; }
-      .footer { padding-bottom: 124px; }
 
       .faq__q { padding: 18px 18px; font-size: 1rem; }
       .faq__a { padding: 0 18px 20px; }
 
-      .stickycta {
-        position: fixed; z-index: 70; right: 0; bottom: 0; left: 0; display: block;
-        padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
-        background: rgba(255, 255, 255, .95);
-        backdrop-filter: blur(12px);
-        border-top: 1px solid var(--border);
-        box-shadow: 0 -12px 34px -22px rgba(1, 22, 90, .9);
-        transition: transform .3s var(--ease-out);
-      }
-      .stickycta.is-hidden { transform: translateY(120%); }
     }
 
     @media (max-width: 460px) {
       :root { --gutter: 16px; }
+      .header__logo { width: 118px; }
+      .header__actions .btn { padding: 9px 12px; font-size: .79rem; }
       .hero h1 { font-size: clamp(1.85rem, 1rem + 4.4vw, 2.2rem); }
-      .hero__meta { gap: 6px 0; flex-direction: column; align-items: flex-start; }
       .hero__inner { padding-inline: var(--gutter); }
       .hero__actions { gap: 8px; }
       .hero__actions .btn { min-height: 46px; padding: 10px 14px; font-size: .82rem; }
@@ -959,12 +994,14 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .js .reveal { opacity: 1; transform: none; }
+      /* sem animação: vira faixa deslizável pelo dedo */
+      .infoband__grid { animation: none; }
+      .infoband__viewport { overflow-x: auto; }
       .btn--pulse::after, .launchdate__dot::after { animation: none; }
     }
 
     @media print {
-      .header, .stickycta, .formsection, .finalcta { display: none !important; }
-      body { font-size: 12pt; }
+      .header,      body { font-size: 12pt; }
     }
   </style>
 </head>
@@ -1056,18 +1093,32 @@
 
     <!-- ===================== FAIXA DE BENEFÍCIOS ===================== -->
     <section class="infoband" aria-label="Diferenciais da unidade">
-      <div class="container infoband__grid">
-        <div class="infoband__item">
-          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
-          <div><b>Planejamento individual</b><small>Cada caso avaliado separadamente</small></div>
-        </div>
-        <div class="infoband__item">
-          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
-          <div><b>Recursos digitais quando indicados</b><small>Apoio ao diagnóstico e ao planejamento</small></div>
-        </div>
-        <div class="infoband__item">
-          <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
-          <div><b>Condições de pagamento</b><small>Sujeitas a análise e regras vigentes</small></div>
+      <div class="infoband__viewport">
+        <div class="infoband__grid">
+          <div class="infoband__item">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Planejamento individual</b><small>Cada caso avaliado separadamente</small></div>
+          </div>
+          <div class="infoband__item">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Recursos digitais quando indicados</b><small>Apoio ao diagnóstico e ao planejamento</small></div>
+          </div>
+          <div class="infoband__item">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Condições de pagamento</b><small>Sujeitas a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item infoband__item--clone" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Planejamento individual</b><small>Cada caso avaliado separadamente</small></div>
+          </div>
+          <div class="infoband__item infoband__item--clone" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Recursos digitais quando indicados</b><small>Apoio ao diagnóstico e ao planejamento</small></div>
+          </div>
+          <div class="infoband__item infoband__item--clone" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Condições de pagamento</b><small>Sujeitas a análise e regras vigentes</small></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1498,9 +1549,6 @@
     </div>
   </footer>
 
-  <div class="stickycta js-sticky">
-    <a class="btn btn--primary btn--block js-scroll-form" href="#cadastro" data-placement="mobile_sticky">{{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}</a>
-  </div>
 
   <!-- FAQPage: conteúdo factual, sem preço, promessa ou avaliação.
        Dentist/LocalBusiness só entra depois de validar razão social, CRO-PJ,
@@ -1601,7 +1649,6 @@
     const successBox  = $('.js-success');
     const statusBox   = $('.js-form-status');
     const statusText  = $('.js-form-status-text');
-    const stickyCta   = $('.js-sticky');
 
     let formStarted = false;
     let submitting  = false;
@@ -1897,14 +1944,6 @@
       });
     });
 
-    /* ==========================================================
-       CTA FIXO MOBILE — some quando o formulário está visível
-       ========================================================== */
-    if ('IntersectionObserver' in window && stickyCta) {
-      new IntersectionObserver(([entry]) => {
-        stickyCta.classList.toggle('is-hidden', entry.isIntersecting);
-      }, { threshold: .25 }).observe(formSection);
-    }
 
     /* ==========================================================
        REVEAL — puramente decorativo

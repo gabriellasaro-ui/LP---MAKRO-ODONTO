@@ -14,49 +14,47 @@
   <meta name="theme-color" content="#01165a">
   <meta name="format-detection" content="telephone=no">
 
-  <title>Implante Dentário em Ceilândia | Makro Odontologia</title>
-  <meta name="description" content="Conheça as opções de implante dentário e protocolo com planejamento individual na Makro Ceilândia. Solicite contato para sua avaliação.">
+  <title>Prótese Dentária em Ceilândia | Makro Odontologia</title>
+  <meta name="description" content="Conheça as opções de prótese dentária e overdenture com avaliação individual na Makro Ceilândia. Solicite contato para sua avaliação.">
 
   <!-- REMOVER na publicação -->
   <meta name="robots" content="noindex, nofollow">
 
-  <link rel="canonical" href="https://[DOMINIO]/ceilandia/implantes/">
+  <link rel="canonical" href="https://[DOMINIO]/ceilandia/proteses/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Makro Odontologia Integrada">
-  <meta property="og:url" content="https://[DOMINIO]/ceilandia/implantes/">
-  <meta property="og:title" content="Implantes e protocolo na Makro Ceilândia">
-  <meta property="og:description" content="Converse com a equipe, esclareça dúvidas e solicite sua avaliação individual.">
-  <meta property="og:image" content="https://[DOMINIO]/static/og-implantes.jpg"><!-- [PENDENTE] arte 1200x630 -->
+  <meta property="og:url" content="https://[DOMINIO]/ceilandia/proteses/">
+  <meta property="og:title" content="Próteses e overdenture na Makro Ceilândia">
+  <meta property="og:description" content="Converse com a equipe, conheça as alternativas de reabilitação e solicite sua avaliação.">
+  <meta property="og:image" content="https://[DOMINIO]/static/og-proteses.jpg"><!-- [PENDENTE] arte 1200x630 -->
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/static/logo-makro.png">
   <link rel="apple-touch-icon" href="/static/logo-makro.png">
 
-  <!-- Fontes hospedadas localmente (briefing §14 — performance).
-       Playfair Display acompanha a serifada de alto contraste da logo.
-       Inter cobre texto corrido e interface. -->
+  <!-- Fontes hospedadas localmente (briefing §14). -->
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/playfair-display-latin-48d1e9.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/inter-latin-567244.woff2" crossorigin>
   <link rel="stylesheet" href="/static/fonts/fonts.css">
   <link rel="preload" as="image" href="/static/logo-makro.png">
-  <link rel="preload" as="image" href="/static/banner-pc-implante.webp" media="(min-width: 981px)" fetchpriority="high">
-  <link rel="preload" as="image" href="/static/banner-mobile-implante.webp" media="(max-width: 980px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/static/banner-pc-proteses.webp" media="(min-width: 981px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/static/banner-mobile-proteses.webp" media="(max-width: 980px)" fetchpriority="high">
 
   <!--
-    ROTA DE SAÚDE — REGRAS DE IMPLEMENTAÇÃO (briefing §15, §16, §17)
-    - GTM nesta rota opera por ALLOWLIST de eventos (ver track()).
-    - Meta Pixel/CAPI permanece DESATIVADO aqui até revisão documentada.
+    ROTA DE SAÚDE — REGRAS (briefing §15, §16, §17)
+    - dataLayer opera por ALLOWLIST: a necessidade clínica NUNCA vai às plataformas.
+    - Meta Pixel/CAPI permanece DESATIVADO nesta rota até revisão documentada.
     - Não criar remarketing, Customer Match, lookalike ou audiência derivada desta página.
-    - Nunca enviar nome, telefone, interesse clínico ou preferência de pagamento ao dataLayer.
+    - Não prometer prazo de adaptação nem superioridade entre alternativas.
     - Substituir submitLead() pelo endpoint first-party. Não expor webhook/credencial do CRM.
     - Remover noindex/nofollow somente na publicação.
-    - Endereço e telefone confirmados via Google Business Profile.
   -->
 
   <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
   <style>
+
     /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
        ============================================================ */
@@ -622,29 +620,35 @@
       transform: scale(1.06) rotate(-3deg);
     }
 
-    /* Comparativo */
-    .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
-    .compare__panel {
-      position: relative; overflow: hidden;
-      padding: clamp(30px, 3.6vw, 46px);
-      background: #fff; border: 1px solid var(--border);
-      border-radius: var(--r-xl); box-shadow: var(--shadow-xs);
+    .treatments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+    .treatment {
+      position: relative; overflow: hidden; display: flex; flex-direction: column;
+      min-height: 280px; padding: 34px 30px;
+      color: #fff; border-radius: var(--r-lg);
+      background: linear-gradient(155deg, var(--navy-950), var(--navy-900));
+      transition: transform .32s var(--ease-out), box-shadow .32s var(--ease-out);
     }
-    .compare__panel::after {
-      content: ""; position: absolute; right: -80px; bottom: -100px;
-      width: 220px; height: 220px;
-      border: 30px solid rgba(1, 22, 90, .04); border-radius: 50%;
+    .treatment:nth-child(2) { background: linear-gradient(155deg, var(--navy-900), var(--navy-800)); }
+    .treatment:nth-child(3) { background: linear-gradient(155deg, var(--navy-800), var(--navy-700)); }
+    .treatment::after {
+      content: ""; position: absolute; right: -60px; bottom: -90px;
+      width: 200px; height: 200px;
+      border: 30px solid rgba(255, 255, 255, .06); border-radius: 50%;
+      transition: transform .5s var(--ease-out);
     }
-    .compare__tag {
-      display: inline-flex; align-items: center; gap: 9px;
-      margin-bottom: 22px; padding: 9px 16px;
-      background: var(--navy-100); color: var(--navy-900);
-      border-radius: var(--r-pill);
-      font-size: .73rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    .treatment:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .treatment:hover::after { transform: scale(1.16); }
+
+    .treatment > * { position: relative; z-index: 1; }
+    .treatment__icon {
+      display: grid; place-items: center; width: 50px; height: 50px; margin-bottom: 24px;
+      background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: var(--r-md); color: #cfdcff;
     }
-    .compare__tag svg { width: 16px; height: 16px; color: var(--navy-700); }
-    .compare__panel h3 { font-size: 1.4rem; margin-bottom: 14px; }
-    .compare__panel p { position: relative; z-index: 1; color: var(--text-muted); margin-bottom: 0; }
+    .treatment__icon svg { width: 26px; height: 26px; }
+    .treatment h3 { color: #fff; font-size: 1.28rem; margin-bottom: 12px; }
+    .treatment p { color: #bccbee; font-size: .93rem; margin-bottom: 0; }
 
     .note {
       display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -930,7 +934,8 @@
        18. RESPONSIVO
        ============================================================ */
     @media (max-width: 1080px) {
-      .grid-4, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-4, .treatments, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .treatments > :last-child:nth-child(odd) { grid-column: 1 / -1; }
       .steps__track::before { display: none; }
     }
 
@@ -1005,7 +1010,9 @@
       .btn { min-height: 56px; }
 
 
-      .grid-4, .compare, .choices, .steps { grid-template-columns: 1fr; }
+      .grid-4, .treatments, .choices, .steps { grid-template-columns: 1fr; }
+      .treatments > :last-child:nth-child(odd) { grid-column: auto; }
+      .treatment { min-height: 0; padding: 28px 24px; }
 
       .formcard { padding: 24px 20px; }
 
@@ -1050,10 +1057,10 @@
     @media print {
       .header,      body { font-size: 12pt; }
     }
-  </style>
+    </style>
 </head>
 
-<body data-page-type="implant">
+<body data-page-type="prosthesis">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK9CXHP2"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1061,7 +1068,7 @@
 
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- Conjunto de ícones — traço 1.6, cantos arredondados, geometria própria -->
+  <!-- Conjunto de ícones — traço 1.6, cantos arredondados -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
       <symbol viewBox="0 0 24 24" id="ic-check" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.4 4.7 4.6L19.5 7"/></symbol>
@@ -1074,7 +1081,6 @@
       <symbol viewBox="0 0 24 24" id="ic-tooth" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16.6 3.2c-1.1 0-1.9.35-2.6.7-.7.34-1.3.6-2 .6s-1.3-.26-2-.6c-.7-.35-1.5-.7-2.6-.7C5.6 3.2 4 5.3 4 8.3c0 1.9.5 3.4.9 4.9.3 1.1.5 2.1.7 3.4.2 1.5.4 2.8.9 3.7.3.6.9 1 1.6 1 1 0 1.6-.8 1.8-1.9.2-1 .3-2.2.5-3.3.2-1 .6-1.6 1.6-1.6s1.4.6 1.6 1.6c.2 1.1.3 2.3.5 3.3.2 1.1.8 1.9 1.8 1.9.7 0 1.3-.4 1.6-1 .5-.9.7-2.2.9-3.7.2-1.3.4-2.3.7-3.4.4-1.5.9-3 .9-4.9 0-3-1.6-5.1-3.4-5.1Z"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-arch" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 15.4C3.6 9.3 7.4 5 12 5s8.4 4.3 8.4 10.4"/><path d="M6.2 15.6v1.9a1.9 1.9 0 0 0 3.8 0v-1.9M10.1 15.2v1.5a1.9 1.9 0 0 0 3.8 0v-1.5M14 15.6v1.9a1.9 1.9 0 0 0 3.8 0v-1.9"/><path d="M3.6 12.6h16.8"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-chew" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 8.2h15.2M4.4 15.8h15.2"/><path d="M7.2 8.2V5.6M12 8.2V4.4M16.8 8.2V5.6M7.2 15.8v2.6M12 15.8v3.8M16.8 15.8v2.6"/></symbol>
-      <symbol viewBox="0 0 24 24" id="ic-second" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 16.4H8.8L5 19.3V6.4a2 2 0 0 1 2-2h7.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z"/><path d="M19 8.6v6.9a2 2 0 0 1-2 2h-.3"/><path d="M9.6 8.9a2.2 2.2 0 0 1 4.2.7c0 1.5-2.1 1.9-2.1 1.9M11.7 13.6h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-scan" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 8.6V6.2a2.6 2.6 0 0 1 2.6-2.6h2.4M20.4 8.6V6.2a2.6 2.6 0 0 0-2.6-2.6h-2.4M3.6 15.4v2.4a2.6 2.6 0 0 0 2.6 2.6h2.4M20.4 15.4v2.4a2.6 2.6 0 0 1-2.6 2.6h-2.4"/><path d="M3.6 12h16.8"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-plan" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.4 3.6H8.6a2 2 0 0 0-2 2v12.8a2 2 0 0 0 2 2h6.8a2 2 0 0 0 2-2V5.6a2 2 0 0 0-2-2Z"/><path d="M9.8 8.4h4.4M9.8 12h4.4M9.8 15.6h2.6"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-wallet" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9.4V7.6a2 2 0 0 0-2-2H5.6a2 2 0 0 0-2 2v8.8a2 2 0 0 0 2 2H18a2 2 0 0 0 2-2v-1.8"/><path d="M20.8 9.4h-4.2a2.6 2.6 0 0 0 0 5.2h4.2V9.4Z"/></symbol>
@@ -1085,6 +1091,10 @@
       <symbol viewBox="0 0 24 24" id="ic-info" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.8"/><path d="M12 11.2v5.4M12 7.7h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-alert" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2 21 19.6H3L12 4.2Z"/><path d="M12 9.9v4.1M12 16.9h.01"/></symbol>
       <symbol viewBox="0 0 24 24" id="ic-calendar" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.8" y="5.6" width="16.4" height="14.6" rx="2.2"/><path d="M3.8 10h16.4M8.4 3.8v3.4M15.6 3.8v3.4"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-denture" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 9c0-1.2 1-2.1 2.2-2 4 .4 7.9.4 12 0 1.2-.1 2.2.8 2.2 2 0 3.9-2.4 7-4.6 7-1.3 0-1.7-1-1.9-2.2-.2-1-.5-1.7-1.7-1.7s-1.5.7-1.7 1.7c-.2 1.2-.6 2.2-1.9 2.2-2.2 0-4.6-3.1-4.6-7Z"/><path d="M7.8 8.4v2.2M12 8.2v2.4M16.2 8.4v2.2"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-overdenture" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 6.8c0-1.1 1-2 2.2-1.9 4 .4 7.9.4 12 0 1.2-.1 2.2.8 2.2 1.9 0 3.4-2.3 6.1-4.4 6.1-1.2 0-1.6-.9-1.8-1.9-.2-.9-.5-1.5-1.7-1.5s-1.5.6-1.7 1.5c-.2 1-.6 1.9-1.8 1.9-2.1 0-4.4-2.7-4.4-6.1Z"/><path d="M8.6 15.6v1.6a1.7 1.7 0 0 0 3.4 0v-1.6M13.2 15.6v1.6a1.7 1.7 0 0 0 3.4 0v-1.6"/><path d="M7.4 15.6h10.2"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-shift" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8.4" y="8.4" width="7.2" height="7.2" rx="1.6"/><path d="M4.8 9.6 2.6 12l2.2 2.4M19.2 9.6l2.2 2.4-2.2 2.4"/></symbol>
+      <symbol viewBox="0 0 24 24" id="ic-repair" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.1 5.4a4.4 4.4 0 0 0 5.5 5.7l-8.9 8.9a2.2 2.2 0 0 1-3.1-3.1l8.9-8.9a4.4 4.4 0 0 0-2.4-2.6Z"/><path d="M6.2 18.2h.01"/></symbol>
     </defs>
   </svg>
 
@@ -1106,9 +1116,8 @@
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__copy">
-          <h1>Implante dentário em Ceilândia com planejamento feito para o seu caso.</h1>
-          <p class="lead">Converse com a equipe da Makro para conhecer as possibilidades de implante e protocolo, esclarecer suas dúvidas e solicitar uma avaliação individual.</p>
-
+          <h1>Prótese dentária em Ceilândia com avaliação e planejamento individual.</h1>
+          <p class="lead">Converse com a equipe da Makro para conhecer alternativas de prótese, overdenture e reabilitação, esclarecer dúvidas e solicitar uma avaliação.</p>
 
           <div class="hero__actions">
             <a class="btn btn--primary btn--pulse js-scroll-form" href="#cadastro" data-placement="hero">
@@ -1122,30 +1131,30 @@
             <span><svg aria-hidden="true"><use href="#ic-clock"/></svg>Atendimento de segunda a sábado</span>
           </p>
 
-          <p class="microcopy">A indicação, o prazo e o plano de tratamento dependem de avaliação profissional. Financiamento sujeito à análise e às condições vigentes.</p>
+          <p class="microcopy">A indicação, a adaptação, o prazo e o plano de tratamento dependem de avaliação profissional. Financiamento sujeito à análise e às condições vigentes.</p>
         </div>
       </div>
 
       <picture class="hero__media">
-        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-implante.webp">
-        <source media="(max-width: 980px)" srcset="/static/banner-mobile-implante.png">
-        <source type="image/webp" srcset="/static/banner-pc-implante.webp">
-        <img src="/static/banner-pc-implante.png" width="1672" height="941" fetchpriority="high" decoding="async"
-             alt="Profissional da Makro mostrando um modelo de implante dentário para uma paciente durante a avaliação">
+        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-proteses.webp">
+        <source media="(max-width: 980px)" srcset="/static/banner-mobile-proteses.png">
+        <source type="image/webp" srcset="/static/banner-pc-proteses.webp">
+        <img src="/static/banner-pc-proteses.png" width="1672" height="941" fetchpriority="high" decoding="async"
+             alt="Paciente sorrindo na cadeira odontológica durante avaliação na Makro Ceilândia">
       </picture>
     </section>
 
     <!-- ===================== FAIXA DE INFORMAÇÕES ===================== -->
-    <section class="infoband" aria-label="Informações da unidade">
+    <section class="infoband" aria-label="Diferenciais do atendimento">
       <div class="infoband__viewport">
         <div class="infoband__grid">
           <div class="infoband__item">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
-            <div><b>Avaliação individual</b><small>Plano definido caso a caso</small></div>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
           </div>
           <div class="infoband__item">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
-            <div><b>Recursos digitais</b><small>Quando indicados para o caso</small></div>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
           </div>
           <div class="infoband__item">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
@@ -1157,11 +1166,11 @@
           </div>
           <div class="infoband__item infoband__item--clone" aria-hidden="true">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
-            <div><b>Avaliação individual</b><small>Plano definido caso a caso</small></div>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
           </div>
           <div class="infoband__item infoband__item--clone" aria-hidden="true">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
-            <div><b>Recursos digitais</b><small>Quando indicados para o caso</small></div>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
           </div>
           <div class="infoband__item infoband__item--clone" aria-hidden="true">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
@@ -1175,7 +1184,7 @@
       </div>
     </section>
 
-    <!-- ===================== FORMULÁRIO (seção própria) ===================== -->
+    <!-- ===================== FORMULÁRIO ===================== -->
     <section class="formsection" id="cadastro">
       <div class="container formsection__grid">
         <div>
@@ -1255,11 +1264,12 @@
 
                 <fieldset class="field-group" aria-describedby="e-solution">
                   <legend>O que você procura?</legend>
-                  <div class="choices choices--single">
-                    <label class="choice"><input type="radio" name="solution" value="one-tooth"><span class="choice__dot" aria-hidden="true"></span>Repor um dente</label>
-                    <label class="choice"><input type="radio" name="solution" value="multiple-teeth"><span class="choice__dot" aria-hidden="true"></span>Repor mais de um dente</label>
-                    <label class="choice"><input type="radio" name="solution" value="removable-prosthesis"><span class="choice__dot" aria-hidden="true"></span>Entender opções para dentadura/prótese móvel</label>
-                    <label class="choice"><input type="radio" name="solution" value="fixed-protocol"><span class="choice__dot" aria-hidden="true"></span>Protocolo fixo</label>
+                  <div class="choices">
+                    <label class="choice"><input type="radio" name="solution" value="replace-removable"><span class="choice__dot" aria-hidden="true"></span>Trocar prótese móvel</label>
+                    <label class="choice"><input type="radio" name="solution" value="missing-teeth"><span class="choice__dot" aria-hidden="true"></span>Repor dentes ausentes</label>
+                    <label class="choice"><input type="radio" name="solution" value="overdenture"><span class="choice__dot" aria-hidden="true"></span>Conhecer overdenture</label>
+                    <label class="choice"><input type="radio" name="solution" value="fixed-prosthesis"><span class="choice__dot" aria-hidden="true"></span>Conhecer prótese fixa</label>
+                    <label class="choice"><input type="radio" name="solution" value="repair-or-review"><span class="choice__dot" aria-hidden="true"></span>Avaliar prótese atual</label>
                     <label class="choice"><input type="radio" name="solution" value="unsure"><span class="choice__dot" aria-hidden="true"></span>Ainda não sei</label>
                   </div>
                   <span class="field-error" id="e-solution"></span>
@@ -1322,7 +1332,7 @@
             <p>Obrigado. A equipe da Makro Ceilândia poderá entrar em contato pelo WhatsApp ou telefone informado para orientar o próximo passo.</p>
             <!-- [PENDENTE] substituir 55[PENDENTE] pelo WhatsApp oficial da unidade -->
             <a class="btn btn--primary btn--block js-whatsapp" data-placement="success" target="_blank" rel="noopener noreferrer"
-               href="https://wa.me/55[PENDENTE]?text=Ol%C3%A1%2C%20encontrei%20a%20Makro%20pela%20p%C3%A1gina%20de%20implantes%20em%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o%20de%20contato.">
+               href="https://wa.me/55[PENDENTE]?text=Ol%C3%A1%2C%20encontrei%20a%20Makro%20pela%20p%C3%A1gina%20de%20pr%C3%B3teses%20em%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20uma%20solicita%C3%A7%C3%A3o.">
               <svg aria-hidden="true"><use href="#ic-whats"/></svg>
               Falar com a equipe no WhatsApp
             </a>
@@ -1336,64 +1346,70 @@
       <div class="container">
         <div class="head reveal">
           <p class="eyebrow">Entenda o seu momento</p>
-          <h2>Quando vale procurar uma avaliação para implantes?</h2>
-          <p class="lead">Uma avaliação pode ajudar a entender as alternativas disponíveis quando existe perda dentária, dificuldade para mastigar ou insegurança com uma prótese removível.</p>
+          <h2>Quando vale procurar uma avaliação para prótese?</h2>
+          <p class="lead">Uma avaliação ajuda a entender alternativas quando há dentes ausentes, dificuldade para mastigar ou desconforto e insegurança com a prótese atual.</p>
         </div>
 
         <div class="grid-4">
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-tooth"/></svg></span>
-            <h3>Perda de um ou mais dentes</h3>
-            <p>Entenda as possibilidades para repor dentes ausentes de acordo com as condições do seu caso.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-shift"/></svg></span>
+            <h3>Prótese móvel instável</h3>
+            <p>Converse sobre alternativas quando a prótese se movimenta, perde retenção ou gera insegurança no dia a dia.</p>
           </article>
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-arch"/></svg></span>
-            <h3>Uso de dentadura ou prótese móvel</h3>
-            <p>Conheça alternativas de reabilitação e descubra se uma solução apoiada por implantes pode ser considerada.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-tooth"/></svg></span>
+            <h3>Dentes ausentes</h3>
+            <p>Entenda quais possibilidades podem ser consideradas para recuperar espaços e apoiar a mastigação.</p>
           </article>
           <article class="card reveal">
             <span class="card__icon" aria-hidden="true"><svg><use href="#ic-chew"/></svg></span>
             <h3>Dificuldade para mastigar</h3>
-            <p>A avaliação identifica necessidades e ajuda a organizar um plano de tratamento individual.</p>
+            <p>A avaliação ajuda a identificar necessidades e organizar um plano compatível com as condições bucais.</p>
           </article>
           <article class="card reveal">
-            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-second"/></svg></span>
-            <h3>Busca por uma segunda orientação</h3>
-            <p>Leve suas dúvidas e exames anteriores para uma conversa profissional sobre possibilidades e próximos passos.</p>
+            <span class="card__icon" aria-hidden="true"><svg><use href="#ic-repair"/></svg></span>
+            <h3>Prótese antiga ou danificada</h3>
+            <p>Leve sua prótese para avaliar adaptação, conservação e possibilidades de substituição, quando indicadas.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ===================== IMPLANTE X PROTOCOLO ===================== -->
+    <!-- ===================== ALTERNATIVAS ===================== -->
     <section class="section section--alt">
       <div class="container">
         <div class="head head--center reveal">
-          <p class="eyebrow">Informação para decidir</p>
-          <h2>Implante e protocolo: entenda a diferença.</h2>
+          <p class="eyebrow">Alternativas de reabilitação</p>
+          <h2>Prótese removível, overdenture ou solução fixa?</h2>
+          <p class="lead">Cada alternativa tem indicações, etapas e cuidados próprios. A avaliação define o que pode ser considerado para o seu caso.</p>
         </div>
 
-        <div class="compare">
-          <article class="compare__panel reveal">
-            <span class="compare__tag"><svg aria-hidden="true"><use href="#ic-tooth"/></svg>Implante dentário</span>
-            <h3>Reposição planejada para uma ou mais ausências</h3>
-            <p>O implante é uma estrutura instalada no osso para apoiar a reposição de um dente. Pode fazer parte do planejamento para uma ou mais ausências dentárias, conforme avaliação clínica e exames.</p>
+        <div class="treatments">
+          <article class="treatment reveal">
+            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-denture"/></svg></span>
+            <h3>Prótese removível</h3>
+            <p>Uma alternativa que o paciente retira para higienizar. Pode substituir vários ou todos os dentes e precisa de avaliação de adaptação, suporte e condições dos tecidos bucais.</p>
           </article>
-          <article class="compare__panel reveal">
-            <span class="compare__tag"><svg aria-hidden="true"><use href="#ic-arch"/></svg>Prótese protocolo</span>
-            <h3>Solução fixa apoiada por implantes</h3>
-            <p>O protocolo é uma prótese fixa apoiada por implantes, geralmente considerada em casos de perda de vários ou de todos os dentes de uma arcada. A quantidade de implantes e a indicação variam de pessoa para pessoa.</p>
+          <article class="treatment reveal">
+            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-overdenture"/></svg></span>
+            <h3>Overdenture</h3>
+            <p>Prótese removível apoiada por implantes. Utiliza encaixes sobre implantes para auxiliar na retenção. A quantidade de implantes e a indicação dependem da avaliação e dos exames.</p>
+          </article>
+          <article class="treatment reveal">
+            <span class="treatment__icon" aria-hidden="true"><svg><use href="#ic-arch"/></svg></span>
+            <h3>Prótese fixa / protocolo</h3>
+            <p>Solução fixa apoiada por implantes. Pode ser considerada em algumas reabilitações de arcada. Exige análise clínica, exames, planejamento e condições adequadas para o caso.</p>
           </article>
         </div>
 
         <div class="note reveal">
           <svg aria-hidden="true"><use href="#ic-info"/></svg>
-          <p>Somente a avaliação profissional pode indicar qual alternativa é adequada, quais exames são necessários e quais etapas fazem parte do tratamento.</p>
+          <p>Nenhuma opção é automaticamente superior para todas as pessoas. Saúde bucal, estrutura óssea, adaptação, higienização e rotina precisam ser avaliadas.</p>
         </div>
 
         <div class="center-cta reveal">
-          <a class="btn btn--primary btn--lg js-scroll-form" href="#cadastro" data-placement="comparison">
-            Quero entender qual opção pode ser avaliada
+          <a class="btn btn--primary btn--lg js-scroll-form" href="#cadastro" data-placement="options">
+            Quero entender as alternativas
             <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
           </a>
         </div>
@@ -1404,8 +1420,8 @@
     <section class="section">
       <div class="container">
         <div class="head head--center reveal">
-          <p class="eyebrow">Como funciona</p>
-          <h2>Da primeira conversa ao plano de tratamento.</h2>
+          <p class="eyebrow">Etapas claras</p>
+          <h2>Da primeira conversa ao planejamento.</h2>
           <p class="lead">Quatro etapas objetivas, sem surpresa em nenhuma delas.</p>
         </div>
 
@@ -1415,32 +1431,32 @@
               <span class="step-card__ghost" aria-hidden="true">1</span>
               <span class="step-card__num" aria-hidden="true">1</span>
               <h3>Solicite o contato</h3>
-              <p>Preencha o formulário e informe sua região, seu momento e a principal necessidade.</p>
+              <p>Informe sua região, seu momento e a alternativa que deseja conhecer.</p>
             </article>
             <article class="step-card reveal">
               <span class="step-card__ghost" aria-hidden="true">2</span>
               <span class="step-card__num" aria-hidden="true">2</span>
               <h3>Confirme a avaliação</h3>
-              <p>A equipe entra em contato para esclarecer informações iniciais e apresentar os horários disponíveis.</p>
+              <p>A equipe esclarece informações iniciais e apresenta os horários disponíveis.</p>
             </article>
             <article class="step-card reveal">
               <span class="step-card__ghost" aria-hidden="true">3</span>
               <span class="step-card__num" aria-hidden="true">3</span>
-              <h3>Avaliação e planejamento</h3>
-              <p>O profissional avalia o caso e indica exames quando necessários para definir as possibilidades de tratamento.</p>
+              <h3>Avaliação e exames</h3>
+              <p>O profissional avalia adaptação, estruturas bucais e indica exames quando necessários.</p>
             </article>
             <article class="step-card reveal">
               <span class="step-card__ghost" aria-hidden="true">4</span>
               <span class="step-card__num" aria-hidden="true">4</span>
-              <h3>Decisão com clareza</h3>
-              <p>Você recebe as orientações do caso, as etapas previstas e as condições disponíveis antes de decidir.</p>
+              <h3>Plano e condições</h3>
+              <p>Você recebe as alternativas, etapas e condições disponíveis antes de decidir.</p>
             </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== PLANEJAMENTO DIGITAL ===================== -->
+    <!-- ===================== PLANEJAMENTO ===================== -->
     <section class="section section--blue">
       <div class="container split">
         <figure class="figure reveal">
@@ -1451,18 +1467,18 @@
           </picture>
         </figure>
         <div class="reveal">
-          <p class="eyebrow">Recursos digitais</p>
-          <h2>Planejamento para reduzir incertezas.</h2>
-          <p class="lead">Quando indicados, recursos digitais apoiam a análise das estruturas bucais e o planejamento. Em casos compatíveis, o escaneamento digital pode substituir a moldagem convencional, evitando o uso da massa de moldagem.</p>
+          <p class="eyebrow">Planejamento individual</p>
+          <h2>Uma prótese precisa considerar mais do que aparência.</h2>
+          <p class="lead">Adaptação, suporte, mastigação, higienização e condições bucais fazem parte do planejamento. Quando compatível com o caso, o escaneamento digital pode substituir a moldagem convencional.</p>
           <ul class="checks">
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Informações para apoiar o diagnóstico;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Medidas digitais quando compatíveis com o caso;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Explicação das etapas antes do início do tratamento.</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Avaliação da prótese atual e das estruturas bucais;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Medidas e exames quando indicados;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Orientação sobre adaptação, uso e higienização;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Definição de etapas sem promessa de prazo antes da avaliação.</span></li>
           </ul>
         </div>
       </div>
     </section>
-
 
     <!-- ===================== PAGAMENTO ===================== -->
     <section class="section section--alt">
@@ -1471,8 +1487,8 @@
           <div>
             <p class="eyebrow">Condições de pagamento</p>
             <h2>Condições para organizar o seu tratamento.</h2>
-            <p class="pay__text">A Makro oferece possibilidades de pagamento e financiamento próprio. Depois da avaliação e da definição do plano, a equipe apresenta as condições disponíveis para o caso.</p>
-            <p class="microcopy">Aprovação, entrada, limite, número de parcelas e demais condições estão sujeitos à análise e às regras vigentes. Nenhuma condição é garantida pelo preenchimento deste formulário.</p>
+            <p class="pay__text">A Makro oferece possibilidades de pagamento e financiamento próprio. Depois da avaliação e da definição do plano, a equipe apresenta as condições disponíveis.</p>
+            <p class="microcopy">Aprovação, entrada, limite, parcelas e demais condições estão sujeitos à análise e às regras vigentes. Nenhuma condição é garantida pelo formulário.</p>
           </div>
 
           <div>
@@ -1507,7 +1523,7 @@
         <div class="loc reveal">
           <div class="loc__copy">
             <p class="eyebrow">Localização</p>
-            <h2>Implantes e protocolo na Makro Ceilândia.</h2>
+            <h2>Próteses e overdenture na Makro Ceilândia.</h2>
             <p class="lead">A nova unidade atende Ceilândia e região de segunda a sábado.</p>
 
             <ul class="loc__list">
@@ -1548,7 +1564,7 @@
             </div>
           </div>
 
-          <!-- Mapa carregado apenas após interação/consentimento (briefing §6.9 e §14) -->
+          <!-- Mapa carregado fora do load inicial (briefing §6.9 e §14) -->
           <div class="map js-map" aria-label="Mapa da unidade">
             <div class="map__inner">
               <div class="map__pin" aria-hidden="true"><svg><use href="#ic-pin"/></svg></div>
@@ -1569,32 +1585,32 @@
 
         <div class="faq reveal">
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1"><span>Qual é a diferença entre implante e protocolo?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-1" hidden><p>O implante pode apoiar a reposição de um ou mais dentes. O protocolo é uma prótese fixa apoiada por implantes e costuma ser avaliado em casos de perda de vários ou de todos os dentes de uma arcada. A indicação depende da avaliação individual.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1"><span>Qual tipo de prótese é indicado para mim?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-1" hidden><p>A indicação depende da quantidade e posição dos dentes ausentes, condições dos dentes remanescentes, estrutura óssea, tecidos bucais, higienização e objetivos do paciente.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2"><span>Quanto custa um implante dentário?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-2" hidden><p>O valor varia conforme a condição bucal, a quantidade de dentes, os exames e as etapas necessárias. Por isso, o orçamento é apresentado depois da avaliação e da definição do plano de tratamento.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2"><span>Qual é a diferença entre overdenture e dentadura?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-2" hidden><p>A overdenture é removível, mas utiliza encaixes sobre implantes para auxiliar na retenção. A dentadura convencional se apoia nos tecidos bucais. A possibilidade de implantes precisa ser avaliada.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3"><span>A Makro oferece parcelamento ou financiamento?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-3" hidden><p>Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano definido e estão sujeitas à análise e às regras vigentes.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-3"><span>É possível trocar a prótese móvel por uma fixa?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-3" hidden><p>Em alguns casos, soluções apoiadas por implantes podem ser consideradas. A avaliação e os exames mostram se há indicação e quais etapas seriam necessárias.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4"><span>Todo paciente pode fazer implante?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-4" hidden><p>A possibilidade depende da saúde bucal, das condições gerais, da estrutura óssea e de outros fatores avaliados pelo cirurgião-dentista. Exames podem ser solicitados quando necessários.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-4"><span>Quanto custa uma prótese dentária?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-4" hidden><p>O valor varia conforme o tipo de prótese, materiais, exames, necessidade de implantes e etapas do caso. O orçamento é apresentado depois da avaliação e do planejamento.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5"><span>O tratamento pode ser concluído em 48 horas?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-5" hidden><p>O prazo varia conforme o caso, os exames, a resposta clínica e as etapas necessárias. A equipe só apresenta uma previsão depois da avaliação e do planejamento.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5"><span>Quanto tempo leva para ficar pronta?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-5" hidden><p>O prazo depende da opção indicada, das etapas clínicas, de exames, adaptação e produção laboratorial. A equipe só apresenta uma previsão depois da avaliação.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-6"><span>Preciso levar exames na primeira avaliação?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-6" hidden><p>Se você já possui exames recentes, pode levá-los. O profissional informará se eles são suficientes ou se outros exames são indicados.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-6"><span>A prótese precisa de manutenção?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-6" hidden><p>Sim. Higienização, retornos e acompanhamento ajudam a avaliar adaptação, desgaste e saúde dos tecidos. A frequência é orientada pelo profissional.</p></div>
           </div>
           <div class="faq__item">
-            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-7"><span>A avaliação já me obriga a iniciar o tratamento?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-7" hidden><p>Não. A avaliação serve para entender o caso e apresentar as possibilidades. A decisão de iniciar o tratamento é do paciente.</p></div>
+            <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-7"><span>A Makro oferece parcelamento ou financiamento?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="faq__a" id="faq-7" hidden><p>Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano e estão sujeitas à análise e às regras vigentes.</p></div>
           </div>
         </div>
       </div>
@@ -1604,8 +1620,8 @@
     <section class="finalcta">
       <div class="container finalcta__inner">
         <div>
-          <h2>Dê o primeiro passo para entender o seu caso.</h2>
-          <p>Envie seus dados. A equipe da Makro Ceilândia entrará em contato para esclarecer informações iniciais e apresentar os horários disponíveis.</p>
+          <h2>Dê o primeiro passo para entender as alternativas.</h2>
+          <p>Envie seus dados. A equipe entrará em contato para orientar o próximo passo e apresentar os horários disponíveis.</p>
         </div>
         <a class="btn btn--light btn--lg js-scroll-form" href="#cadastro" data-placement="final">
           Solicitar contato para avaliação
@@ -1642,7 +1658,7 @@
       </div>
 
       <div class="footer__bottom">
-        <p class="footer__disclaimer">Conteúdo informativo. A indicação de tratamento, os exames necessários e o prazo dependem de avaliação profissional individual. As condições de pagamento e o financiamento próprio estão sujeitos à análise e às regras vigentes.</p>
+        <p class="footer__disclaimer">Conteúdo informativo. A indicação de tratamento, os exames necessários, a adaptação e o prazo dependem de avaliação profissional individual. As condições de pagamento e o financiamento próprio estão sujeitos à análise e às regras vigentes.</p>
         <nav class="footer__links" aria-label="Links legais">
           <a href="#privacidade">Política de Privacidade</a>
           <a href="#privacidade">Termos de Uso</a>
@@ -1656,15 +1672,7 @@
        Dentist/LocalBusiness só entra depois de validar razão social, CRO-PJ,
        responsável técnico e horários. Nunca inserir aggregateRating. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Qual é a diferença entre implante e protocolo?","acceptedAnswer":{"@type":"Answer","text":"O implante pode apoiar a reposição de um ou mais dentes. O protocolo é uma prótese fixa apoiada por implantes e costuma ser avaliado em casos de perda de vários ou de todos os dentes de uma arcada. A indicação depende da avaliação individual."}},
-    {"@type":"Question","name":"Quanto custa um implante dentário?","acceptedAnswer":{"@type":"Answer","text":"O valor varia conforme a condição bucal, a quantidade de dentes, os exames e as etapas necessárias. Por isso, o orçamento é apresentado depois da avaliação e da definição do plano de tratamento."}},
-    {"@type":"Question","name":"A Makro oferece parcelamento ou financiamento?","acceptedAnswer":{"@type":"Answer","text":"Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano definido e estão sujeitas à análise e às regras vigentes."}},
-    {"@type":"Question","name":"Todo paciente pode fazer implante?","acceptedAnswer":{"@type":"Answer","text":"A possibilidade depende da saúde bucal, das condições gerais, da estrutura óssea e de outros fatores avaliados pelo cirurgião-dentista. Exames podem ser solicitados quando necessários."}},
-    {"@type":"Question","name":"O tratamento pode ser concluído em 48 horas?","acceptedAnswer":{"@type":"Answer","text":"O prazo varia conforme o caso, os exames, a resposta clínica e as etapas necessárias. A equipe só apresenta uma previsão depois da avaliação e do planejamento."}},
-    {"@type":"Question","name":"Preciso levar exames na primeira avaliação?","acceptedAnswer":{"@type":"Answer","text":"Se você já possui exames recentes, pode levá-los. O profissional informará se eles são suficientes ou se outros exames são indicados."}},
-    {"@type":"Question","name":"A avaliação já me obriga a iniciar o tratamento?","acceptedAnswer":{"@type":"Answer","text":"Não. A avaliação serve para entender o caso e apresentar as possibilidades. A decisão de iniciar o tratamento é do paciente."}}
-  ]}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qual tipo de prótese é indicado para mim?","acceptedAnswer":{"@type":"Answer","text":"A indicação depende da quantidade e posição dos dentes ausentes, condições dos dentes remanescentes, estrutura óssea, tecidos bucais, higienização e objetivos do paciente."}},{"@type":"Question","name":"Qual é a diferença entre overdenture e dentadura?","acceptedAnswer":{"@type":"Answer","text":"A overdenture é removível, mas utiliza encaixes sobre implantes para auxiliar na retenção. A dentadura convencional se apoia nos tecidos bucais. A possibilidade de implantes precisa ser avaliada."}},{"@type":"Question","name":"É possível trocar a prótese móvel por uma fixa?","acceptedAnswer":{"@type":"Answer","text":"Em alguns casos, soluções apoiadas por implantes podem ser consideradas. A avaliação e os exames mostram se há indicação e quais etapas seriam necessárias."}},{"@type":"Question","name":"Quanto custa uma prótese dentária?","acceptedAnswer":{"@type":"Answer","text":"O valor varia conforme o tipo de prótese, materiais, exames, necessidade de implantes e etapas do caso. O orçamento é apresentado depois da avaliação e do planejamento."}},{"@type":"Question","name":"Quanto tempo leva para ficar pronta?","acceptedAnswer":{"@type":"Answer","text":"O prazo depende da opção indicada, das etapas clínicas, de exames, adaptação e produção laboratorial. A equipe só apresenta uma previsão depois da avaliação."}},{"@type":"Question","name":"A prótese precisa de manutenção?","acceptedAnswer":{"@type":"Answer","text":"Sim. Higienização, retornos e acompanhamento ajudam a avaliar adaptação, desgaste e saúde dos tecidos. A frequência é orientada pelo profissional."}},{"@type":"Question","name":"A Makro oferece parcelamento ou financiamento?","acceptedAnswer":{"@type":"Answer","text":"Há possibilidades de pagamento e financiamento próprio. As condições dependem do plano e estão sujeitas à análise e às regras vigentes."}}]}
   </script>
 
   <script>
@@ -1674,8 +1682,8 @@
     /* ==========================================================
        CONFIGURAÇÃO
        ========================================================== */
-    const PAGE_TYPE = 'implant';
-    const FORM_ID   = 'implant-lead-v1';
+    const PAGE_TYPE = 'prosthesis';
+    const FORM_ID   = 'prosthesis-lead-v1';
     const CONSENT_VERSION = 'v1-2026-08';
     const LEAD_ENDPOINT = '[PENDENTE]'; // endpoint first-party do backend
 
@@ -1863,7 +1871,7 @@
     function buildPayload() {
       const now = new Date().toISOString();
       return {
-        source_page: 'implant',
+        source_page: 'prosthesis',
         pipeline: 'Ceilândia',
         name: form.elements.name.value.trim(),
         whatsapp: toE164(form.elements.phone.value),
@@ -1986,7 +1994,7 @@
         const panel = document.getElementById(button.getAttribute('aria-controls'));
         button.setAttribute('aria-expanded', String(!open));
         panel.hidden = open;
-        if (!open) track('faq_open', { question_id: `implant-faq-${index + 1}` });
+        if (!open) track('faq_open', { question_id: `prosthesis-faq-${index + 1}` });
       });
     });
 
