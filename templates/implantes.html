@@ -114,47 +114,13 @@
       color: var(--text-soft); font-size: .78rem; text-align: center;
     }
 
-    /* Carrossel de casos — envolve N slides ".ba", navegação aparece só com mais de 1 */
-    .bacarousel { position: relative; max-width: 420px; margin-inline: auto; }
-    .bacarousel__track { position: relative; }
-    .bacarousel__slide {
-      display: none;
-      animation: baFade .35s var(--ease-out);
+    /* Casos lado a lado — grid com N cartões ".ba", sem navegação */
+    .bacarousel { max-width: 900px; margin-inline: auto; }
+    .bacarousel__track {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      justify-content: center; gap: clamp(24px, 4vw, 40px);
     }
-    .bacarousel__slide.is-active { display: block; }
-    @keyframes baFade { from { opacity: 0; transform: translateY(6px); } }
-
-    .bacarousel__nav {
-      position: absolute; top: 50%; z-index: 5; transform: translateY(-50%);
-      display: grid; place-items: center; width: 40px; height: 40px;
-      background: #fff; border: 1px solid var(--border); border-radius: 50%;
-      box-shadow: var(--shadow-sm); color: var(--navy-700); cursor: pointer;
-      transition: background .18s var(--ease), transform .18s var(--ease-out);
-    }
-    .bacarousel__nav:hover { background: var(--navy-50); }
-    .bacarousel__nav svg { width: 20px; height: 20px; }
-    .bacarousel__nav--prev { left: -16px; }
-    .bacarousel__nav--next { right: -16px; }
-
-    .bacarousel__dots {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      margin-top: 16px;
-    }
-    .bacarousel__dot {
-      width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
-      background: var(--border-strong); cursor: pointer;
-      transition: background .18s var(--ease), transform .18s var(--ease-out);
-    }
-    .bacarousel__dot.is-active { background: var(--navy-700); transform: scale(1.3); }
-
-    /* só 1 caso: some a navegação em vez de mostrar setas/bolinhas mortas */
-    .bacarousel:has(.bacarousel__slide:only-child) .bacarousel__nav,
-    .bacarousel:has(.bacarousel__slide:only-child) .bacarousel__dots { display: none; }
-
-    @media (max-width: 560px) {
-      .bacarousel__nav--prev { left: 4px; }
-      .bacarousel__nav--next { right: 4px; }
-    }
+    .bacarousel__slide { max-width: 380px; margin-inline: auto; width: 100%; }
 
     /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
@@ -1532,13 +1498,13 @@
          pessoa jurídica exige autorização específica e documentada, distinta do consentimento
          de atendimento). Nomes de pacientes omitidos por padrão.
 
-         Carrossel pronto para múltiplos casos: hoje traz 1 caso confirmado (mesma pessoa nas
-         duas fotos, verificado visualmente). O material bruto do cliente tinha mais fotos de
-         "antes" soltas, sem separação por paciente e sem um "depois" que desse para confirmar
-         com segurança como sendo da mesma pessoa — não foram usadas para não arriscar misturar
-         pacientes diferentes. Para adicionar um novo caso, duplique um bloco
-         ".bacarousel__slide" com as fotos do novo par; setas e bolinhas aparecem sozinhas
-         quando há mais de um caso (regra em .bacarousel:has()).
+         Casos exibidos lado a lado (grid), sem navegação por seta. Hoje há 2 casos
+         confirmados (mesma pessoa nas duas fotos de cada par, verificado visualmente). O
+         material bruto do cliente tinha mais fotos de "antes" soltas, sem separação por
+         paciente e sem um "depois" que desse para confirmar com segurança como sendo da
+         mesma pessoa; não foram usadas para não arriscar misturar pacientes diferentes.
+         Para adicionar um novo caso, duplique um bloco ".bacarousel__slide" com as fotos
+         do novo par — o grid acomoda mais colunas sozinho.
     -->
     <section class="section section--alt">
       <div class="container">
@@ -1551,7 +1517,7 @@
         <div class="bacarousel reveal">
           <div class="bacarousel__track">
 
-            <article class="bacarousel__slide is-active">
+            <article class="bacarousel__slide">
               <div class="ba" role="group" aria-label="Comparação antes e depois: arraste para revelar">
                 <img class="ba__img ba__before" src="/static/ba-implantes-antes.webp" alt="Antes do tratamento" loading="lazy" decoding="async">
                 <img class="ba__img ba__after js-ba-after" src="/static/ba-implantes-depois.webp" alt="Depois do tratamento" loading="lazy" decoding="async">
@@ -1592,14 +1558,6 @@
             <!-- próximo caso: copiar o <article class="bacarousel__slide"> acima, trocar as imagens -->
 
           </div>
-
-          <button class="bacarousel__nav bacarousel__nav--prev js-ba-prev" type="button" aria-label="Caso anterior">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-          </button>
-          <button class="bacarousel__nav bacarousel__nav--next js-ba-next" type="button" aria-label="Próximo caso">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-          </button>
-          <div class="bacarousel__dots js-ba-dots"></div>
         </div>
       </div>
     </section>
@@ -2341,34 +2299,6 @@
       update();
     });
 
-    /* ==========================================================
-       CARROSSEL DE CASOS — pronto para N slides
-       ========================================================== */
-    $$('.bacarousel').forEach((car) => {
-      const slides = $$('.bacarousel__slide', car);
-      const dotsWrap = car.querySelector('.js-ba-dots');
-      let idx = 0;
-
-      slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'bacarousel__dot';
-        dot.setAttribute('aria-label', `Ir para o caso ${i + 1}`);
-        dot.addEventListener('click', () => go(i));
-        dotsWrap?.appendChild(dot);
-      });
-      const dots = $$('.bacarousel__dot', car);
-
-      function go(i) {
-        idx = (i + slides.length) % slides.length;
-        slides.forEach((s, n) => s.classList.toggle('is-active', n === idx));
-        dots.forEach((d, n) => d.classList.toggle('is-active', n === idx));
-      }
-
-      car.querySelector('.js-ba-prev')?.addEventListener('click', () => go(idx - 1));
-      car.querySelector('.js-ba-next')?.addEventListener('click', () => go(idx + 1));
-      go(0);
-    });
   })();
   </script>
 </body>
