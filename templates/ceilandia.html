@@ -452,7 +452,7 @@
        ============================================================ */
     .formcard {
       position: relative; padding: clamp(26px, 2.6vw, 38px);
-      background: #fff; border-radius: var(--r-xl);
+      background: #fff; color: var(--text); border-radius: var(--r-xl);
       box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .6);
     }
     .formcard h2 { font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem); margin-bottom: 7px; color: var(--navy-900); }
@@ -688,30 +688,19 @@
     }
     .checks .tick svg { width: 13px; height: 13px; }
 
-    /* Galeria de fotos da profissional */
-    .sinaragrid {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: 130px; gap: 14px; margin-bottom: 24px;
+    /* Cartão da profissional — foto única + texto ao lado */
+    .profcard {
+      display: grid; grid-template-columns: minmax(0, .42fr) minmax(0, .58fr);
+      align-items: center; gap: clamp(32px, 5vw, 64px);
     }
-    .sinaragrid__item {
-      margin: 0; overflow: hidden; border-radius: var(--r-md);
-      background: var(--surface-alt); grid-row: span 2;
+    .profcard__photo {
+      margin: 0; aspect-ratio: 4 / 5; max-width: 360px;
+      overflow: hidden; border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
     }
-    .sinaragrid__item--tall { grid-row: span 3; }
-    .sinaragrid__item img {
+    .profcard__photo img {
       width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
-      transition: transform .5s var(--ease-out);
     }
-    .sinaragrid__item:hover img { transform: scale(1.05); }
-
-    .pending-flag {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 10px 16px; background: #fff8e8;
-      border: 1px dashed #d9a53a; border-radius: var(--r-pill);
-      color: #7a5510; font-size: .76rem; font-weight: 600;
-    }
-    .pending-flag svg { width: 15px; height: 15px; flex: none; }
-    .pending-flag--center { display: flex; width: fit-content; margin-inline: auto; }
+    .profcard__copy .lead { margin-bottom: 0; }
 
     /* ============================================================
        13. ETAPAS
@@ -953,6 +942,8 @@
       }
       .hero__inner { padding-inline: clamp(18px, 4vw, 40px) 18px; }
       .hero__copy { max-width: none; }
+      .profcard { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .profcard__photo { max-width: 280px; }
       .hero__media { position: absolute; inset: 0; margin-top: 0; }
       .hero__media img { aspect-ratio: auto; height: 100%; object-position: 76% center; }
       .hero h1 {
@@ -1405,37 +1396,23 @@
     </section>
 
     <!-- ===================== PROFISSIONAL (DRA. SINARA) =====================
-         [PENDENTE] validar com a Dra. Sinara e o responsável técnico: nome completo, CRO-DF,
-         especialidade registrada e a bio antes de publicar. Substituir/completar as fotos por
-         recortes das próprias gravações da Record quando disponíveis (pedido do cliente).
+         [PENDENTE] validar com a Dra. Sinara e o responsável técnico: sobrenome completo,
+         CRO-DF, especialidade registrada e a bio antes de publicar. Não usar "especialista"
+         sem o título correspondente registrado no CRO. Substituir/completar a foto por
+         recorte das próprias gravações da Record quando disponível (pedido do cliente).
     -->
     <section class="section" id="profissional">
       <div class="container">
-        <div class="head head--center reveal">
-          <p class="eyebrow">Quem cuida de você</p>
-          <h2>Dra. Sinara, à frente da Makro Ceilândia.</h2>
-          <p class="lead">Rosto conhecido em Brasília — presença constante nos programas de saúde da TV Record — a Dra. Sinara [PENDENTE — sobrenome] lidera a equipe que vai te atender na nova unidade.</p>
-        </div>
-
-        <div class="sinaragrid">
-          <figure class="sinaragrid__item sinaragrid__item--tall reveal">
+        <div class="profcard">
+          <figure class="profcard__photo reveal">
             <img src="/static/sinara-2.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
           </figure>
-          <figure class="sinaragrid__item reveal">
-            <img src="/static/sinara-3.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
-          </figure>
-          <figure class="sinaragrid__item reveal">
-            <img src="/static/sinara-4.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
-          </figure>
-          <figure class="sinaragrid__item reveal">
-            <img src="/static/sinara-5.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
-          </figure>
+          <div class="profcard__copy reveal">
+            <p class="eyebrow">Quem cuida de você</p>
+            <h2>Dra. Sinara, à frente da Makro Ceilândia.</h2>
+            <p class="lead">Rosto conhecido em Brasília, com presença constante nos programas de saúde da TV Record. A Dra. Sinara lidera a equipe que vai te atender na nova unidade.</p>
+          </div>
         </div>
-
-        <p class="pending-flag pending-flag--center">
-          <svg aria-hidden="true"><use href="#ic-alert"/></svg>
-          CRO-DF e especialidade registrada pendentes de confirmação — não usar “especialista” sem o título correspondente
-        </p>
       </div>
     </section>
 
@@ -1548,7 +1525,7 @@
           <svg class="google-cta__icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-8.2z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.6l-3.5-2.7c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.6H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.2a6.6 6.6 0 0 1 0-4.4V7H2.2a11 11 0 0 0 0 9.9l3.6-2.7z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.6l3.1-3.1A11 11 0 0 0 2.2 7l3.6 2.8C6.7 7.2 9.1 5.4 12 5.4z"/></svg>
           <div>
             <h3>Veja o que os pacientes dizem no Google</h3>
-            <p>Consulte as avaliações reais das unidades Makro diretamente no Google — atualizadas pelos próprios pacientes.</p>
+            <p>Consulte as avaliações reais das unidades Makro diretamente no Google, atualizadas pelos próprios pacientes.</p>
           </div>
           <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=Makro+Odontologia+Integrada+%C3%81guas+Lindas+de+Goi%C3%A1s" target="_blank" rel="noopener noreferrer" data-placement="google_reviews">
             Ver avaliações no Google

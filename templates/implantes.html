@@ -114,6 +114,48 @@
       color: var(--text-soft); font-size: .78rem; text-align: center;
     }
 
+    /* Carrossel de casos — envolve N slides ".ba", navegação aparece só com mais de 1 */
+    .bacarousel { position: relative; max-width: 420px; margin-inline: auto; }
+    .bacarousel__track { position: relative; }
+    .bacarousel__slide {
+      display: none;
+      animation: baFade .35s var(--ease-out);
+    }
+    .bacarousel__slide.is-active { display: block; }
+    @keyframes baFade { from { opacity: 0; transform: translateY(6px); } }
+
+    .bacarousel__nav {
+      position: absolute; top: 50%; z-index: 5; transform: translateY(-50%);
+      display: grid; place-items: center; width: 40px; height: 40px;
+      background: #fff; border: 1px solid var(--border); border-radius: 50%;
+      box-shadow: var(--shadow-sm); color: var(--navy-700); cursor: pointer;
+      transition: background .18s var(--ease), transform .18s var(--ease-out);
+    }
+    .bacarousel__nav:hover { background: var(--navy-50); }
+    .bacarousel__nav svg { width: 20px; height: 20px; }
+    .bacarousel__nav--prev { left: -16px; }
+    .bacarousel__nav--next { right: -16px; }
+
+    .bacarousel__dots {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 16px;
+    }
+    .bacarousel__dot {
+      width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
+      background: var(--border-strong); cursor: pointer;
+      transition: background .18s var(--ease), transform .18s var(--ease-out);
+    }
+    .bacarousel__dot.is-active { background: var(--navy-700); transform: scale(1.3); }
+
+    /* só 1 caso: some a navegação em vez de mostrar setas/bolinhas mortas */
+    .bacarousel:has(.bacarousel__slide:only-child) .bacarousel__nav,
+    .bacarousel:has(.bacarousel__slide:only-child) .bacarousel__dots { display: none; }
+
+    @media (max-width: 560px) {
+      .bacarousel__nav--prev { left: 4px; }
+      .bacarousel__nav--next { right: 4px; }
+    }
+
     /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
        ============================================================ */
@@ -506,6 +548,7 @@
       position: relative;
       padding: clamp(26px, 2.6vw, 38px);
       background: #fff;
+      color: var(--text);
       border-radius: var(--r-xl);
       box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .6);
     }
@@ -681,15 +724,12 @@
 
     /* Estrutura real — fotos próprias, sem placeholder */
     .realgrid {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: 140px; gap: 14px;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;
     }
     .realgrid__item {
       position: relative; margin: 0; overflow: hidden;
-      border-radius: var(--r-md); background: var(--surface-alt);
-      grid-row: span 2;
+      aspect-ratio: 3 / 4; border-radius: var(--r-md); background: var(--surface-alt);
     }
-    .realgrid__item--tall { grid-row: span 3; }
     .realgrid__item img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform .5s var(--ease-out);
@@ -1023,7 +1063,7 @@
        18. RESPONSIVO
        ============================================================ */
     @media (max-width: 1080px) {
-      .grid-4, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-4, .realgrid, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .steps__track::before { display: none; }
     }
 
@@ -1098,7 +1138,7 @@
       .btn { min-height: 56px; }
 
 
-      .grid-4, .compare, .choices, .steps { grid-template-columns: 1fr; }
+      .grid-4, .realgrid, .compare, .choices, .steps { grid-template-columns: 1fr; }
 
       .formcard { padding: 24px 20px; }
 
@@ -1462,11 +1502,11 @@
         <div class="head head--center reveal">
           <p class="eyebrow">Por dentro da Makro</p>
           <h2>Consultório equipado, biossegurança visível.</h2>
-          <p class="lead">Fotos reais da unidade — sem still de banco de imagens. É o espaço onde você será atendido.</p>
+          <p class="lead">Fotos reais da unidade, sem still de banco de imagens. É o espaço onde você será atendido.</p>
         </div>
 
         <div class="realgrid">
-          <figure class="realgrid__item realgrid__item--tall reveal">
+          <figure class="realgrid__item reveal">
             <img src="/static/consultorio-1.webp" alt="Consultório odontológico equipado da Makro, com cadeira e refletor" loading="lazy" decoding="async">
             <figcaption>Consultório equipado</figcaption>
           </figure>
@@ -1487,35 +1527,61 @@
     </section>
 
     <!-- ===================== ANTES E DEPOIS =====================
-         [PENDENTE] Confirmar por escrito com o(a) paciente a autorização de uso da imagem
+         [PENDENTE] Confirmar por escrito com cada paciente a autorização de uso da imagem
          nesta página pública, conforme LGPD e Resolução CFO-196/2019 (uso institucional por
          pessoa jurídica exige autorização específica e documentada, distinta do consentimento
-         de atendimento). Nome do paciente omitido por padrão.
+         de atendimento). Nomes de pacientes omitidos por padrão.
+
+         Carrossel pronto para múltiplos casos: hoje traz 1 caso confirmado (mesma pessoa nas
+         duas fotos, verificado visualmente). O material bruto do cliente tinha mais fotos de
+         "antes" soltas, sem separação por paciente e sem um "depois" que desse para confirmar
+         com segurança como sendo da mesma pessoa — não foram usadas para não arriscar misturar
+         pacientes diferentes. Para adicionar um novo caso, duplique um bloco
+         ".bacarousel__slide" com as fotos do novo par; setas e bolinhas aparecem sozinhas
+         quando há mais de um caso (regra em .bacarousel:has()).
     -->
     <section class="section section--alt">
       <div class="container">
         <div class="head head--center reveal">
           <p class="eyebrow">Resultado real</p>
-          <h2>Veja um resultado real de reabilitação.</h2>
-          <p class="lead">Fotos da própria paciente, sem edição — cada caso é avaliado e planejado individualmente.</p>
+          <h2>Veja resultados reais de reabilitação.</h2>
+          <p class="lead">Fotos das próprias pacientes, sem edição. Cada caso é avaliado e planejado individualmente.</p>
         </div>
 
-        <div class="ba reveal" role="group" aria-label="Comparação antes e depois — arraste para revelar">
-          <img class="ba__img ba__before" src="/static/ba-implantes-antes.webp" alt="Antes do tratamento" loading="lazy" decoding="async">
-          <img class="ba__img ba__after js-ba-after" src="/static/ba-implantes-depois.webp" alt="Depois do tratamento" loading="lazy" decoding="async">
-          <span class="ba__tag ba__tag--before">Antes</span>
-          <span class="ba__tag ba__tag--after">Depois</span>
-          <span class="ba__handle js-ba-handle">
-            <span class="ba__grip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4"/></svg>
-            </span>
-          </span>
-          <input type="range" min="0" max="100" value="50" class="js-ba-range" aria-label="Arraste para comparar antes e depois">
+        <div class="bacarousel reveal">
+          <div class="bacarousel__track">
+
+            <article class="bacarousel__slide is-active">
+              <div class="ba" role="group" aria-label="Comparação antes e depois: arraste para revelar">
+                <img class="ba__img ba__before" src="/static/ba-implantes-antes.webp" alt="Antes do tratamento" loading="lazy" decoding="async">
+                <img class="ba__img ba__after js-ba-after" src="/static/ba-implantes-depois.webp" alt="Depois do tratamento" loading="lazy" decoding="async">
+                <span class="ba__tag ba__tag--before">Antes</span>
+                <span class="ba__tag ba__tag--after">Depois</span>
+                <span class="ba__handle js-ba-handle">
+                  <span class="ba__grip">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4"/></svg>
+                  </span>
+                </span>
+                <input type="range" min="0" max="100" value="50" class="js-ba-range" aria-label="Arraste para comparar antes e depois">
+              </div>
+              <p class="bacard__note">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6h.01"/></svg>
+                Paciente real da Makro. Resultados variam de pessoa para pessoa, conforme avaliação individual.
+              </p>
+            </article>
+
+            <!-- próximo caso: copiar o <article class="bacarousel__slide"> acima, trocar as imagens -->
+
+          </div>
+
+          <button class="bacarousel__nav bacarousel__nav--prev js-ba-prev" type="button" aria-label="Caso anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="bacarousel__nav bacarousel__nav--next js-ba-next" type="button" aria-label="Próximo caso">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <div class="bacarousel__dots js-ba-dots"></div>
         </div>
-        <p class="bacard__note">
-          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6h.01"/></svg>
-          Paciente real da Makro. Resultados variam de pessoa para pessoa, conforme avaliação individual.
-        </p>
       </div>
     </section>
 
@@ -1728,7 +1794,7 @@
           <svg class="google-cta__icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-8.2z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.6l-3.5-2.7c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.6H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.2a6.6 6.6 0 0 1 0-4.4V7H2.2a11 11 0 0 0 0 9.9l3.6-2.7z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.6l3.1-3.1A11 11 0 0 0 2.2 7l3.6 2.8C6.7 7.2 9.1 5.4 12 5.4z"/></svg>
           <div>
             <h3>Veja o que os pacientes dizem no Google</h3>
-            <p>Consulte as avaliações reais da unidade diretamente no perfil do Google — atualizadas pelos próprios pacientes.</p>
+            <p>Consulte as avaliações reais da unidade diretamente no perfil do Google, atualizadas pelos próprios pacientes.</p>
           </div>
           <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=Makro+Odontologia+Integrada+%C3%81guas+Lindas+de+Goi%C3%A1s" target="_blank" rel="noopener noreferrer" data-placement="google_reviews">
             Ver avaliações no Google
@@ -2247,17 +2313,42 @@
     }
 
     /* ==========================================================
-       SLIDER ANTES/DEPOIS
+       SLIDER ANTES/DEPOIS (cada .ba, dentro do carrossel ou solto)
        ========================================================== */
     $$('.ba').forEach((ba) => {
       const range = ba.querySelector('.js-ba-range');
-      const after = ba.querySelector('.js-ba-after');
-      const handle = ba.querySelector('.js-ba-handle');
-      const update = () => {
-        ba.style.setProperty('--ba-pos', `${range.value}%`);
-      };
+      const update = () => ba.style.setProperty('--ba-pos', `${range.value}%`);
       range.addEventListener('input', update);
       update();
+    });
+
+    /* ==========================================================
+       CARROSSEL DE CASOS — pronto para N slides
+       ========================================================== */
+    $$('.bacarousel').forEach((car) => {
+      const slides = $$('.bacarousel__slide', car);
+      const dotsWrap = car.querySelector('.js-ba-dots');
+      let idx = 0;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'bacarousel__dot';
+        dot.setAttribute('aria-label', `Ir para o caso ${i + 1}`);
+        dot.addEventListener('click', () => go(i));
+        dotsWrap?.appendChild(dot);
+      });
+      const dots = $$('.bacarousel__dot', car);
+
+      function go(i) {
+        idx = (i + slides.length) % slides.length;
+        slides.forEach((s, n) => s.classList.toggle('is-active', n === idx));
+        dots.forEach((d, n) => d.classList.toggle('is-active', n === idx));
+      }
+
+      car.querySelector('.js-ba-prev')?.addEventListener('click', () => go(idx - 1));
+      car.querySelector('.js-ba-next')?.addEventListener('click', () => go(idx + 1));
+      go(0);
     });
   })();
   </script>
