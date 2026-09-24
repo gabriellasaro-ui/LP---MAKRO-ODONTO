@@ -688,6 +688,31 @@
     }
     .checks .tick svg { width: 13px; height: 13px; }
 
+    /* Galeria de fotos da profissional */
+    .sinaragrid {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 130px; gap: 14px; margin-bottom: 24px;
+    }
+    .sinaragrid__item {
+      margin: 0; overflow: hidden; border-radius: var(--r-md);
+      background: var(--surface-alt); grid-row: span 2;
+    }
+    .sinaragrid__item--tall { grid-row: span 3; }
+    .sinaragrid__item img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
+      transition: transform .5s var(--ease-out);
+    }
+    .sinaragrid__item:hover img { transform: scale(1.05); }
+
+    .pending-flag {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 10px 16px; background: #fff8e8;
+      border: 1px dashed #d9a53a; border-radius: var(--r-pill);
+      color: #7a5510; font-size: .76rem; font-weight: 600;
+    }
+    .pending-flag svg { width: 15px; height: 15px; flex: none; }
+    .pending-flag--center { display: flex; width: fit-content; margin-inline: auto; }
+
     /* ============================================================
        13. ETAPAS
        ============================================================ */
@@ -775,6 +800,19 @@
     .map__pin svg { width: 24px; height: 24px; transform: rotate(45deg); }
     .map__note { max-width: 32ch; color: var(--text-muted); font-size: .82rem; }
     .map iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
+
+    /* CTA para avaliações reais no Google — sem nota fabricada em página */
+    .google-cta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
+      padding: 28px 30px; background: #fff;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      box-shadow: var(--shadow-xs);
+    }
+    .google-cta__icon { flex: none; width: 40px; height: 40px; }
+    .google-cta div { flex: 1 1 260px; }
+    .google-cta h3 { margin-bottom: 4px; font-size: 1.08rem; }
+    .google-cta p { margin: 0; color: var(--text-muted); font-size: .92rem; }
+    .google-cta .btn { flex: none; }
 
     /* ============================================================
        15. FAQ
@@ -1129,7 +1167,7 @@
         <div>
           <p class="eyebrow">Primeiro passo</p>
           <h2>{{ 'Solicite o contato da Makro Ceilândia.' if OPEN else 'Entre na lista de interesse da Makro Ceilândia.' }}</h2>
-          <p class="formsection__lead">Preencha os dados abaixo. Leva cerca de um minuto e perguntamos apenas o necessário para direcionar o contato.</p>
+          <p class="formsection__lead">A nova unidade foi pensada para quem não tem tempo a perder: consultórios equipados, ambiente climatizado e vários especialistas no mesmo lugar. Preencha os dados abaixo e a equipe confirma o melhor horário para você.</p>
 
           <ul class="assurance">
             <li>
@@ -1180,14 +1218,12 @@
                 </div>
 
                 <div class="field">
-                  <label for="f-region">Onde você mora?</label>
+                  <label for="f-region">Qual unidade é melhor para você?</label>
                   <select id="f-region" name="region" required aria-describedby="e-region">
-                    <option value="">Selecione sua região</option>
+                    <option value="">Selecione a unidade</option>
                     <option value="ceilandia">Ceilândia</option>
-                    <option value="sol-nascente">Sol Nascente/Pôr do Sol</option>
                     <option value="aguas-lindas">Águas Lindas</option>
                     <option value="taguatinga">Taguatinga</option>
-                    <option value="outra">Outra região</option>
                   </select>
                   <span class="field-error" id="e-region"></span>
                 </div>
@@ -1300,8 +1336,8 @@
           </article>
           <article class="card reveal">
             <span class="card__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
-            <h3>Condições para organizar o tratamento</h3>
-            <p>Conheça as possibilidades de pagamento e financiamento próprio. Aprovação e condições estão sujeitas à análise e às regras vigentes.</p>
+            <h3>Entrada facilitada + boleto ou parcelado</h3>
+            <p>A Makro monta a forma de pagamento que cabe no seu bolso: entrada facilitada, restante em boleto ou parcelado, além de financiamento próprio. Condições sujeitas à análise e às regras vigentes.</p>
           </article>
         </div>
       </div>
@@ -1344,24 +1380,62 @@
     <!-- ===================== EXPERIÊNCIA MAKRO ===================== -->
     <section class="section section--blue">
       <div class="container split">
+        <!-- [PENDENTE] foto real de painel panorâmico/escaneamento digital em uso — a foto
+             abaixo é do consultório equipado da unidade, ainda não é a cena de escaneamento
+             pedida pelo cliente. Trocar assim que a captação estiver disponível. -->
         <figure class="figure reveal">
           <picture>
-            <source type="image/webp" srcset="/static/equipe-makro.webp">
-            <img src="/static/image.png" width="1024" height="683" loading="lazy" decoding="async"
-                 alt="Equipe da Makro reunida na clínica analisando o planejamento de um caso">
+            <source type="image/webp" srcset="/static/consultorio-2.webp">
+            <img src="/static/consultorio-2.webp" width="1400" height="2489" loading="lazy" decoding="async"
+                 alt="Consultório equipado de uma unidade Makro">
           </picture>
         </figure>
         <div class="reveal">
           <p class="eyebrow">Experiência Makro</p>
-          <h2>Uma clínica preparada para receber você.</h2>
-          <p class="lead">A experiência Makro combina acolhimento, equipe profissional e planejamento apoiado por recursos digitais. Na nova unidade, o cuidado começa desde o primeiro contato.</p>
+          <h2>Feito para quem não pode perder o dia inteiro no dentista.</h2>
+          <p class="lead">Ambiente climatizado, consultórios equipados e vários especialistas na mesma unidade — para resolver o que for preciso sem precisar voltar outro dia.</p>
           <ul class="checks">
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Atendimento de segunda a sábado;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Avaliação e planejamento individual;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Estrutura digital para apoiar diagnóstico e planejamento;</span></li>
-            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Possibilidades de pagamento apresentadas com clareza.</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Todos os exames no mesmo lugar, sem precisar ir a outra clínica;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Unidade térrea — sem escada nem elevador para subir;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Ambiente climatizado do início ao fim do atendimento;</span></li>
+            <li><span class="tick" aria-hidden="true"><svg><use href="#ic-check"/></svg></span><span>Vários especialistas na mesma unidade, sem encaminhamento externo.</span></li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROFISSIONAL (DRA. SINARA) =====================
+         [PENDENTE] validar com a Dra. Sinara e o responsável técnico: nome completo, CRO-DF,
+         especialidade registrada e a bio antes de publicar. Substituir/completar as fotos por
+         recortes das próprias gravações da Record quando disponíveis (pedido do cliente).
+    -->
+    <section class="section" id="profissional">
+      <div class="container">
+        <div class="head head--center reveal">
+          <p class="eyebrow">Quem cuida de você</p>
+          <h2>Dra. Sinara, à frente da Makro Ceilândia.</h2>
+          <p class="lead">Rosto conhecido em Brasília — presença constante nos programas de saúde da TV Record — a Dra. Sinara [PENDENTE — sobrenome] lidera a equipe que vai te atender na nova unidade.</p>
+        </div>
+
+        <div class="sinaragrid">
+          <figure class="sinaragrid__item sinaragrid__item--tall reveal">
+            <img src="/static/sinara-2.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
+          </figure>
+          <figure class="sinaragrid__item reveal">
+            <img src="/static/sinara-3.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
+          </figure>
+          <figure class="sinaragrid__item reveal">
+            <img src="/static/sinara-4.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
+          </figure>
+          <figure class="sinaragrid__item reveal">
+            <img src="/static/sinara-5.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
+          </figure>
+        </div>
+
+        <p class="pending-flag pending-flag--center">
+          <svg aria-hidden="true"><use href="#ic-alert"/></svg>
+          CRO-DF e especialidade registrada pendentes de confirmação — não usar “especialista” sem o título correspondente
+        </p>
       </div>
     </section>
 
@@ -1432,7 +1506,9 @@
                 <svg aria-hidden="true"><use href="#ic-clock"/></svg>
                 <span>
                   <strong>Horários</strong>
-                  Segunda a sexta: [PENDENTE] · Sábado: [PENDENTE — informado atendimento até 12h]
+                  <!-- Horário inferido do padrão da unidade Taguatinga (mesma marca).
+                       CONFIRMAR operacionalmente antes da publicação — não é dado oficial da unidade. -->
+                  Segunda a sexta: 8h às 19h · Sábado: 8h às 13h
                 </span>
               </li>
             </ul>
@@ -1457,6 +1533,27 @@
               <p class="map__note">Expansão do Setor O, QNO 18<br>Ceilândia — Brasília/DF</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AVALIAÇÕES =====================
+         [PENDENTE] Sem nota fabricada: não encontramos avaliação do Google verificável e
+         consistente para a unidade. Substituir por widget/print oficial do Google Business
+         Profile assim que a operação validar. Nunca inserir aggregateRating sem essa validação.
+    -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="google-cta reveal">
+          <svg class="google-cta__icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-8.2z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.6l-3.5-2.7c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.6H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.2a6.6 6.6 0 0 1 0-4.4V7H2.2a11 11 0 0 0 0 9.9l3.6-2.7z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.6l3.1-3.1A11 11 0 0 0 2.2 7l3.6 2.8C6.7 7.2 9.1 5.4 12 5.4z"/></svg>
+          <div>
+            <h3>Veja o que os pacientes dizem no Google</h3>
+            <p>Consulte as avaliações reais das unidades Makro diretamente no Google — atualizadas pelos próprios pacientes.</p>
+          </div>
+          <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=Makro+Odontologia+Integrada+%C3%81guas+Lindas+de+Goi%C3%A1s" target="_blank" rel="noopener noreferrer" data-placement="google_reviews">
+            Ver avaliações no Google
+            <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -1709,7 +1806,7 @@
         setError(phone, 'Informe um WhatsApp com DDD.'); ok = false;
       }
 
-      if (!region.value) { setError(region, 'Selecione sua região.'); ok = false; }
+      if (!region.value) { setError(region, 'Selecione a unidade.'); ok = false; }
 
       if (!ok) steps[0].querySelector('[aria-invalid="true"]')?.focus();
       return ok;

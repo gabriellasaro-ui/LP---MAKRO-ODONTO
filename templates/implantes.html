@@ -622,6 +622,29 @@
       transform: scale(1.06) rotate(-3deg);
     }
 
+    /* Estrutura real — fotos próprias, sem placeholder */
+    .realgrid {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 140px; gap: 14px;
+    }
+    .realgrid__item {
+      position: relative; margin: 0; overflow: hidden;
+      border-radius: var(--r-md); background: var(--surface-alt);
+      grid-row: span 2;
+    }
+    .realgrid__item--tall { grid-row: span 3; }
+    .realgrid__item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .5s var(--ease-out);
+    }
+    .realgrid__item:hover img { transform: scale(1.05); }
+    .realgrid__item figcaption {
+      position: absolute; inset: auto 0 0 0; z-index: 1;
+      padding: 12px 14px 10px;
+      background: linear-gradient(to top, rgba(1,22,90,.82), transparent);
+      color: #fff; font-size: .78rem; font-weight: 600;
+    }
+
     /* Comparativo */
     .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
     .compare__panel {
@@ -828,6 +851,19 @@
     .map__pin svg { width: 24px; height: 24px; transform: rotate(45deg); }
     .map__note { max-width: 32ch; color: var(--text-muted); font-size: .82rem; }
     .map iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
+
+    /* CTA para avaliações reais no Google — sem nota fabricada em página */
+    .google-cta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
+      padding: 28px 30px; background: #fff;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      box-shadow: var(--shadow-xs);
+    }
+    .google-cta__icon { flex: none; width: 40px; height: 40px; }
+    .google-cta div { flex: 1 1 260px; }
+    .google-cta h3 { margin-bottom: 4px; font-size: 1.08rem; }
+    .google-cta p { margin: 0; color: var(--text-muted); font-size: .92rem; }
+    .google-cta .btn { flex: none; }
 
     /* ============================================================
        15. FAQ
@@ -1181,20 +1217,20 @@
         <div>
           <p class="eyebrow">Primeiro passo</p>
           <h2>Solicite contato para sua avaliação.</h2>
-          <p class="formsection__lead">Conte o necessário para direcionarmos o atendimento. Leva cerca de um minuto e não compromete você com nenhum tratamento.</p>
+          <p class="formsection__lead">Cada dente ausente muda a forma como você mastiga, sorri e se relaciona com as pessoas — e tende a piorar com o tempo. O implante devolve função e segurança para o dia a dia. Preencha os dados abaixo e a equipe ajuda a entender o caminho mais rápido para o seu caso.</p>
 
           <ul class="assurance">
             <li>
-              <svg aria-hidden="true"><use href="#ic-lock"/></svg>
-              <span><b>Seus dados ficam com a Makro.</b> Nenhuma resposta clínica ou financeira é enviada a plataformas de anúncio.</span>
+              <svg aria-hidden="true"><use href="#ic-installments"/></svg>
+              <span><b>Entrada facilitada, restante parcelado ou em boleto.</b> A equipe monta a forma de pagamento que cabe no seu bolso, sujeita à análise.</span>
             </li>
             <li>
               <svg aria-hidden="true"><use href="#ic-calendar"/></svg>
-              <span><b>O envio não agenda automaticamente.</b> A equipe entra em contato para apresentar os horários disponíveis.</span>
+              <span><b>Avaliação rápida, sem enrolação.</b> A equipe entra em contato para confirmar o melhor horário — de segunda a sábado.</span>
             </li>
             <li>
-              <svg aria-hidden="true"><use href="#ic-shield"/></svg>
-              <span><b>Sem compromisso.</b> A decisão de iniciar qualquer tratamento é sempre do paciente.</span>
+              <svg aria-hidden="true"><use href="#ic-lock"/></svg>
+              <span><b>Seus dados ficam com a Makro.</b> Nenhuma resposta clínica ou financeira é enviada a plataformas de anúncio.</span>
             </li>
           </ul>
         </div>
@@ -1232,14 +1268,12 @@
                 </div>
 
                 <div class="field">
-                  <label for="f-region">Onde você mora?</label>
+                  <label for="f-region">Qual unidade é melhor para você?</label>
                   <select id="f-region" name="region" required aria-describedby="e-region">
-                    <option value="">Selecione sua região</option>
+                    <option value="">Selecione a unidade</option>
                     <option value="ceilandia">Ceilândia</option>
-                    <option value="sol-nascente">Sol Nascente/Pôr do Sol</option>
                     <option value="aguas-lindas">Águas Lindas</option>
                     <option value="taguatinga">Taguatinga</option>
-                    <option value="outra">Outra região</option>
                   </select>
                   <span class="field-error" id="e-region"></span>
                 </div>
@@ -1365,6 +1399,36 @@
       </div>
     </section>
 
+    <!-- ===================== ESTRUTURA REAL ===================== -->
+    <section class="section">
+      <div class="container">
+        <div class="head head--center reveal">
+          <p class="eyebrow">Por dentro da Makro</p>
+          <h2>Consultório equipado, biossegurança visível.</h2>
+          <p class="lead">Fotos reais da unidade — sem still de banco de imagens. É o espaço onde você será atendido.</p>
+        </div>
+
+        <div class="realgrid">
+          <figure class="realgrid__item realgrid__item--tall reveal">
+            <img src="/static/consultorio-1.webp" alt="Consultório odontológico equipado da Makro, com cadeira e refletor" loading="lazy" decoding="async">
+            <figcaption>Consultório equipado</figcaption>
+          </figure>
+          <figure class="realgrid__item reveal">
+            <img src="/static/esterilizacao-1.webp" alt="Instrumentais esterilizados e embalados individualmente na Makro" loading="lazy" decoding="async">
+            <figcaption>Instrumentais esterilizados e lacrados</figcaption>
+          </figure>
+          <figure class="realgrid__item reveal">
+            <img src="/static/esterilizacao-2.webp" alt="Setor de esterilização (ASB) da unidade Makro" loading="lazy" decoding="async">
+            <figcaption>Setor de esterilização (ASB)</figcaption>
+          </figure>
+          <figure class="realgrid__item reveal">
+            <img src="/static/consultorio-3.webp" alt="Equipamento odontológico da Makro" loading="lazy" decoding="async">
+            <figcaption>Equipamento em uso diário</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== IMPLANTE X PROTOCOLO ===================== -->
     <section class="section section--alt">
       <div class="container">
@@ -1471,7 +1535,7 @@
           <div>
             <p class="eyebrow">Condições de pagamento</p>
             <h2>Condições para organizar o seu tratamento.</h2>
-            <p class="pay__text">A Makro oferece possibilidades de pagamento e financiamento próprio. Depois da avaliação e da definição do plano, a equipe apresenta as condições disponíveis para o caso.</p>
+            <p class="pay__text">Não deixe o orçamento adiar o seu tratamento. A Makro trabalha com <strong>entrada facilitada + restante em boleto ou parcelado</strong>, além de financiamento próprio. Depois da avaliação, a equipe monta a condição que cabe no seu momento.</p>
             <p class="microcopy">Aprovação, entrada, limite, número de parcelas e demais condições estão sujeitos à análise e às regras vigentes. Nenhuma condição é garantida pelo preenchimento deste formulário.</p>
           </div>
 
@@ -1479,11 +1543,11 @@
             <ul class="payopts">
               <li>
                 <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-cash"/></svg></span>
-                <div><b>À vista</b><small>Condições apresentadas após o plano</small></div>
+                <div><b>Entrada + boleto</b><small>Entrada facilitada, restante em boleto</small></div>
               </li>
               <li>
                 <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-installments"/></svg></span>
-                <div><b>Parcelado</b><small>Número de parcelas conforme análise</small></div>
+                <div><b>Parcelado no cartão</b><small>Número de parcelas conforme análise</small></div>
               </li>
               <li>
                 <span class="payopts__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
@@ -1530,7 +1594,9 @@
                 <svg aria-hidden="true"><use href="#ic-clock"/></svg>
                 <span>
                   <strong>Horários</strong>
-                  Segunda a sexta: [PENDENTE] · Sábado: [PENDENTE — informado atendimento até 12h]
+                  <!-- Horário inferido do padrão da unidade Taguatinga (mesma marca).
+                       CONFIRMAR operacionalmente antes da publicação — não é dado oficial da unidade. -->
+                  Segunda a sexta: 8h às 19h · Sábado: 8h às 13h
                 </span>
               </li>
             </ul>
@@ -1555,6 +1621,29 @@
               <p class="map__note">Expansão do Setor O, QNO 18<br>Ceilândia — Brasília/DF</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AVALIAÇÕES =====================
+         [PENDENTE] Esta seção foi montada SEM nota fabricada: não encontramos avaliação do
+         Google verificável e consistente para a unidade. Assim que a operação tiver um
+         print/widget oficial do Google Business Profile, substitua o bloco "google-cta"
+         por um componente com a nota e o número de avaliações reais.
+         Nunca inserir aggregateRating no JSON-LD sem essa validação (briefing §5, §19).
+    -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="google-cta reveal">
+          <svg class="google-cta__icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2-1.9 3.3-4.7 3.3-8.2z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.6l-3.5-2.7c-1 .7-2.2 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.6H2.2v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.2a6.6 6.6 0 0 1 0-4.4V7H2.2a11 11 0 0 0 0 9.9l3.6-2.7z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.6l3.1-3.1A11 11 0 0 0 2.2 7l3.6 2.8C6.7 7.2 9.1 5.4 12 5.4z"/></svg>
+          <div>
+            <h3>Veja o que os pacientes dizem no Google</h3>
+            <p>Consulte as avaliações reais da unidade diretamente no perfil do Google — atualizadas pelos próprios pacientes.</p>
+          </div>
+          <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=Makro+Odontologia+Integrada+%C3%81guas+Lindas+de+Goi%C3%A1s" target="_blank" rel="noopener noreferrer" data-placement="google_reviews">
+            Ver avaliações no Google
+            <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -1812,7 +1901,7 @@
         setError(phone, 'Informe um WhatsApp com DDD.'); ok = false;
       }
 
-      if (!region.value) { setError(region, 'Selecione sua região.'); ok = false; }
+      if (!region.value) { setError(region, 'Selecione a unidade.'); ok = false; }
 
       if (!ok) steps[0].querySelector('[aria-invalid="true"]')?.focus();
       return ok;
