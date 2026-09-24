@@ -57,6 +57,63 @@
   <style>
 
     /* ============================================================
+       Slider Antes/Depois — comparação real, com arraste
+       ============================================================ */
+    .ba {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4 / 5; max-width: 420px; margin-inline: auto;
+      border-radius: var(--r-lg); box-shadow: var(--shadow-md);
+      touch-action: pan-y;
+      background: var(--surface-alt);
+    }
+    .ba__img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; pointer-events: none; user-select: none;
+    }
+    .ba__before { filter: saturate(.88) contrast(.97); }
+    .ba__after { clip-path: inset(0 0 0 var(--ba-pos, 50%)); }
+    .ba__tag {
+      position: absolute; top: 16px; z-index: 2;
+      padding: 6px 14px; border-radius: var(--r-pill);
+      background: rgba(1, 22, 90, .78); color: #fff;
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      backdrop-filter: blur(3px);
+    }
+    .ba__tag--before { left: 16px; }
+    .ba__tag--after { right: 16px; background: rgba(23, 107, 82, .82); }
+    .ba__handle {
+      position: absolute; top: 0; bottom: 0; z-index: 3;
+      left: var(--ba-pos, 50%); width: 3px; margin-left: -1.5px;
+      background: #fff; pointer-events: none;
+      box-shadow: 0 0 0 1px rgba(1, 22, 90, .15);
+    }
+    .ba__grip {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      display: grid; place-items: center; width: 44px; height: 44px;
+      background: #fff; border-radius: 50%; box-shadow: var(--shadow-sm);
+    }
+    .ba__grip svg { width: 20px; height: 20px; color: var(--navy-700); }
+    .ba input[type="range"] {
+      position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%;
+      margin: 0; appearance: none; background: transparent; cursor: ew-resize;
+    }
+    .ba input[type="range"]::-webkit-slider-thumb {
+      appearance: none; width: 44px; height: 100%; background: transparent;
+    }
+    .ba input[type="range"]::-moz-range-thumb {
+      width: 44px; height: 100%; background: transparent; border: 0;
+    }
+    .ba input[type="range"]:focus-visible ~ .ba__handle .ba__grip {
+      outline: 3px solid var(--focus); outline-offset: 2px;
+    }
+
+    .bacard__note {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      max-width: 420px; margin: 14px auto 0;
+      color: var(--text-soft); font-size: .78rem; text-align: center;
+    }
+
+    /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
        ============================================================ */
     :root {
@@ -1400,6 +1457,39 @@
       </div>
     </section>
 
+    <!-- ===================== ANTES E DEPOIS =====================
+         [PENDENTE] Confirmar por escrito com o(a) paciente a autorização de uso da imagem
+         nesta página pública, conforme LGPD e Resolução CFO-196/2019 (uso institucional por
+         pessoa jurídica exige autorização específica e documentada, distinta do consentimento
+         de atendimento). Nome do paciente omitido por padrão.
+    -->
+    <section class="section">
+      <div class="container">
+        <div class="head head--center reveal">
+          <p class="eyebrow">Resultado real</p>
+          <h2>Veja um resultado real de facetas.</h2>
+          <p class="lead">Fotos do próprio paciente, sem edição — a avaliação define o que é possível considerar para o seu caso.</p>
+        </div>
+
+        <div class="ba reveal" role="group" aria-label="Comparação antes e depois — arraste para revelar">
+          <img class="ba__img ba__before" src="/static/ba-facetas-antes.webp" alt="Antes do tratamento" loading="lazy" decoding="async">
+          <img class="ba__img ba__after js-ba-after" src="/static/ba-facetas-depois.webp" alt="Depois do tratamento" loading="lazy" decoding="async">
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Depois</span>
+          <span class="ba__handle js-ba-handle">
+            <span class="ba__grip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4"/></svg>
+            </span>
+          </span>
+          <input type="range" min="0" max="100" value="50" class="js-ba-range" aria-label="Arraste para comparar antes e depois">
+        </div>
+        <p class="bacard__note">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6h.01"/></svg>
+          Paciente real da Makro. Resultados variam de pessoa para pessoa, conforme avaliação individual.
+        </p>
+      </div>
+    </section>
+
     <!-- ===================== ETAPAS ===================== -->
     <section class="section">
       <div class="container">
@@ -2058,6 +2148,20 @@
       }, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
       revealItems.forEach((el) => revealObserver.observe(el));
     }
+
+    /* ==========================================================
+       SLIDER ANTES/DEPOIS
+       ========================================================== */
+    $$('.ba').forEach((ba) => {
+      const range = ba.querySelector('.js-ba-range');
+      const after = ba.querySelector('.js-ba-after');
+      const handle = ba.querySelector('.js-ba-handle');
+      const update = () => {
+        ba.style.setProperty('--ba-pos', `${range.value}%`);
+      };
+      range.addEventListener('input', update);
+      update();
+    });
   })();
   </script>
 </body>
