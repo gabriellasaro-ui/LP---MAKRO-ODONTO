@@ -358,34 +358,50 @@
        7. FAIXA DE INFORMAÇÕES (reformulada)
        ============================================================ */
     .infoband {
-      padding-block: clamp(44px, 4.6vw, 66px);
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding-block: clamp(22px, 2.4vw, 30px);
+      background: var(--navy-50);
+      border-block: 1px solid var(--navy-100);
     }
-    .infoband__viewport { width: min(var(--container), 100% - (var(--gutter) * 2)); margin-inline: auto; }
+    /* mascara nas pontas: as pecas entram e saem esmaecendo, sem corte seco */
+    .infoband__viewport {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%);
+    }
+    /* o conjunto aparece 6x no markup e a animação anda exatamente metade
+       disso (3 conjuntos), que é mais largo que qualquer tela — sem isso
+       sobraria um vão à direita no fim de cada volta */
     .infoband__grid {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(14px, 1.6vw, 20px);
+      display: flex; width: max-content;
+      animation: marquee 56s linear infinite;
     }
-    /* card claro: icone no topo, texto alinhado a esquerda — sem tarja escura */
+    .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    /* peca compacta: icone a esquerda, texto a direita */
     .infoband__item {
-      display: flex; flex-direction: column; align-items: flex-start;
-      padding: 22px 20px 20px; text-align: left;
-      background: var(--navy-50); border: 1px solid var(--navy-100);
-      border-radius: var(--r-md);
+      display: flex; align-items: center; gap: 13px;
+      flex: 0 0 auto; margin-right: 14px;
+      padding: 13px 20px 13px 15px; text-align: left;
+      background: #fff; border: 1px solid var(--navy-100);
+      border-radius: var(--r-pill);
     }
     .infoband__icon {
-      display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 14px;
-      background: #fff; border: 1px solid var(--navy-100); border-radius: var(--r-sm);
-      color: var(--navy-600);
+      display: grid; place-items: center; flex: none; width: 34px; height: 34px;
+      background: var(--navy-50); border-radius: 50%; color: var(--navy-600);
     }
-    .infoband__icon svg { width: 19px; height: 19px; }
+    .infoband__icon svg { width: 17px; height: 17px; }
     .infoband__item b {
-      display: block; margin-bottom: 5px;
-      color: var(--navy-900); font-size: .93rem; font-weight: 600; line-height: 1.32;
+      display: block; margin-bottom: 2px;
+      color: var(--navy-900); font-size: .88rem; font-weight: 600; line-height: 1.3;
+      white-space: nowrap;
     }
     .infoband__item small {
-      display: block; color: var(--text-muted); font-size: .79rem; line-height: 1.45;
+      display: block; color: var(--text-muted); font-size: .76rem; line-height: 1.35;
+      white-space: nowrap;
     }
 
     /* ============================================================
@@ -927,6 +943,17 @@
     }
 
     @media (max-width: 980px) {
+      .infoband { padding-block: 22px; }
+      .infoband__viewport {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+      }
+      .infoband__item { padding: 11px 17px 11px 13px; margin-right: 12px; }
+      .infoband__icon { width: 30px; height: 30px; }
+      .infoband__icon svg { width: 15px; height: 15px; }
+      .infoband__item b { font-size: .83rem; }
+      .infoband__item small { font-size: .72rem; }
+
       .hero { grid-template-columns: minmax(0, 1fr); }
       .hero__media {
         grid-column: 1; grid-row: 1;
@@ -945,9 +972,6 @@
       .hero__actions .btn { width: 100%; min-height: 50px; padding: 13px 18px; font-size: .9rem; }
       .hero__meta { gap: 6px 18px; padding-top: 14px; font-size: .8rem; }
       .hero .microcopy { font-size: .76rem; line-height: 1.45; }
-      .infoband { padding-block: 38px; }
-      .infoband__viewport { width: min(var(--container), 100% - (var(--gutter) * 2)); overflow: visible; }
-      .infoband__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
       
 
@@ -985,10 +1009,6 @@
 
     }
 
-    @media (max-width: 560px) {
-      .infoband__grid { grid-template-columns: minmax(0, 1fr); }
-    }
-
     @media (max-width: 460px) {
       :root { --gutter: 16px; }
       .header__logo { width: 118px; }
@@ -1005,6 +1025,9 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .js .reveal { opacity: 1; transform: none; }
+      /* sem animação: vira faixa deslizável pelo dedo */
+      .infoband__grid { animation: none; }
+      .infoband__viewport { overflow-x: auto; }
       .btn--pulse::after { animation: none; }
     }
 
@@ -1114,6 +1137,86 @@
             <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
           </div>
           <div class="infoband__item">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
+            <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
+            <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
+            <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
+            <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
+            <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-plan"/></svg></span>
+            <div><b>Alternativas definidas para cada caso</b><small>Sem opção superior por padrão</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-scan"/></svg></span>
+            <div><b>Planejamento com recursos digitais</b><small>Quando compatíveis com o caso</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
+            <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-wallet"/></svg></span>
+            <div><b>Financiamento próprio</b><small>Sujeito a análise e regras vigentes</small></div>
+          </div>
+          <div class="infoband__item" aria-hidden="true">
             <span class="infoband__icon" aria-hidden="true"><svg><use href="#ic-clock"/></svg></span>
             <div><b>Segunda a sábado</b><small>Ceilândia, Sol Nascente e região</small></div>
           </div>
