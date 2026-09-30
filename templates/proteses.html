@@ -310,7 +310,7 @@
        em qualquer ponto da foto, sem depender de "área livre" na imagem */
     .hero::after {
       content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(180deg, rgba(1, 13, 51, .84), rgba(1, 22, 90, .78));
+      background: linear-gradient(180deg, rgba(1, 13, 51, .58), rgba(1, 22, 90, .5));
     }
 
     .hero__inner {
@@ -366,10 +366,11 @@
     }
     /* item empilhado: ícone, título, apoio — alinhados pelo topo */
     .infoband__item {
-      display: block; padding: 2px 32px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 2px 24px; text-align: center;
       border-left: 1px solid rgba(255, 255, 255, .12);
     }
-    .infoband__item:first-child { padding-left: 0; border-left: 0; }
+    .infoband__item:first-child { border-left: 0; }
     /* as cópias só existem para o carrossel do mobile */
     .infoband__grid .infoband__item--clone { display: none; }
     .infoband__icon {
@@ -1086,8 +1087,8 @@
       </div>
 
       <picture class="hero__media">
-        <source type="image/webp" srcset="/static/consultorio-2.webp">
-        <img src="/static/consultorio-2.webp" width="1400" height="1050" fetchpriority="high" decoding="async"
+        <source type="image/webp" srcset="/static/consultorio-3.webp">
+        <img src="/static/consultorio-3.webp" width="1400" height="1050" fetchpriority="high" decoding="async"
              alt="Consultório odontológico equipado da unidade Makro">
       </picture>
     </section>

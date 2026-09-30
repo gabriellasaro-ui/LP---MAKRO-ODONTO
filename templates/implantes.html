@@ -109,14 +109,14 @@
     }
 
     /* Casos lado a lado — grid com N cartões ".ba", sem navegação */
-    .bacarousel { max-width: 900px; margin-inline: auto; }
+    .bacarousel { max-width: var(--container); margin-inline: auto; }
+    /* os 3 casos numa fileira so; quebra apenas no mobile */
     .bacarousel__track {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: clamp(24px, 4vw, 40px);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 28px);
     }
-    /* flex-basis 380 + min garante 2-3 por linha; sobra de linha centraliza sozinha
-       (grid com auto-fit nao faz isso — a ultima linha parcial gruda a esquerda) */
-    .bacarousel__slide { flex: 1 1 280px; max-width: 380px; }
+    .bacarousel__slide { min-width: 0; }
+    .bacarousel__slide .ba { max-width: none; }
 
     /* ============================================================
        1. TOKENS — paleta derivada do azul exato da logo (#01165a)
@@ -373,7 +373,7 @@
        em qualquer ponto da foto, sem depender de "área livre" na imagem */
     .hero::after {
       content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(180deg, rgba(1, 13, 51, .84), rgba(1, 22, 90, .78));
+      background: linear-gradient(180deg, rgba(1, 13, 51, .58), rgba(1, 22, 90, .5));
     }
 
     .hero__inner {
@@ -429,10 +429,11 @@
     }
     /* item empilhado: ícone, título, apoio — alinhados pelo topo */
     .infoband__item {
-      display: block; padding: 2px 32px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 2px 24px; text-align: center;
       border-left: 1px solid rgba(255, 255, 255, .12);
     }
-    .infoband__item:first-child { padding-left: 0; border-left: 0; }
+    .infoband__item:first-child { border-left: 0; }
     /* as cópias só existem para o carrossel do mobile */
     .infoband__grid .infoband__item--clone { display: none; }
     .infoband__icon {
@@ -1041,6 +1042,7 @@
     }
 
     @media (max-width: 720px) {
+      .bacarousel__track { grid-template-columns: minmax(0, 1fr); max-width: 380px; margin-inline: auto; }
       :root { --gutter: 20px; --section-y: 60px; }
       html { scroll-padding-top: 78px; }
 
@@ -1171,8 +1173,8 @@
       </div>
 
       <picture class="hero__media">
-        <source type="image/webp" srcset="/static/consultorio-2.webp">
-        <img src="/static/consultorio-2.webp" width="1400" height="1050" fetchpriority="high" decoding="async"
+        <source type="image/webp" srcset="/static/consultorio-3.webp">
+        <img src="/static/consultorio-3.webp" width="1400" height="1050" fetchpriority="high" decoding="async"
              alt="Consultório odontológico equipado da unidade Makro">
       </picture>
     </section>
@@ -1416,7 +1418,7 @@
 
         <div class="realgrid">
           <figure class="realgrid__item reveal">
-            <img src="/static/consultorio-1.webp" alt="Consultório odontológico equipado da Makro, com cadeira e refletor" loading="lazy" decoding="async">
+            <img src="/static/consultorio-3.webp" alt="Consultório odontológico equipado da Makro, com cadeira e refletor" loading="lazy" decoding="async">
             <figcaption>Consultório equipado</figcaption>
           </figure>
           <figure class="realgrid__item reveal">
