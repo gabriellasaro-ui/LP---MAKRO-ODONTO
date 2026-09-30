@@ -338,43 +338,6 @@
 
     .hero .microcopy { max-width: 52ch; color: var(--text-soft); }
 
-    /* selo de inauguração */
-    .launchdate {
-      display: inline-flex; align-items: center; gap: 12px;
-      margin: 0 0 22px; padding: 9px 17px 9px 14px; max-width: none;
-      background: #fff; color: var(--navy-900);
-      border: 1px solid var(--navy-100); border-radius: var(--r-pill);
-      box-shadow: var(--shadow-xs);
-      font-size: .84rem; font-weight: 600;
-    }
-    .launchdate__dot {
-      position: relative; flex: none; width: 9px; height: 9px;
-      background: var(--navy-600); border-radius: 50%;
-    }
-    .launchdate__dot::after {
-      content: ""; position: absolute; inset: -4px;
-      border-radius: 50%; background: rgba(23, 71, 194, .28);
-      animation: ping 2.4s var(--ease-out) infinite;
-    }
-    @keyframes ping {
-      0%   { transform: scale(.6); opacity: .9; }
-      75%  { transform: scale(2.1); opacity: 0; }
-      100% { opacity: 0; }
-    }
-    .launchdate__dot {
-      position: relative; flex: none; width: 9px; height: 9px;
-      background: var(--navy-600); border-radius: 50%;
-    }
-    .launchdate__dot::after {
-      content: ""; position: absolute; inset: -4px;
-      border-radius: 50%; background: rgba(23, 71, 194, .28);
-      animation: ping 2.4s var(--ease-out) infinite;
-    }
-    @keyframes ping {
-      0%   { transform: scale(.6); opacity: .9; }
-      75%  { transform: scale(2.1); opacity: 0; }
-      100% { opacity: 0; }
-    }
 
     /* ============================================================
        7. FAIXA DE BENEFÍCIOS
@@ -961,7 +924,6 @@
       .hero__actions .btn { width: 100%; min-height: 50px; padding: 13px 18px; font-size: .9rem; }
       .hero__meta { gap: 6px 18px; padding-top: 14px; font-size: .8rem; }
       .hero .microcopy { font-size: .76rem; line-height: 1.45; }
-      .launchdate { margin-bottom: 14px; padding: 8px 14px 8px 12px; font-size: .78rem; }
 
 
       /* véu na base: garante a leitura da headline e do texto sobre a foto */
@@ -1022,7 +984,7 @@
       /* sem animação: vira faixa deslizável pelo dedo */
       .infoband__grid { animation: none; }
       .infoband__viewport { overflow-x: auto; }
-      .btn--pulse::after, .launchdate__dot::after { animation: none; }
+      .btn--pulse::after { animation: none; }
     }
 
     @media print {
@@ -1081,13 +1043,6 @@
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__copy">
-          {% if not OPEN %}
-          <p class="launchdate">
-            <span class="launchdate__dot" aria-hidden="true"></span>
-            Inauguração prevista para 20 de setembro de 2026
-          </p>
-          {% endif %}
-
           <h1>{{ 'A Makro agora está em Ceilândia.' if OPEN else 'A Makro está chegando a Ceilândia.' }}</h1>
           <p class="lead">{{ 'Conheça a nova unidade e solicite o contato da nossa equipe para agendar sua avaliação odontológica.' if OPEN else 'Cadastre-se para receber o contato da nossa equipe, conhecer a nova unidade e solicitar sua avaliação assim que a agenda for aberta.' }}</p>
 
@@ -1603,7 +1558,7 @@
         <div class="faq reveal">
           <div class="faq__item">
             <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1"><span>Quando a unidade será inaugurada?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
-            <div class="faq__a" id="faq-1" hidden><p>A inauguração está prevista para 20 de setembro de 2026. A data e a abertura da agenda serão confirmadas pela equipe da Makro.</p></div>
+            <div class="faq__a" id="faq-1" hidden><p>A data de inauguração e a abertura da agenda serão confirmadas pela equipe da Makro. Quem se cadastra recebe o aviso assim que forem definidas.</p></div>
           </div>
           <div class="faq__item">
             <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2"><span>O cadastro já deixa minha avaliação agendada?</span><span class="faq__icon" aria-hidden="true"></span></button></h3>
@@ -1673,7 +1628,7 @@
        responsável técnico e horários. Nunca inserir aggregateRating. -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Quando a unidade será inaugurada?","acceptedAnswer":{"@type":"Answer","text":"A inauguração está prevista para 20 de setembro de 2026. A data e a abertura da agenda serão confirmadas pela equipe da Makro."}},
+    {"@type":"Question","name":"Quando a unidade será inaugurada?","acceptedAnswer":{"@type":"Answer","text":"A data de inauguração e a abertura da agenda serão confirmadas pela equipe da Makro. Quem se cadastra recebe o aviso assim que forem definidas."}},
     {"@type":"Question","name":"O cadastro já deixa minha avaliação agendada?","acceptedAnswer":{"@type":"Answer","text":"Não. O cadastro registra seu interesse. A equipe entrará em contato para apresentar a disponibilidade e concluir o agendamento."}},
     {"@type":"Question","name":"Quais tratamentos estarão disponíveis?","acceptedAnswer":{"@type":"Answer","text":"O foco inicial inclui implantes, protocolo, próteses, overdenture, facetas e lentes. A indicação depende de avaliação profissional."}},
     {"@type":"Question","name":"Posso entrar na lista mesmo sem saber qual tratamento preciso?","acceptedAnswer":{"@type":"Answer","text":"Sim. Selecione Preciso de orientação no formulário para que a equipe direcione o atendimento."}},
