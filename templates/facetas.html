@@ -38,8 +38,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/inter-latin-567244.woff2" crossorigin>
   <link rel="stylesheet" href="/static/fonts/fonts.css">
   <link rel="preload" as="image" href="/static/logo-makro.png">
-  <link rel="preload" as="image" href="/static/banner-pc-facetas.webp" media="(min-width: 981px)" fetchpriority="high">
-  <link rel="preload" as="image" href="/static/banner-mobile-facetas.webp" media="(max-width: 980px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/static/hero-consultorio.webp" fetchpriority="high">
 
   <!--
     ROTA DE SAÚDE / ESTÉTICA ODONTOLÓGICA — REGRAS (briefing §15, §16, §17)
@@ -999,7 +998,7 @@
           rgba(255, 255, 255, .22) 70%,
           rgba(255, 255, 255, 0) 84%);
       }
-      .hero__media img { object-position: top center; }
+      
       .hero__inner { padding-inline: clamp(18px, 4vw, 40px) 18px; }
       .hero__copy { max-width: none; }
       .hero h1 { margin-bottom: 10px; font-size: clamp(1.5rem, 5.2vw, 1.95rem); line-height: 1.16; }
@@ -1024,7 +1023,7 @@
       .infoband__grid .infoband__item--clone { display: block; }
       .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
       /* véu na base: garante a leitura da headline e do texto sobre a foto */
-      .hero__media img { aspect-ratio: auto; height: 100%; object-position: top center; }
+      .hero__media img { aspect-ratio: auto; height: 100%; object-position: 76% center; }
       .hero__actions .btn {
         width: 100%; min-height: 46px; padding: 11px 18px; font-size: .87rem;
       }
@@ -1165,10 +1164,9 @@
       </div>
 
       <picture class="hero__media">
-        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-facetas.webp">
-        <source type="image/webp" srcset="/static/banner-pc-facetas.webp">
-        <img src="/static/banner-pc-facetas.png" width="1672" height="941" fetchpriority="high" decoding="async"
-             alt="Profissional da Makro avaliando o sorriso de uma paciente no consultório">
+        <source type="image/webp" srcset="/static/hero-consultorio.webp">
+        <img src="/static/hero-consultorio.webp" width="1400" height="640" fetchpriority="high" decoding="async"
+             alt="Prêmios e estrutura da Makro Odontologia no consultório">
       </picture>
     </section>
 
