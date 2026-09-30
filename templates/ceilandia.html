@@ -283,53 +283,40 @@
        ============================================================ */
     .hero {
       position: relative; overflow: hidden;
-      display: grid; align-items: center;
-      min-height: calc(100vh - 82px);
-      min-height: calc(100svh - 82px);
-      padding-block: clamp(40px, 4vw, 64px);
-      background: #eaf0f8;
+      display: grid; place-items: center;
+      min-height: clamp(420px, 44vw, 560px);
+      padding-block: clamp(48px, 6vw, 76px);
+      text-align: center; color: #fff;
     }
+    .hero__media { position: absolute; inset: 0; z-index: 0; }
+    .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 
-    .hero__media { position: absolute; inset: 0; z-index: 0; display: block; }
-    .hero__media img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: 78% center;
-    }
-
-    /* véu suave sobre a foto — leve, só para assentar o texto */
+    /* overlay escuro pesado — garante leitura da headline/subheadline centralizadas
+       em qualquer ponto da foto, sem depender de "área livre" na imagem */
     .hero::after {
       content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(100deg,
-        rgba(255, 255, 255, .8) 0%,
-        rgba(255, 255, 255, .62) 26%,
-        rgba(255, 255, 255, .34) 42%,
-        rgba(255, 255, 255, .1) 54%,
-        rgba(255, 255, 255, 0) 64%);
+      background: linear-gradient(180deg, rgba(1, 13, 51, .84), rgba(1, 22, 90, .78));
     }
 
-    /* copy ancorada à esquerda da viewport, não centralizada num container */
     .hero__inner {
       position: relative; z-index: 2;
-      width: 100%; max-width: none; margin-inline: 0;
-      padding-inline: clamp(24px, 7vw, 140px) 24px;
+      width: 100%; max-width: none; padding-inline: var(--gutter);
     }
-    .hero__copy { max-width: 560px; }
+    .hero__copy { max-width: 720px; margin-inline: auto; }
 
     .hero h1 {
-      margin-bottom: 18px;
-      font-size: clamp(2.05rem, 1.1rem + 3vw, 3.3rem);
+      margin-bottom: 18px; color: #fff;
+      font-size: clamp(2.1rem, 1.15rem + 3.1vw, 3.3rem);
       letter-spacing: -.022em;
     }
-
-    /* texto de apoio escurecido: o contraste vem da cor, não de um véu sobre a foto */
     .hero .lead {
-      max-width: 50ch; margin-bottom: 26px;
-      color: var(--text);
+      max-width: 56ch; margin: 0 auto 26px;
+      color: rgba(255, 255, 255, .92);
       font-size: clamp(1.02rem, .97rem + .26vw, 1.15rem);
     }
 
     .hero__actions {
-      display: flex; flex-wrap: nowrap; align-items: stretch;
+      display: flex; flex-wrap: wrap; justify-content: center;
       gap: 12px; margin-bottom: 20px;
     }
     .hero__actions .btn {
@@ -339,14 +326,38 @@
     .hero__actions .btn svg { width: 17px; height: 17px; }
 
     .hero__meta {
-      display: flex; flex-wrap: wrap; align-items: center;
+      display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
       gap: 8px 24px; margin: 0 0 16px; max-width: none;
-      color: #222b3a; font-size: .85rem; font-weight: 500;
+      color: rgba(255, 255, 255, .8); font-size: .85rem;
     }
     .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
-    .hero__meta svg { width: 16px; height: 16px; color: var(--navy-700); }
+    .hero__meta svg { width: 16px; height: 16px; color: #fff; }
 
-    .hero .microcopy { color: #222b3a; }
+    .hero .microcopy { max-width: 62ch; margin-inline: auto; color: rgba(255, 255, 255, .68); }
+
+    /* selo de inauguração — versão clara, para ficar sobre o overlay escuro */
+    .launchdate {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin: 0 0 22px; padding: 10px 18px 10px 15px; max-width: none;
+      background: rgba(255, 255, 255, .14); color: #fff;
+      border: 1px solid rgba(255, 255, 255, .32); border-radius: var(--r-pill);
+      backdrop-filter: blur(6px);
+      font-size: .86rem; font-weight: 600;
+    }
+    .launchdate__dot {
+      position: relative; flex: none; width: 9px; height: 9px;
+      background: #fff; border-radius: 50%;
+    }
+    .launchdate__dot::after {
+      content: ""; position: absolute; inset: -4px;
+      border-radius: 50%; background: rgba(255, 255, 255, .35);
+      animation: ping 2.4s var(--ease-out) infinite;
+    }
+    @keyframes ping {
+      0%   { transform: scale(.6); opacity: .9; }
+      75%  { transform: scale(2.1); opacity: 0; }
+      100% { opacity: 0; }
+    }
 
     /* selo de inauguração */
     .launchdate {
@@ -701,6 +712,12 @@
       width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
     }
     .profcard__copy .lead { margin-bottom: 0; }
+    .profcard__cred {
+      display: inline-block; margin: 0 0 14px; padding: 6px 14px;
+      background: var(--navy-50); border: 1px solid var(--navy-100);
+      border-radius: var(--r-pill); color: var(--navy-700);
+      font-size: .8rem; font-weight: 600;
+    }
 
     /* ============================================================
        13. ETAPAS
@@ -741,11 +758,11 @@
     .step-card p { margin-bottom: 0; color: var(--text-muted); font-size: .91rem; }
 
     .note {
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      max-width: 720px; margin: 40px auto 0; padding: 0;
-      color: var(--text-muted); font-size: .92rem; text-align: center;
+      display: flex; align-items: flex-start; gap: 12px;
+      max-width: 640px; margin: 40px auto 0; padding: 0;
+      color: var(--text-muted); font-size: .92rem; text-align: left;
     }
-    .note svg { width: 20px; height: 20px; flex: none; color: var(--navy-600); }
+    .note svg { width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--navy-600); }
     .note p { margin: 0; max-width: none; }
 
     /* ============================================================
@@ -924,53 +941,22 @@
       .infoband__item:first-child { padding-left: 22px; border-left: 1px solid rgba(255, 255, 255, .12); }
       .infoband__grid .infoband__item--clone { display: block; }
       .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
-      .hero {
-        align-items: end;
-        min-height: calc(100vh - 82px);
-        min-height: calc(100svh - 82px);
-        padding-block: 14px 24px;
-      }
       /* véu na base: garante a leitura da headline e do texto sobre a foto */
-      .hero::after {
-        display: block;
-        background: linear-gradient(to top,
-          #ffffff 0%,
-          rgba(255, 255, 255, .96) 34%,
-          rgba(255, 255, 255, .72) 52%,
-          rgba(255, 255, 255, .22) 68%,
-          rgba(255, 255, 255, 0) 82%);
-      }
       .hero__inner { padding-inline: clamp(18px, 4vw, 40px) 18px; }
       .hero__copy { max-width: none; }
       .profcard { grid-template-columns: 1fr; justify-items: center; text-align: center; }
       .profcard__photo { max-width: 280px; }
       .hero__media { position: absolute; inset: 0; margin-top: 0; }
       .hero__media img { aspect-ratio: auto; height: 100%; object-position: 76% center; }
-      .hero h1 {
-        margin-bottom: 10px;
-        font-size: clamp(1.34rem, 5.2vw, 1.8rem);
-        line-height: 1.14;
-      }
-      .hero .lead {
-        margin-bottom: 12px; max-width: 46ch;
-        font-size: .89rem; line-height: 1.5;
-      }
       .hero__actions { margin-bottom: 10px; }
       .hero__actions .btn {
         width: 100%; min-height: 46px; padding: 11px 18px; font-size: .87rem;
       }
       .hero__meta { display: none; }
-      .hero .microcopy { font-size: .71rem; line-height: 1.45; }
-      .launchdate { margin-bottom: 14px; padding: 8px 14px 8px 12px; font-size: .78rem; }
       .formsection__grid, .split, .loc { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 720px) {
-      .hero {
-        min-height: calc(100vh - 68px);
-        min-height: calc(100svh - 68px);
-        padding-block: 16px 26px;
-      }
       :root { --gutter: 20px; --section-y: 60px; }
       html { scroll-padding-top: 78px; }
 
@@ -1006,7 +992,6 @@
       :root { --gutter: 16px; }
       .header__logo { width: 118px; }
       .header__actions .btn { padding: 9px 12px; font-size: .79rem; }
-      .hero h1 { font-size: clamp(1.85rem, 1rem + 4.4vw, 2.2rem); }
       .hero__inner { padding-inline: var(--gutter); }
       .hero__actions { gap: 8px; }
       .hero__actions .btn { min-height: 46px; padding: 10px 14px; font-size: .82rem; }
@@ -1112,11 +1097,9 @@
       </div>
 
       <picture class="hero__media">
-        <source media="(max-width: 980px)" type="image/webp" srcset="/static/banner-mobile-ceilandia.webp">
-        <source media="(max-width: 980px)" srcset="/static/banner-mobile-ceilandia.png">
-        <source type="image/webp" srcset="/static/banner-pc-ceilandia.webp">
-        <img src="/static/banner-pc-ceilandia.png" width="1916" height="821" fetchpriority="high" decoding="async"
-             alt="Profissional da Makro conversando com uma paciente sentada na cadeira odontológica durante a avaliação">
+        <source type="image/webp" srcset="/static/consultorio-1.webp">
+        <img src="/static/consultorio-1.webp" width="1400" height="1050" fetchpriority="high" decoding="async"
+             alt="Consultório odontológico equipado da unidade Makro">
       </picture>
     </section>
 
@@ -1395,22 +1378,23 @@
       </div>
     </section>
 
-    <!-- ===================== PROFISSIONAL (DRA. SINARA) =====================
-         [PENDENTE] validar com a Dra. Sinara e o responsável técnico: sobrenome completo,
-         CRO-DF, especialidade registrada e a bio antes de publicar. Não usar "especialista"
-         sem o título correspondente registrado no CRO. Substituir/completar a foto por
-         recorte das próprias gravações da Record quando disponível (pedido do cliente).
+    <!-- ===================== PROFISSIONAL (DRA. CINARA VIANA) =====================
+         CRO-DF 11870 confirmado pelo cliente. [PENDENTE] validar especialidade registrada e
+         a bio antes de publicar — não usar "especialista" sem o título correspondente no
+         CRO. Substituir/completar a foto por recorte das próprias gravações da Record quando
+         disponível (pedido do cliente).
     -->
     <section class="section" id="profissional">
       <div class="container">
         <div class="profcard">
           <figure class="profcard__photo reveal">
-            <img src="/static/sinara-2.webp" alt="Dra. Sinara, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
+            <img src="/static/sinara-2.webp" alt="Dra. Cinara Viana, cirurgiã-dentista da Makro Odontologia" loading="lazy" decoding="async">
           </figure>
           <div class="profcard__copy reveal">
             <p class="eyebrow">Quem cuida de você</p>
-            <h2>Dra. Sinara, à frente da Makro Ceilândia.</h2>
-            <p class="lead">Rosto conhecido em Brasília, com presença constante nos programas de saúde da TV Record. A Dra. Sinara lidera a equipe que vai te atender na nova unidade.</p>
+            <h2>Dra. Cinara Viana, à frente da Makro Ceilândia.</h2>
+            <p class="profcard__cred">CRO-DF 11870 · Cirurgiã-dentista</p>
+            <p class="lead">Rosto conhecido em Brasília, com presença constante nos programas de saúde da TV Record. A Dra. Cinara lidera a equipe que vai te atender na nova unidade.</p>
           </div>
         </div>
       </div>
@@ -1535,6 +1519,19 @@
       </div>
     </section>
 
+    <!-- ===================== CTA FINAL ===================== -->
+    <section class="finalcta">
+      <div class="container finalcta__inner">
+        <div>
+          <h2>{{ 'Quer solicitar sua avaliação na Makro Ceilândia?' if OPEN else 'Quer receber o contato da nova Makro Ceilândia?' }}</h2>
+          <p>Preencha o cadastro e informe como a equipe pode ajudar.</p>
+        </div>
+        <a class="btn btn--light btn--lg js-scroll-form" href="#cadastro" data-placement="final">
+          {{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}
+          <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
+        </a>
+      </div>
+    </section>
     <!-- ===================== FAQ ===================== -->
     <section class="section" id="faq">
       <div class="container">
@@ -1572,19 +1569,6 @@
       </div>
     </section>
 
-    <!-- ===================== CTA FINAL ===================== -->
-    <section class="finalcta">
-      <div class="container finalcta__inner">
-        <div>
-          <h2>{{ 'Quer solicitar sua avaliação na Makro Ceilândia?' if OPEN else 'Quer receber o contato da nova Makro Ceilândia?' }}</h2>
-          <p>Preencha o cadastro e informe como a equipe pode ajudar.</p>
-        </div>
-        <a class="btn btn--light btn--lg js-scroll-form" href="#cadastro" data-placement="final">
-          {{ 'Solicitar avaliação' if OPEN else 'Entrar na lista de interesse' }}
-          <svg class="btn__arrow" aria-hidden="true"><use href="#ic-arrow"/></svg>
-        </a>
-      </div>
-    </section>
   </main>
 
   <footer class="footer" id="privacidade">
@@ -1598,9 +1582,9 @@
         <div class="footer__col">
           <h3>Identificação</h3>
           <ul class="footer__list">
-            <li><b>Razão social</b><span>[PENDENTE]</span></li>
-            <li><b>Pessoa jurídica — CRO-DF</b><span>[PENDENTE]</span></li>
-            <li><b>Responsável técnico</b><span>Dr(a). [PENDENTE] — CRO-DF [PENDENTE]</span></li>
+            <li><b>Razão social</b><span>MAKRO .O INTEGRADA LTDA</span></li>
+            <li><b>CNPJ</b><span>68.587.159/0001-98</span></li>
+            <li><b>Responsável técnico</b><span>Dra. Cinara Viana — CRO-DF 11870</span></li>
           </ul>
         </div>
 
