@@ -994,15 +994,10 @@
       .infoband__grid .infoband__item--clone { display: block; }
       .infoband__grid:hover, .infoband__grid:focus-within { animation-play-state: paused; }
       /* véu na base: garante a leitura da headline e do texto sobre a foto */
-      .hero__inner { padding-inline: clamp(18px, 4vw, 40px) 18px; }
-      .hero__copy { max-width: none; }
-      .hero__media { position: absolute; inset: 0; margin-top: 0; }
       .hero__media img { aspect-ratio: auto; height: 100%; object-position: top center; }
-      .hero__actions { margin-bottom: 10px; }
       .hero__actions .btn {
         width: 100%; min-height: 46px; padding: 11px 18px; font-size: .87rem;
       }
-      .hero__meta { display: none; }
       .formsection__grid, .split, .loc, .pay { grid-template-columns: 1fr; }
       .pay__cta .btn { width: 100%; }
     }
@@ -1038,8 +1033,6 @@
       :root { --gutter: 16px; }
       .header__logo { width: 118px; }
       .header__actions .btn { padding: 9px 12px; font-size: .79rem; }
-      .hero__inner { padding-inline: var(--gutter); }
-      .hero__actions { gap: 8px; }
       .hero__actions .btn { min-height: 46px; padding: 10px 14px; font-size: .82rem; }
       .hero__actions .btn svg { width: 15px; height: 15px; }
       .btn { padding-inline: 20px; font-size: .93rem; }
