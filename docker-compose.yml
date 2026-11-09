@@ -6,4 +6,6 @@ services:
       - "5017:5017"
     environment:
       - FLASK_ENV=production
+      # WhatsApp oficial (so digitos, DDI+DDD+numero). Vazio = marcador [PENDENTE].
+      - WHATSAPP_NUMBER=${WHATSAPP_NUMBER:-}
     restart: unless-stopped

@@ -29,6 +29,16 @@ git push -u origin main
 6. Defina domínio/subdomínio se desejar
 7. Clique em **Deploy**
 
+### Número do WhatsApp (widget das LPs)
+
+O widget de WhatsApp e o botão de sucesso de todas as LPs leem o número de uma única variável de ambiente:
+
+```
+WHATSAPP_NUMBER=5561999999999   # só dígitos, DDI + DDD + número
+```
+
+No EasyPanel: **Environment** do serviço → adicionar `WHATSAPP_NUMBER` → Deploy. Sem a variável (ou com valor inválido), os links ficam com o marcador `55[PENDENTE]`.
+
 ## 3. Fluxo de atualização
 
 Toda vez que alterar uma LP:

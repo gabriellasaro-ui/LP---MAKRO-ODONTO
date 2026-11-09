@@ -1,7 +1,21 @@
 from flask import Flask, render_template, abort
 import os
+import re
 
 app = Flask(__name__)
+
+# WhatsApp oficial da unidade: so digitos, com DDI+DDD (ex.: 5561999999999).
+# Fonte unica — o widget e o botao de sucesso de TODAS as LPs leem daqui.
+# Defina a variavel de ambiente WHATSAPP_NUMBER (ou troque o valor abaixo).
+# Enquanto nao houver numero valido, fica o marcador [PENDENTE] nos links.
+_WA_DIGITS = re.sub(r"\D", "", os.environ.get("WHATSAPP_NUMBER", ""))
+WHATSAPP_NUMBER = _WA_DIGITS if re.fullmatch(r"\d{12,13}", _WA_DIGITS) else "55[PENDENTE]"
+
+
+@app.context_processor
+def inject_whatsapp():
+    return {"wa_number": WHATSAPP_NUMBER}
+
 
 # Evita cache de template e de arquivos estaticos (CSS/imagens) durante o desenvolvimento
 app.config["TEMPLATES_AUTO_RELOAD"] = True

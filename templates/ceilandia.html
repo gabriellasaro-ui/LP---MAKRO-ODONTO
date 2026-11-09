@@ -51,6 +51,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/playfair-display-latin-48d1e9.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/static/fonts/inter-latin-567244.woff2" crossorigin>
   <link rel="stylesheet" href="/static/fonts/fonts.css">
+  <link rel="stylesheet" href="/static/wa-widget.css">
   <link rel="preload" as="image" href="/static/logo-makro.png">
   <link rel="preload" as="image" href="/static/hero-consultorio.webp" fetchpriority="high">
 
@@ -1292,9 +1293,9 @@
             <div class="success__icon" aria-hidden="true"><svg><use href="#ic-check"/></svg></div>
             <h2>Cadastro recebido!</h2>
             <p>Obrigado pelo interesse na Makro Ceilândia. Nossa equipe poderá entrar em contato pelo WhatsApp ou telefone informado.</p>
-            <!-- [PENDENTE] substituir 55[PENDENTE] pelo WhatsApp oficial da unidade -->
-            <a class="btn btn--primary btn--block js-whatsapp" data-placement="success" target="_blank" rel="noopener noreferrer"
-               href="https://wa.me/55[PENDENTE]?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20da%20Makro%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20meu%20cadastro.%20Gostaria%20de%20confirmar%20o%20recebimento.">
+            <!-- Abre o widget de WhatsApp (data-wa-open). O href e o fallback sem JS; o numero vem de WHATSAPP_NUMBER (app.py). -->
+            <a class="btn btn--primary btn--block" data-wa-open data-placement="success" target="_blank" rel="noopener noreferrer"
+               href="https://wa.me/{{ wa_number }}?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20da%20Makro%20Ceil%C3%A2ndia%20e%20acabei%20de%20enviar%20meu%20cadastro.%20Gostaria%20de%20confirmar%20o%20recebimento.">
               <svg aria-hidden="true"><use href="#ic-whats"/></svg>
               Falar com a equipe no WhatsApp
             </a>
@@ -1968,10 +1969,6 @@
       link.addEventListener('click', () => track('phone_click', { placement: link.dataset.placement || 'unknown' }));
     });
 
-    $$('.js-whatsapp').forEach((link) => {
-      link.addEventListener('click', () => track('whatsapp_click', { placement: link.dataset.placement || 'unknown' }));
-    });
-
     $$('.js-route-external').forEach((link) => {
       link.addEventListener('click', () => track('route_click', { placement: link.dataset.placement || 'unknown' }));
     });
@@ -2038,5 +2035,27 @@
     }
   })();
   </script>
+
+  <!-- Widget de WhatsApp (conversa simulada) — static/wa-widget.js.
+       Todo botao que levaria ao WhatsApp abre este painel. Numero: WHATSAPP_NUMBER (app.py).
+       Texto e botao seguem o PAGE_MODE da pagina (pre-lancamento x aberta). -->
+  <script>
+    window.MAKRO_WA = {
+      phone: "{{ wa_number }}",
+      pageType: "launch",
+      label: {{ ('Marcar consulta' if OPEN else 'Entrar na lista de interesse') | tojson }},
+      prefill: {{ ('Olá! Vim pela página da Makro Ceilândia e gostaria de marcar uma consulta.' if OPEN else 'Olá! Vim pela página da Makro Ceilândia e gostaria de entrar na lista de interesse.') | tojson }},
+      messages: {{ ([
+        'Olá! Somos a equipe da Makro Odontologia Integrada.',
+        'Estamos em Ceilândia e podemos apresentar os horários disponíveis para a sua avaliação.',
+        'Quer marcar uma consulta? Toque no botão abaixo e continue a conversa com a gente pelo WhatsApp.'
+      ] if OPEN else [
+        'Olá! Somos a equipe da Makro Odontologia Integrada.',
+        'Nossa unidade de Ceilândia está chegando. Entrando na lista de interesse, você recebe o contato da equipe quando a agenda estiver aberta.',
+        'Quer entrar na lista? Toque no botão abaixo e continue a conversa com a gente pelo WhatsApp.'
+      ]) | tojson }}
+    };
+  </script>
+  <script src="/static/wa-widget.js" defer></script>
 </body>
 </html>
