@@ -37,7 +37,7 @@ O widget de WhatsApp e o botão de sucesso de todas as LPs leem o número de uma
 WHATSAPP_NUMBER=5561999999999   # só dígitos, DDI + DDD + número
 ```
 
-No EasyPanel: **Environment** do serviço → adicionar `WHATSAPP_NUMBER` → Deploy. Sem a variável (ou com valor inválido), os links ficam com o marcador `55[PENDENTE]`.
+No EasyPanel: **Environment** do serviço → adicionar `WHATSAPP_NUMBER` → Deploy. Sem a variável (ou com valor inválido), vale o padrão do `app.py`: o telefone da unidade, `556136862724`. Se esse número não tiver WhatsApp ativo, o link `wa.me` cai numa página de erro — defina a variável com o número certo.
 
 ## 3. Fluxo de atualização
 

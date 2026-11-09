@@ -4,12 +4,14 @@ import re
 
 app = Flask(__name__)
 
-# WhatsApp oficial da unidade: so digitos, com DDI+DDD (ex.: 5561999999999).
+# WhatsApp da unidade: so digitos, com DDI+DDD (ex.: 5561999999999).
 # Fonte unica — o widget e o botao de sucesso de TODAS as LPs leem daqui.
-# Defina a variavel de ambiente WHATSAPP_NUMBER (ou troque o valor abaixo).
-# Enquanto nao houver numero valido, fica o marcador [PENDENTE] nos links.
+# Padrao: telefone da unidade (61) 3686-2724, o mesmo do link tel: das LPs.
+# Para usar outro numero sem mexer no codigo, defina a variavel de ambiente
+# WHATSAPP_NUMBER. Valor invalido cai de volta no padrao.
+DEFAULT_WHATSAPP_NUMBER = "556136862724"
 _WA_DIGITS = re.sub(r"\D", "", os.environ.get("WHATSAPP_NUMBER", ""))
-WHATSAPP_NUMBER = _WA_DIGITS if re.fullmatch(r"\d{12,13}", _WA_DIGITS) else "55[PENDENTE]"
+WHATSAPP_NUMBER = _WA_DIGITS if re.fullmatch(r"\d{12,13}", _WA_DIGITS) else DEFAULT_WHATSAPP_NUMBER
 
 
 @app.context_processor
